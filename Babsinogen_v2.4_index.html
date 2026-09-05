@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Babsinogen Clinical Ultrasound Suite — obstetric biometry, dating, growth, Doppler, anomaly review, organ references and folliculometry.">
+<link rel="manifest" href="manifest.json">
+<title>Babsinogen Clinical Ultrasound Suite</title>
+<style>
+:root{--bg:#f4f7fb;--panel:#fff;--ink:#172033;--muted:#64748b;--line:#dce3ec;--brand:#1264a3;--brand2:#0b4775;--good:#19764a;--warn:#a56400;--bad:#b42318;--info:#3657a7;--soft:#eef5fb;--shadow:0 10px 28px rgba(15,34,58,.08);--r:14px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}
+header{background:linear-gradient(135deg,#0b1220,#123e63 62%,#1264a3);color:white;padding:22px clamp(16px,4vw,42px);position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}
+.head{max-width:1400px;margin:auto;display:flex;gap:18px;align-items:center;justify-content:space-between}.brand h1{margin:0;font-size:22px;letter-spacing:.2px}.brand p{margin:3px 0 0;color:#cfe4f6}.head-actions{display:flex;gap:8px;flex-wrap:wrap}
+.nav{max-width:1400px;margin:0 auto;padding:12px clamp(12px,3vw,32px);display:flex;gap:7px;overflow:auto;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:91px;z-index:15}
+.nav button{border:1px solid transparent;background:transparent;color:#44546a;padding:9px 13px;border-radius:10px;white-space:nowrap}.nav button.active{background:var(--soft);color:var(--brand2);border-color:#cfe1f1;font-weight:700}
+main{max-width:1400px;margin:auto;padding:24px clamp(14px,3vw,32px) 60px}.section{display:none}.section.active{display:block}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}.card h2,.card h3{margin:0 0 10px}.card h2{font-size:18px}.card h3{font-size:15px}.muted{color:var(--muted)}.small{font-size:12px}.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:11px;color:var(--brand)}
+label{display:block;font-weight:650;color:#334155;margin-bottom:5px}.field{margin-bottom:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}.inline{display:flex;gap:8px}.input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:9px 10px;background:#fff;color:var(--ink);outline:none}.input:focus,select:focus,textarea:focus{border-color:#4c94c9;box-shadow:0 0 0 3px #1264a31a}textarea{min-height:74px;resize:vertical}
+.btn{border:1px solid #b8c6d5;background:#fff;color:#26384d;border-radius:9px;padding:9px 13px;font-weight:700}.btn:hover{background:#f6f9fc}.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}.btn.primary:hover{background:var(--brand2)}.btn.danger{color:var(--bad);border-color:#e8b8b3}.btn.sm{padding:6px 9px;font-size:12px}
+.hero{margin-bottom:16px;background:linear-gradient(135deg,#eaf5fd,#fff);border:1px solid #cfe4f5;border-radius:var(--r);padding:22px}.hero h2{margin:0 0 5px;font-size:25px}.hero p{margin:0;color:#526477;max-width:900px}
+.stat{padding:15px;border:1px solid var(--line);border-radius:12px;background:#fbfdff}.stat .v{font-size:22px;font-weight:800}.stat .k{font-size:12px;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-weight:750;font-size:12px;border:1px solid transparent}.neutral{background:#f1f5f9;color:#475569;border-color:#e2e8f0}.good{background:#ecfdf3;color:var(--good);border-color:#b7e5ca}.warn{background:#fff8e8;color:var(--warn);border-color:#f0d79e}.bad{background:#fff1f0;color:var(--bad);border-color:#efc0bb}.info{background:#eef3ff;color:var(--info);border-color:#cad6ff}
+.notice{border-left:4px solid var(--info);background:#f3f7ff;padding:11px 13px;border-radius:8px;color:#354b70}.notice.warn{border-left-color:var(--warn);background:#fffaf0}.notice.bad{border-left-color:var(--bad);background:#fff6f5}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.tabs button{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 11px}.tabs button.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f7f9fc;color:#475569;font-size:12px}.scroll{overflow:auto}
+.result{margin-top:12px;padding:14px;border-radius:10px;border:1px solid var(--line);background:#fbfdff}.result strong{color:#172033}.check{display:flex;gap:8px;align-items:flex-start;font-weight:500;margin:7px 0}.check input{margin-top:3px}
+.fol-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fcfdff;margin-top:9px}.fol-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.remove{border:0;background:none;color:var(--bad);font-weight:800}.mean{font-weight:800;color:var(--brand2)}
+.timeline{position:relative;margin-top:8px}.timeline-item{border-left:3px solid #bcd7ea;padding:0 0 16px 15px;margin-left:5px}.timeline-item:last-child{border-left-color:transparent}.timeline-item:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand);position:absolute;margin-left:-21px;margin-top:4px}
+.kpi-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.sticky-actions{position:sticky;bottom:10px;z-index:8;background:#ffffffee;backdrop-filter:blur(8px);border:1px solid var(--line);padding:10px;border-radius:12px;margin-top:16px}
+footer{max-width:1400px;margin:auto;padding:0 24px 40px;color:#64748b;font-size:12px}.ref{border-top:1px solid var(--line);padding-top:18px}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.head{align-items:flex-start;flex-direction:column}.nav{top:122px}}
+@media print{header,.nav,.no-print,.sticky-actions{display:none!important}.section{display:none!important}.section.printable{display:block!important}body{background:white}.card{box-shadow:none}.print-only{display:block!important}}
+.print-only{display:none}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+
+.quizCard{border:1px solid var(--line,#d8dee8);border-radius:12px;padding:14px;margin-top:12px;background:#fff}
+.quizOpt{display:block;padding:7px 8px}.pill{display:inline-block;padding:3px 7px;border-radius:999px;font-size:11px;background:#eef3f7}.clinical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media(max-width:900px){.clinical-grid{grid-template-columns:1fr}}
+.report-actions{display:flex;gap:8px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="head">
+    <div class="brand"><h1>BABSINOGEN · CLINICAL ULTRASOUND SUITE</h1><p>Structured obstetric, gynecologic and fertility ultrasound decision support</p></div>
+    <div class="head-actions">
+      <button class="btn" id="newCaseBtn">New case</button>
+      <button class="btn" id="printBtn">Print report</button><button class="btn primary" id="downloadReportBtn">Download report</button>
+    </div>
+  </div>
+</header>
+<nav class="nav" id="nav"></nav>
+<main>
+<section id="dashboard" class="section active">
+  <div class="hero">
+    <div class="eyebrow">Clinical workspace</div><h2>Start with the clinical question, then measure.</h2>
+    <p>This rebuild separates acquisition, calculation, interpretation and reporting. Findings are expressed as reference comparisons or conditional clinical impressions rather than automatic diagnoses.</p>
+  </div>
+  <div class="grid g4">
+    <div class="stat"><div class="v" id="dashPatient">—</div><div class="k">Current patient / episode</div></div>
+    <div class="stat"><div class="v" id="dashGA">—</div><div class="k">Established gestational age</div></div>
+    <div class="stat"><div class="v" id="dashFol">0</div><div class="k">Folliculometry scans</div></div>
+    <div class="stat"><div class="v" id="dashSaved">0</div><div class="k">Saved local episodes</div></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card"><h3>Obstetric workflow</h3><p class="muted">Dating → biometry → growth → Doppler → anatomy → structured report.</p><button class="btn primary" data-go="biometry">Open biometry</button></div>
+    <div class="card"><h3>Fertility workflow</h3><p class="muted">Serial follicle measurements → endometrial response → biochemical/procedure context → ovulatory interpretation.</p><button class="btn primary" data-go="folliculometry">Open folliculometry</button></div>
+    <div class="card"><h3>Longitudinal review</h3><p class="muted">Keep serial scans together and review trajectory rather than treating one measurement as a diagnosis.</p><button class="btn primary" data-go="timeline">Open timeline</button></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Safety model</h3>
+    <div class="grid g3">
+      <div><span class="badge info">REFERENCE</span><p class="small muted">A measurement is compared with a stated reference or expected pattern.</p></div>
+      <div><span class="badge warn">REVIEW</span><p class="small muted">The result may be borderline, technically dependent, or context-dependent.</p></div>
+      <div><span class="badge bad">URGENT / SPECIALIST</span><p class="small muted">Used only for findings where prompt specialist assessment may be appropriate; not a substitute for clinical triage.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="patient" class="section">
+  <div class="card">
+    <h2>Patient & episode</h2>
+    <p class="muted">Use a local study identifier rather than unnecessary personally identifying information.</p>
+    <div class="grid g3">
+      <div class="field"><label>Patient / folder ID</label><input class="input" id="patientId" placeholder="e.g. PT-0248"></div>
+      <div class="field"><label>Initials (optional)</label><input class="input" id="initials" maxlength="5" placeholder="e.g. AB"></div>
+      <div class="field"><label>Study indication</label><input class="input" id="indication" placeholder="e.g. Dating / FGR surveillance / infertility"></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Operator</label><input class="input" id="operator" placeholder="Name / initials"></div>
+      <div class="field"><label>Episode date</label><input class="input" id="episodeDate" type="date"></div>
+      <div class="field"><label>Clinical notes</label><textarea id="episodeNotes" placeholder="Relevant history, procedure context, protocol notes…"></textarea></div>
+    </div>
+    <div class="notice">Privacy: saved episodes are kept in this browser's local storage. The application does not intentionally transmit saved patient records to a server. Browser storage can be cleared, so export important records according to your institutional policy.</div>
+    <div class="row" style="margin-top:12px"><button class="btn primary" id="saveEpisode">Save current episode locally</button><button class="btn" id="exportData">Export data</button><label class="btn">Import data<input id="importData" type="file" accept=".json" hidden></label><button class="btn danger" id="clearData">Delete all local data</button></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Saved episodes</h3><div id="savedList" class="scroll"></div></div>
+</section>
+
+<section id="dating" class="section">
+  <div class="card">
+    <h2>Dating & EDD</h2>
+    <p class="muted">First-trimester CRL is the preferred ultrasound parameter for pregnancy dating. Mean sac diameter is retained as a developmental measurement but is deliberately not used to assign an EDD.</p>
+    <div class="grid g3">
+      <div class="field"><label>LMP</label><input class="input" id="lmp" type="date"></div>
+      <div class="field"><label>Scan date</label><input class="input" id="datingScanDate" type="date"></div>
+      <div class="field"><label>CRL (mm)</label><input class="input" id="crl" type="number" min="5" max="100" step=".1" placeholder="e.g. 52"></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Mean sac diameter (mm) <span class="muted">developmental only</span></label><input class="input" id="msd" type="number" min="5" max="100" step=".1"></div>
+      <div class="field"><label>FHR (bpm)</label><input class="input" id="fhr" type="number" min="40" max="250"></div>
+      <div class="field"><label>Known / established GA (optional)</label><div class="inline"><input class="input" id="estW" type="number" min="0" max="45" placeholder="wk"><input class="input" id="estD" type="number" min="0" max="6" placeholder="d"></div></div>
+    </div>
+    <button class="btn primary" id="calcDating">Calculate dating</button><div id="datingResult"></div>
+  </div>
+</section>
+
+<section id="biometry" class="section">
+  <div class="card">
+    <h2>Obstetric biometry</h2>
+    <div class="notice">Before calculation, confirm standardized planes and caliper placement. This tool does not replace acquisition quality review.</div>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="field"><label>BPD (mm)</label><input class="input" id="bpd" type="number" min="5" max="120" step=".1"></div>
+      <div class="field"><label>OFD (mm)</label><input class="input" id="ofd" type="number" min="5" max="140" step=".1"></div>
+      <div class="field"><label>HC (mm) <span class="muted">optional</span></label><input class="input" id="hc" type="number" min="30" max="400" step=".1"></div>
+      <div class="field"><label>AC (mm)</label><input class="input" id="ac" type="number" min="30" max="400" step=".1"></div>
+    </div>
+    <div class="grid g4">
+      <div class="field"><label>FL (mm)</label><input class="input" id="fl" type="number" min="5" max="90" step=".1"></div>
+      <div class="field"><label>Established GA (weeks)</label><input class="input" id="bioGA" type="number" min="10" max="45" step=".1"></div>
+      <div class="field"><label>Maternal / clinical context</label><input class="input" id="bioContext" placeholder="e.g. diabetes, suspected FGR"></div>
+      <div class="field"><label>Reference set</label><select id="growthRef"><option>Hadlock-style fetal growth reference</option><option>Departmental / local reference</option></select></div>
+    </div>
+    <details><summary><b>Measurement quality checklist</b></summary>
+      <label class="check"><input type="checkbox" id="qBPD">BPD: correct axial plane with thalami/cavum septi pellucidi; symmetric skull; standardized caliper method.</label>
+      <label class="check"><input type="checkbox" id="qHC">HC: correct plane; ellipse or derived HC documented.</label>
+      <label class="check"><input type="checkbox" id="qAC">AC: transverse plane including stomach and portal sinus; spine centered.</label>
+      <label class="check"><input type="checkbox" id="qFL">FL: full diaphysis measured; epiphyses excluded; appropriate alignment.</label>
+    </details>
+    <button class="btn primary" style="margin-top:12px" id="calcBio">Calculate biometry</button><div id="bioResult"></div>
+  </div>
+</section>
+
+<section id="growth" class="section">
+  <div class="card">
+    <h2>Growth surveillance & longitudinal analysis</h2>
+    <p class="muted">Serial assessment is preferred. v2.2 includes an embedded INTERGROWTH-21st EFW reference for completed weeks 22–40, with linear interpolation between weekly values. Use the reference appropriate to your local protocol when different.</p>
+    <div class="grid g3">
+      <div class="field"><label>Scan date</label><input class="input" id="growthDate" type="date"></div>
+      <div class="field"><label>Gestational age (weeks)</label><input class="input" id="growthGA" type="number" min="10" max="45" step=".01"></div>
+      <div class="field"><label>EFW (g)</label><input class="input" id="growthEFW" type="number" min="50" max="7000"></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>AC (mm)</label><input class="input" id="growthAC" type="number" min="50" max="400"></div>
+      <div class="field"><label>EFW centile (%) <span class="muted">optional override</span></label><input class="input" id="growthCent" type="number" min="0" max="100" step=".1"></div>
+      <div class="field"><label>Reference</label><select id="growthRef"><option value="intergrowth">INTERGROWTH-21st EFW</option><option value="local">Departmental / local reference</option><option value="manual">Manual centile supplied</option></select></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Comment</label><input class="input" id="growthComment"></div>
+      <div class="field"><label>Clinical context</label><input class="input" id="growthContext" placeholder="e.g. suspected FGR, hypertension"></div>
+      <div class="field"><label>Reference note</label><input class="input" id="growthRefNote" placeholder="Optional local chart / protocol"></div>
+    </div>
+    <button class="btn primary" id="addGrowth">Add scan to timeline</button>
+    <div id="growthTable" style="margin-top:14px"></div>
+    <div id="growthChart" class="result" style="margin-top:14px"></div>
+    <div class="notice warn" style="margin-top:14px">A centile is a size descriptor, not a diagnosis. Consider FGR using the established gestational age, EFW/AC centiles, serial change, Doppler, fluid and clinical context. Do not use a single scan to infer growth velocity.</div>
+  </div>
+</section>
+
+<section id="doppler" class="section">
+  <div class="card">
+    <h2>Obstetric Doppler</h2>
+    <p class="muted">UA Doppler is the principal Doppler surveillance tool in established fetal growth restriction. MCA, CPR, uterine artery and ductus venosus parameters require context and appropriate reference standards.</p>
+    <div class="grid g4">
+      <div class="field"><label>Gestational age (weeks)</label><input class="input" id="dopGA" type="number" min="14" max="45" step=".1"></div>
+      <div class="field"><label>UA PI</label><input class="input" id="uaPI" type="number" min="0" max="10" step=".01"></div>
+      <div class="field"><label>UA end-diastolic flow</label><select id="uaFlow"><option>Present</option><option>Absent (AEDF)</option><option>Reversed (REDF)</option><option>Not assessed</option></select></div>
+      <div class="field"><label>MCA PI</label><input class="input" id="mcaPI" type="number" min=".1" max="10" step=".01"></div>
+    </div>
+    <div class="grid g4">
+      <div class="field"><label>MCA PSV (cm/s)</label><input class="input" id="mcaPSV" type="number" min="1" max="250" step=".1"></div>
+      <div class="field"><label>MCA-PSV MoM <span class="muted">preferred when validated</span></label><input class="input" id="mcaMoM" type="number" min=".2" max="4" step=".01"></div>
+      <div class="field"><label>Uterine artery mean PI</label><input class="input" id="utPI" type="number" min=".1" max="10" step=".01"></div>
+      <div class="field"><label>Uterine artery notching</label><select id="utNotch"><option>Not assessed</option><option>Absent</option><option>Present</option></select></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Doppler reference / protocol</label><select id="dopRef"><option value="local">Local / validated reference</option><option value="specialist">Specialist fetal-medicine reference</option></select></div>
+      <div class="field"><label>CPR</label><input class="input" id="cpr" type="number" min=".1" max="10" step=".01"></div>
+      <div class="field"><label>DV PI</label><input class="input" id="dvPI" type="number" min=".05" max="5" step=".01"></div>
+      <div class="field"><label>DV a-wave</label><select id="dvWave"><option>Present</option><option>Absent</option><option>Reversed</option><option>Not assessed</option></select></div>
+    </div>
+    <button class="btn primary" id="calcDoppler">Interpret Doppler</button><div id="dopResult"></div>
+  </div>
+</section>
+
+<section id="anomaly" class="section">
+  <div class="card">
+    <h2>Targeted anomaly / soft-marker review</h2>
+    <p class="muted">This is a documentation aid, not a diagnostic algorithm. Findings require full anatomical assessment, gestational-age context and appropriate specialist pathways.</p>
+    <div class="grid g4">
+      <div class="field"><label>Ventricular atrial width (mm)</label><input class="input" id="vent" type="number" min="0" max="40" step=".1"></div>
+      <div class="field"><label>NT (mm)</label><input class="input" id="nt" type="number" min="0" max="20" step=".1"></div>
+      <div class="field"><label>Single deepest pocket (cm)</label><input class="input" id="sdp" type="number" min="0" max="15" step=".1"></div>
+      <div class="field"><label>AFI (cm)</label><input class="input" id="afi" type="number" min="0" max="40" step=".1"></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Nuchal fold (mm)</label><input class="input" id="nuchalFold" type="number" min="0" max="20" step=".1"></div>
+      <div class="field"><label>Renal pelvis AP diameter (mm)</label><input class="input" id="renalPelvis" type="number" min="0" max="30" step=".1"></div>
+      <div class="field"><label>Gestational age (weeks)</label><input class="input" id="anomGA" type="number" min="10" max="45" step=".1"></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Placenta / cord note</label><textarea id="placentaNote" placeholder="Location, relationship to cervix, cord insertion, relevant findings…"></textarea></div>
+      <div class="field"><label>Cardiac / CNS note</label><textarea id="cardiacCnsNote" placeholder="Document complete examination separately; note relevant finding only."></textarea></div>
+      <div class="field"><label>Other finding</label><textarea id="otherAnom" placeholder="Additional structural or marker finding…"></textarea></div>
+    </div>
+    <button class="btn primary" id="calcAnomaly">Generate review</button><div id="anomResult"></div>
+  </div>
+</section>
+
+
+<section id="organs" class="section">
+<div class="card">
+<h2>Organ & structure reference</h2>
+<p class="muted">Reference comparison only. Dimensions vary with age, sex, body habitus, physiologic state and measurement technique. This module deliberately avoids universal diagnostic cutoffs for most structures.</p>
+<div class="grid g3">
+<div class="field"><label>Structure</label><select id="organType"><option value="kidney">Kidney</option><option value="bladder">Urinary bladder</option><option value="prostate">Prostate</option><option value="aorta">Abdominal aorta</option><option value="portal">Portal vein</option><option value="spleen">Spleen</option><option value="uterus">Uterus</option></select></div>
+<div class="field"><label>Measurement</label><input class="input" id="organMeasure" type="number" min="0" step=".1"></div>
+<div class="field"><label>Unit</label><select id="organUnit"><option>mm</option><option>cm</option><option>mL</option></select></div>
+</div>
+<div class="grid g3">
+<div class="field"><label>Patient context</label><select id="organSex"><option>Not specified</option><option>Female</option><option>Male</option></select></div>
+<div class="field"><label>Technique / condition</label><input class="input" id="organContext" placeholder="e.g. fasting, bladder distended"></div>
+<div class="field"><label>Clinical question</label><input class="input" id="organQuestion" placeholder="e.g. hydronephrosis, LUTS"></div>
+</div>
+<button class="btn primary" id="calcOrgan">Reference-check measurement</button>
+<div id="organResult"></div>
+<div class="notice warn" style="margin-top:12px">Use the reference standard adopted by your department. For bladder, prostate and vascular measurements especially, technique and clinical context can materially change interpretation.</div>
+</div>
+<div class="card" style="margin-top:16px"><h3>Technique reminders</h3><div class="grid g2">
+<div><b>Kidney</b><p class="small muted">Record side, longitudinal length, morphology, cortical echogenicity and corticomedullary differentiation.</p></div>
+<div><b>Bladder</b><p class="small muted">Wall thickness is strongly dependent on bladder distension. Record the state of distension when relevant.</p></div>
+<div><b>Prostate</b><p class="small muted">Use three orthogonal dimensions for volume when prostate size is the clinical question; intravesical protrusion is supportive, not diagnostic by itself.</p></div>
+<div><b>Vessels</b><p class="small muted">Use a standardized segment and plane and the appropriate vascular reference/guideline.</p></div>
+</div></div>
+</section>
+
+<section id="folliculometry" class="section">
+  <div class="hero">
+    <div class="eyebrow">Fertility ultrasound</div>
+    <h2>Folliculometry & Ovulation Tracking</h2>
+    <p>Serial, cycle-aware documentation for natural, irregular, ovulation-induction, IUI and IVF/ART cycles. The module prioritizes observed change over a single follicle-size rule.</p>
+  </div>
+  <div class="card">
+    <h2>Cycle setup</h2>
+    <div class="grid g4">
+      <div class="field"><label>Patient / study ID</label><input class="input" id="fPatient" placeholder="PT-0248"></div>
+      <div class="field"><label>Cycle type</label><select id="fType"><option>Natural</option><option>Irregular</option><option>Ovulation induction</option><option>IUI</option><option>IVF / ART</option></select></div>
+      <div class="field"><label>Known / estimated cycle length (days)</label><input class="input" id="fCycleLength" type="number" min="15" max="120"></div>
+      <div class="field"><label>LMP (if available)</label><input class="input" id="fLmp" type="date"></div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Protocol / medication context</label><input class="input" id="fProtocol" placeholder="e.g. letrozole, gonadotropin, antagonist protocol"></div>
+      <div class="field"><label>Symptoms / clinical context</label><input class="input" id="fSymptoms" placeholder="Pain, cervical mucus, timed intercourse, etc."></div>
+      <div class="field"><label>Procedure context</label><select id="fProcedure"><option>None / timed intercourse</option><option>IUI planned</option><option>IUI completed</option><option>Oocyte retrieval planned</option><option>Embryo transfer planned</option><option>Other</option></select></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>New scan</h2>
+    <div class="grid g4">
+      <div class="field"><label>Study date/time</label><input class="input" id="fDate" type="datetime-local"></div>
+      <div class="field"><label>Cycle day</label><input class="input" id="fDay" type="number" min="1" max="120"></div>
+      <div class="field"><label>Scan number</label><input class="input" id="fScanNo" type="number" min="1" step="1"></div>
+      <div class="field"><label>Overall scan note</label><input class="input" id="fScanNote" placeholder="Technique / limitations / key context"></div>
+    </div>
+    <div class="grid g2">
+      <div class="card" style="box-shadow:none"><div class="fol-head"><h3>Right ovary</h3><button class="btn sm" id="addR">+ Add follicle</button></div><div class="grid g3" style="margin-top:8px"><div class="field"><label>Ovary volume (mL), optional</label><input class="input" id="rVol" type="number" step=".1"></div><div class="field"><label>Other cyst / lesion</label><input class="input" id="rCyst" placeholder="None / simple / hemorrhagic…"></div><div class="field"><label>Note</label><input class="input" id="rNote"></div></div><div id="rightFol"></div></div>
+      <div class="card" style="box-shadow:none"><div class="fol-head"><h3>Left ovary</h3><button class="btn sm" id="addL">+ Add follicle</button></div><div class="grid g3" style="margin-top:8px"><div class="field"><label>Ovary volume (mL), optional</label><input class="input" id="lVol" type="number" step=".1"></div><div class="field"><label>Other cyst / lesion</label><input class="input" id="lCyst" placeholder="None / simple / hemorrhagic…"></div><div class="field"><label>Note</label><input class="input" id="lNote"></div></div><div id="leftFol"></div></div>
+    </div>
+    <div class="card" style="box-shadow:none;margin-top:14px">
+      <h3>Endometrium & peri-ovulatory context</h3>
+      <div class="grid g4">
+        <div class="field"><label>Endometrial thickness (mm)</label><input class="input" id="fEndo" type="number" min="0" max="40" step=".1"></div>
+        <div class="field"><label>Pattern</label><select id="fPattern"><option>Not assessed</option><option>Trilaminar / triple-line</option><option>Homogeneous echogenic / secretory</option><option>Heterogeneous</option><option>Other</option></select></div>
+        <div class="field"><label>Pelvic free fluid</label><select id="fFluid"><option>None seen</option><option>Small</option><option>Moderate</option><option>Large</option><option>Indeterminate</option></select></div>
+        <div class="field"><label>Fluid location</label><input class="input" id="fFluidLoc" placeholder="e.g. POD"></div>
+      </div>
+      <div class="grid g4">
+        <div class="field"><label>Corpus luteum</label><select id="fCL"><option>Not seen</option><option>Present</option><option>Indeterminate</option></select></div>
+        <div class="field"><label>CL side</label><select id="fCLSide"><option>Right</option><option>Left</option><option>Both / multiple</option><option>Not applicable</option></select></div>
+        <div class="field"><label>CL size (mm)</label><input class="input" id="fCLSize" type="number" min="0" max="50" step=".1"></div>
+        <div class="field"><label>CL Doppler vascularity</label><select id="fCLVasc"><option>Not assessed</option><option>Peripheral vascularity</option><option>Marked peripheral vascularity</option><option>Minimal / absent</option></select></div>
+      </div>
+    </div>
+    <div class="card" style="box-shadow:none;margin-top:14px">
+      <h3>Biochemistry & trigger</h3>
+      <div class="grid g4">
+        <div class="field"><label>LH</label><input class="input" id="fLH" type="number" step=".1"><select id="fLHUnit"><option>mIU/mL</option><option>IU/L</option></select></div>
+        <div class="field"><label>LH surge / positive test?</label><select id="fLHS"><option>Not documented</option><option>Yes</option><option>No</option></select></div>
+        <div class="field"><label>Estradiol</label><input class="input" id="fE2" type="number" step=".1"><select id="fE2Unit"><option>pg/mL</option><option>pmol/L</option></select></div>
+        <div class="field"><label>Progesterone</label><input class="input" id="fP4" type="number" step=".1"><select id="fP4Unit"><option>ng/mL</option><option>nmol/L</option></select></div>
+      </div>
+      <div class="grid g4">
+        <div class="field"><label>hCG</label><input class="input" id="fHCG" type="number" step=".1"><select id="fHCGUnit"><option>IU/L</option><option>mIU/mL</option></select></div>
+        <div class="field"><label>Trigger</label><select id="fTrigger"><option>None</option><option>hCG / recombinant hCG</option><option>GnRH agonist</option><option>Other</option></select></div>
+        <div class="field"><label>Trigger date/time</label><input class="input" id="fTriggerDT" type="datetime-local"></div>
+        <div class="field"><label>IUI / retrieval / transfer date/time</label><input class="input" id="fProcedureDT" type="datetime-local"></div>
+      </div>
+      <div class="notice warn">Laboratory values are recorded with units but are not assigned universal “positive” cutoffs here because assays, timing and treatment protocols vary.</div>
+    </div>
+    <div class="sticky-actions"><button class="btn primary" id="saveFolScan">Save scan & interpret</button><button class="btn" id="clearFolForm">Clear scan form</button></div>
+    <div id="folScanInterpretation" class="result"></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>Serial folliculometry</h2><div id="folTimeline"></div></div>
+
+<div class="card" style="margin-top:16px">
+<h2>Folliculometry interpretation rules</h2>
+<div class="scroll"><table>
+<tr><th>Label</th><th>Supporting pattern</th><th>Limitation</th></tr>
+<tr><td><span class="badge neutral">Baseline</span></td><td>Early-cycle follicle inventory without a convincing lead.</td><td>Does not predict an exact ovulation date.</td></tr>
+<tr><td><span class="badge neutral">Developing follicle</span></td><td>Measurable follicle with serial increase using the same tracking ID.</td><td>Does not prove normal ovulation.</td></tr>
+<tr><td><span class="badge info">Dominant / lead follicle</span></td><td>Largest and/or progressively growing follicle designated by the operator.</td><td>Size alone does not prove maturity or ovulation.</td></tr>
+<tr><td><span class="badge info">Pre-ovulatory</span></td><td>Large lead follicle plus compatible endometrial and biochemical/trigger context.</td><td>Does not prove ovulation has occurred.</td></tr>
+<tr><td><span class="badge good">Probable recent ovulation</span></td><td>Serial regression/collapse plus compatible corpus luteum, fluid or other post-ovulatory findings.</td><td>Free fluid or peripheral vascularity alone is nonspecific.</td></tr>
+<tr><td><span class="badge good">Confirmed by serial sonographic criteria</span></td><td>Convincing pre-ovulatory follicle followed by collapse/regression and multiple compatible post-ovulatory findings.</td><td>Still an imaging inference; biochemical confirmation may be appropriate.</td></tr>
+<tr><td><span class="badge good">Luteal phase</span></td><td>Corpus luteum/post-ovulatory morphology with compatible endometrial change.</td><td>Does not establish luteal adequacy.</td></tr>
+<tr><td><span class="badge warn">Indeterminate</span></td><td>Sparse, conflicting or non-serial evidence.</td><td>Do not force an ovulation/anovulation conclusion.</td></tr>
+</table></div></div>
+<div class="card" style="margin-top:16px"><h2>Final cycle interpretation</h2><div id="folFinalSummary" class="result"></div></div>
+</section>
+
+<section id="timeline" class="section">
+  <div class="card">
+    <h2>Longitudinal patient timeline</h2>
+    <p class="muted">This view combines stored growth and folliculometry entries for the current episode. It does not replace the source ultrasound worksheet.</p>
+    <div id="masterTimeline"></div>
+  </div>
+</section>
+
+<section id="report" class="section printable">
+  <div class="card">
+    <div class="eyebrow">Structured clinical report</div>
+    <h2>Babsinogen Ultrasound Report</h2>
+    <div id="reportContent"></div>
+    <hr><div class="small muted">Decision-support output. Verify all measurements, reference standards and clinical conclusions before signing. The software does not diagnose disease and should not be used as a substitute for clinical judgement, local protocol or specialist review.</div>
+  </div>
+</section>
+
+
+<section id="placenta" class="section">
+  <div class="hero"><div class="eyebrow">Obstetrics</div><h2>Placenta, cord & fetal presentation</h2>
+  <p>Structured selection of placental site, morphology, cord insertion and presentation, with context-specific reporting notes.</p></div>
+  <div class="card">
+    <div class="clinical-grid">
+      <div class="field"><label>Placental location</label><select id="plLocation"><option>Anterior</option><option>Posterior</option><option>Fundal</option><option>Right lateral</option><option>Left lateral</option><option>Anterofundal</option><option>Posterofundal</option><option>Low-lying</option><option>Placenta previa (covering/overlying internal os)</option><option>Not assessed</option></select></div>
+      <div class="field"><label>Placental type / morphology</label><select id="plType"><option>Single main placental disc</option><option>Succenturiate lobe</option><option>Bilobed placenta</option><option>Circumvallate / extrachorial appearance</option><option>Other / indeterminate</option></select></div>
+      <div class="field"><label>Placental edge to internal os (mm)</label><input class="input" id="plEdge" type="number" step=".1" min="0"></div>
+      <div class="field"><label>Cord insertion</label><select id="plCord"><option>Central / eccentric</option><option>Marginal</option><option>Velamentous</option><option>Not assessed</option></select></div>
+      <div class="field"><label>Presentation / lie</label><select id="plPresentation"><option>Cephalic</option><option>Frank breech</option><option>Complete breech</option><option>Footling breech</option><option>Transverse lie</option><option>Oblique lie</option><option>Not assessed</option></select></div>
+      <div class="field"><label>Gestational age (weeks)</label><input class="input" id="plGA" type="number" min="10" max="45" step=".1"></div>
+      <div class="field"><label>Vasa previa assessment</label><select id="plVasa"><option>Not assessed</option><option>No evidence on assessed color Doppler</option><option>Suspected</option><option>Confirmed</option></select></div>
+      <div class="field"><label>Placenta accreta spectrum concern</label><select id="plAccreta"><option>Not suspected</option><option>Risk factors</option><option>Suspicious ultrasound features</option><option>Indeterminate</option></select></div>
+      <div class="field"><label>Additional note</label><textarea id="plNote"></textarea></div>
+    </div>
+    <button class="btn primary" id="calcPlacenta">Interpret placenta & presentation</button>
+    <div id="placentaResult" class="result" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="pregnancyTimeline" class="section">
+  <div class="hero"><div class="eyebrow">Pregnancy calendar</div><h2>Dating, conception, fertile-window & trimester timeline</h2>
+  <p>Calendar estimates are probabilistic. They are less reliable with irregular cycles and are not a substitute for contraception or clinical dating.</p></div>
+  <div class="card">
+    <div class="clinical-grid">
+      <div class="field"><label>LMP</label><input class="input" type="date" id="ptLMP"></div>
+      <div class="field"><label>Established GA (weeks)</label><input class="input" type="number" id="ptGAW" min="0" max="45"></div>
+      <div class="field"><label>Established GA (days)</label><input class="input" type="number" id="ptGAD" min="0" max="6"></div>
+      <div class="field"><label>Cycle length (days)</label><input class="input" type="number" id="ptCycle" min="15" max="120" value="28"></div>
+      <div class="field"><label>Cycle pattern</label><select id="ptCycleType"><option>Regular</option><option>Irregular</option><option>Unknown</option></select></div>
+    </div>
+    <button class="btn primary" id="calcTimeline">Generate timeline</button>
+    <div id="timelineResult" class="result" style="margin-top:12px"></div>
+    <div id="embryoFetusResult" class="result" style="margin-top:12px"></div>
+    <div id="bodyPhaseResult" class="result" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="multiples" class="section">
+  <div class="hero"><div class="eyebrow">Multiple gestation</div><h2>Twin / multiple growth comparison</h2>
+  <p>Compares EFW discordance and key TTTS/TAPS surveillance variables. It does not diagnose TTTS from weight discordance alone.</p></div>
+  <div class="card">
+    <div class="clinical-grid">
+      <div class="field"><label>Chorionicity / amnionicity</label><select id="mgType"><option>Dichorionic diamniotic</option><option>Monochorionic diamniotic</option><option>Monochorionic monoamniotic</option><option>Unknown / other</option></select></div>
+      <div class="field"><label>GA (weeks)</label><input class="input" id="mgGA" type="number" min="10" max="40" step=".1"></div>
+      <div class="field"><label>Study date</label><input class="input" id="mgDate" type="date"></div>
+    </div>
+    <div class="clinical-grid">
+      <div class="quizCard"><h3>Twin A</h3><div class="field"><label>EFW (g)</label><input class="input" id="tAefw" type="number"></div><div class="field"><label>SDP (cm)</label><input class="input" id="tAsdp" type="number" step=".1"></div><div class="field"><label>MCA-PSV MoM</label><input class="input" id="tAmca" type="number" step=".01"></div><div class="field"><label>Bladder</label><select id="tAbl"><option>Visible</option><option>Not visible</option><option>Indeterminate</option></select></div></div>
+      <div class="quizCard"><h3>Twin B</h3><div class="field"><label>EFW (g)</label><input class="input" id="tBefw" type="number"></div><div class="field"><label>SDP (cm)</label><input class="input" id="tBsdp" type="number" step=".1"></div><div class="field"><label>MCA-PSV MoM</label><input class="input" id="tBmca" type="number" step=".01"></div><div class="field"><label>Bladder</label><select id="tBbl"><option>Visible</option><option>Not visible</option><option>Indeterminate</option></select></div></div>
+      <div class="quizCard"><h3>Twin C (optional)</h3><div class="field"><label>EFW (g)</label><input class="input" id="tCefw" type="number"></div><div class="field"><label>SDP (cm)</label><input class="input" id="tCsdp" type="number" step=".1"></div><div class="field"><label>MCA-PSV MoM</label><input class="input" id="tCmca" type="number" step=".01"></div><div class="field"><label>Bladder</label><select id="tCbl"><option>Visible</option><option>Not visible</option><option>Indeterminate</option></select></div></div>
+    </div>
+    <div class="field"><label>Umbilical artery finding</label><select id="mgUa"><option>Not assessed</option><option>No concerning abnormality selected</option><option>Abnormal PI</option><option>Absent end-diastolic flow</option><option>Reversed end-diastolic flow</option></select></div>
+    <button class="btn primary" id="calcMultiples">Compare</button>
+    <div id="multiplesResult" class="result" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="prostateLab" class="section">
+  <div class="hero"><div class="eyebrow">Urology & laboratory reference</div><h2>PSA density & connected laboratory reference</h2></div>
+  <div class="card"><h3>PSA density</h3><div class="clinical-grid">
+    <div class="field"><label>Prostate length (mm)</label><input class="input" id="psaL" type="number" step=".1"></div>
+    <div class="field"><label>AP diameter (mm)</label><input class="input" id="psaAP" type="number" step=".1"></div>
+    <div class="field"><label>Transverse diameter (mm)</label><input class="input" id="psaTR" type="number" step=".1"></div>
+    <div class="field"><label>PSA (ng/mL)</label><input class="input" id="psaVal" type="number" step=".01"></div>
+  </div><button class="btn primary" id="calcPSAD">Calculate PSA density</button><div id="psaResult" class="result" style="margin-top:12px"></div></div>
+  <div class="card"><h3>Laboratory reference library</h3><div class="field"><label>Search parameter</label><input class="input" id="labSearch" placeholder="e.g. Hb, PSA, glucose, TSH, urine, HVS"></div><div id="labResults"></div><div class="notice warn">Use the performing laboratory's own validated interval for patient care. Pregnancy, age, sex, assay and analyzer can materially change reference ranges.</div></div>
+</section>
+
+<section id="specialtyGuides" class="section">
+  <div class="hero"><div class="eyebrow">Standardized classification systems</div><h2>BI-RADS · ACR TI-RADS · O-RADS · IOTA · Bosniak 2019</h2></div>
+  <div class="clinical-grid">
+    <div class="card"><h3>BI-RADS®</h3><select id="birads" class="input"><option>0 - Incomplete</option><option>1 - Negative</option><option>2 - Benign</option><option>3 - Probably benign</option><option>4 - Suspicious</option><option>5 - Highly suggestive of malignancy</option><option>6 - Known biopsy-proven malignancy</option></select><div id="biradsOut" class="result"></div></div>
+    <div class="card"><h3>ACR TI-RADS®</h3><div class="field"><label>Composition</label><select id="trComp"><option>Cystic/almost completely cystic</option><option>Spongiform</option><option>Mixed cystic and solid</option><option>Solid/almost completely solid</option></select></div><div class="field"><label>Echogenicity</label><select id="trEcho"><option>Anechoic</option><option>Isoechoic/hyperechoic</option><option>Mildly hypoechoic</option><option>Very hypoechoic</option></select></div><div class="field"><label>Shape</label><select id="trShape"><option>Wider-than-tall</option><option>Taller-than-wide</option></select></div><div class="field"><label>Margin</label><select id="trMargin"><option>Smooth</option><option>Ill-defined</option><option>Lobulated/irregular</option><option>Extrathyroidal extension</option></select></div><div class="field"><label>Echogenic foci</label><select id="trFoci"><option>None/large comet-tail</option><option>Macrocalcification</option><option>Rim calcification</option><option>Punctate echogenic foci</option></select></div><div class="field"><label>Size (mm)</label><input class="input" id="trSize" type="number" step=".1"></div><button class="btn primary" id="calcTIRADS">Calculate</button><div id="tiradsOut" class="result"></div></div>
+    <div class="card"><h3>O-RADS® US</h3><select id="orads" class="input"><option>0 - Incomplete</option><option>1 - Normal ovary</option><option>2 - Almost certainly benign</option><option>3 - Low risk</option><option>4 - Intermediate risk</option><option>5 - High risk</option></select><div id="oradsOut" class="result"></div></div>
+    <div class="card"><h3>IOTA Simple Rules</h3><p class="muted">Five B-features and five M-features. If only B features are present, the lesion is classified benign; only M features, malignant; both or neither, inconclusive.</p><button class="btn" id="showIOTA">Show feature checklist</button><div id="iotaOut"></div></div>
+    <div class="card"><h3>Bosniak 2019</h3><select id="bosniak" class="input"><option>I</option><option>II</option><option>IIF</option><option>III</option><option>IV</option><option>Not classifiable on current ultrasound</option></select><div id="bosniakOut" class="result"></div><p class="small muted">Bosniak v2019 is a CT/MRI-centered system for cystic renal masses; do not force a class from incomplete ultrasound characterization.</p></div>
+  </div>
+</section>
+
+<section id="breast" class="section"><div class="card"><h2>Breast ultrasound guide</h2><p class="muted">Use lesion shape, orientation, margins, echogenicity, posterior features, vascularity, calcifications, architectural distortion and complete BI-RADS® assessment.</p><div class="clinical-grid">
+<div class="field"><label>Shape</label><select id="brShape"><option>Oval</option><option>Round</option><option>Irregular</option></select></div>
+<div class="field"><label>Orientation</label><select id="brOrient"><option>Parallel</option><option>Not parallel</option></select></div>
+<div class="field"><label>Margins</label><select id="brMargin"><option>Circumscribed</option><option>Indistinct</option><option>Angular</option><option>Microlobulated</option><option>Spiculated</option></select></div></div><button class="btn primary" id="calcBreastGuide">Generate characterization</button><div id="breastGuideOut" class="result"></div></div></section>
+
+<section id="thyroid" class="section"><div class="card"><h2>Thyroid ultrasound guide</h2><p class="muted">Assess the entire gland, each nodule and cervical lymph nodes; score nodules with ACR TI-RADS® where appropriate.</p><div class="clinical-grid"><div class="field"><label>Parenchyma</label><select id="thTexture"><option>Homogeneous</option><option>Heterogeneous</option><option>Diffuse hypoechogenicity</option></select></div><div class="field"><label>Vascularity</label><select id="thVasc"><option>Not remarkable</option><option>Diffuse increased</option><option>Reduced/heterogeneous</option></select></div><div class="field"><label>Nodes</label><select id="thNodes"><option>No suspicious nodes</option><option>Suspicious morphology</option><option>Indeterminate</option></select></div></div><button class="btn primary" id="calcThyroidGuide">Generate notes</button><div id="thyroidGuideOut" class="result"></div></div></section>
+
+<section id="scrotum" class="section"><div class="card"><h2>Scrotal ultrasound guide</h2><p class="muted">Assess testes, epididymides, vascularity, tunica/scrotal wall and relevant inguinoscrotal region. Acute torsion is time-critical.</p><div class="clinical-grid"><div class="field"><label>Testicular vascularity</label><select id="scVasc"><option>Symmetric</option><option>Reduced/absent</option><option>Increased</option><option>Indeterminate</option></select></div><div class="field"><label>Epididymis</label><select id="scEpi"><option>Unremarkable</option><option>Enlarged/hyperemic</option><option>Focal lesion</option><option>Indeterminate</option></select></div><div class="field"><label>Mass</label><select id="scMass"><option>None</option><option>Intra-testicular</option><option>Extra-testicular</option><option>Indeterminate</option></select></div></div><button class="btn primary" id="calcScrotumGuide">Generate notes</button><div id="scrotumGuideOut" class="result"></div></div></section>
+
+<section id="quiz" class="section"><div class="hero"><div class="eyebrow">Case-based learning</div><h2>Clinical quiz</h2><p>Every topic contains 20 scenario-based questions. Explanations and grading appear only after submission.</p></div><div class="card"><div class="clinical-grid"><div class="field"><label>Topic</label><select id="quizTopic"></select></div><div class="field"><label>Difficulty</label><select id="quizDiff"><option>All</option><option>Foundation</option><option>Intermediate</option><option>Advanced</option></select></div></div><div id="quizMeta" class="notice"></div><div id="quizQuestions"></div><div class="report-actions"><button class="btn primary" id="startQuiz">Load / reset</button><button class="btn" id="submitQuiz">Submit</button></div><div id="quizResults" class="result"></div></div></section>
+
+<section id="about" class="section"><div class="hero"><div class="eyebrow">Developer</div><h2>About Babsinogen</h2><p>Clinical calculation, documentation and learning aid. Verify all findings against current local protocols and appropriate specialty guidance before clinical use.</p></div><div class="clinical-grid"><div class="card"><h3>Contact</h3><p><b>Email:</b> <a href="mailto:babarindekunle7@gmail.com">babarindekunle7@gmail.com</a></p><p><b>WhatsApp:</b> <a href="https://wa.me/2348137320263" target="_blank" rel="noopener">08137320263</a></p><p class="small muted">Do not send identifiable patient information through these channels.</p></div><div class="card"><h3>Release</h3><p>Babsinogen v2.4 · reference review September 2026.</p><p class="small muted">Patient records are stored locally in this browser. The app does not transmit saved patient records to a server.</p></div></div></section>
+
+<section id="references" class="section">
+<div class="card" style="margin-top:12px"><h3>Detailed reference set</h3>
+<p class="small muted">The app uses a tiered reference policy: professional society guidance first, then validated peer-reviewed primary/consensus literature. Always verify current editions.</p>
+<ol class="small">
+<li><a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2017/05/methods-for-estimating-due-date" target="_blank">ACOG Committee Opinion No. 700: Methods for Estimating the Due Date.</a></li>
+<li><a href="https://www.acog.org/womens-health/faqs/how-your-fetus-grows-during-pregnancy" target="_blank">ACOG: How Your Fetus Grows During Pregnancy.</a></li>
+<li><a href="https://www.acog.org/womens-health/experts-and-stories/the-latest/trying-to-get-pregnant-heres-when-to-have-sex" target="_blank">ACOG: Trying to Get Pregnant? Here's When to Have Sex.</a></li>
+<li><a href="https://www.aium.org/resources/practice-parameters-and-technical-standards" target="_blank">AIUM Practice Parameters and Technical Standards.</a></li>
+<li><a href="https://www.isuog.org/resource/isuog-practice-guidelines-updated-role-of-ultrasound-in-estimation-of-fetal-weight-and-assessment-of-fetal-growth.html" target="_blank">ISUOG Practice Guideline: estimation of fetal weight and assessment of fetal growth.</a></li>
+<li><a href="https://publications.smfm.org/publications/289-society-for-maternal-fetal-medicine-consult-series-52/" target="_blank">SMFM Consult Series #52: Diagnosis and management of fetal growth restriction.</a></li>
+<li><a href="https://publications.smfm.org/publications/251-society-for-maternal-fetal-medicine-consult-series-45/" target="_blank">SMFM Consult Series #45: Mild fetal ventriculomegaly.</a></li>
+<li><a href="https://publications.smfm.org/publications/574-society-for-maternal-fetal-medicine-consult-series-72/" target="_blank">SMFM Consult Series #72: Twin-twin transfusion syndrome and twin anemia-polycythemia sequence.</a></li>
+<li><a href="https://www.isuog.org/clinical-resources/patient-information-series/patient-information-pregnancy-conditions/placental-anomalies/placenta-previa.html" target="_blank">ISUOG: Placenta previa / low-lying placenta.</a></li>
+<li><a href="https://www.isuog.org/static/d1191810-1467-495b-a19f797b37ae5366/Patient-Information-Succenturiate.pdf" target="_blank">ISUOG: Succenturiate lobe.</a></li>
+<li><a href="https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging" target="_blank">ACR BI-RADS® reference resources.</a></li>
+<li><a href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS" target="_blank">ACR TI-RADS®.</a></li>
+<li><a href="https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/O-RADS/Ultrasound" target="_blank">ACR O-RADS® US.</a></li>
+<li><a href="https://iotaplus.org/en/research/iota-models" target="_blank">IOTA: Simple Rules and ADNEX models.</a></li>
+<li><a href="https://pubs.rsna.org/doi/full/10.1148/radiol.2019182646" target="_blank">Silverman et al. Bosniak Classification of Cystic Renal Masses, Version 2019.</a></li>
+<li><a href="https://pubs.rsna.org/doi/10.1148/rg.2021200160" target="_blank">Schieda et al. Bosniak Classification v2019 pictorial guide.</a></li>
+<li><a href="https://uroweb.org/guidelines/prostatecancer/chapter/diagnostic-evaluation" target="_blank">EAU Guidelines on Prostate Cancer: diagnostic evaluation and PSA density.</a></li>
+<li><a href="https://intergrowth21.com/" target="_blank">INTERGROWTH-21st fetal growth standards.</a></li>
+</ol></div>
+
+  <div class="card">
+    <h2>References & method notes</h2>
+    <p class="muted">Reference hierarchy: professional guidelines first, then primary peer-reviewed studies. Where no single universal threshold is appropriate, the application intentionally avoids a hard diagnostic cutoff.</p>
+    <ol>
+      <li>ACOG Committee Opinion No. 700. Methods for Estimating the Due Date. Obstetrics & Gynecology. CRL-based first-trimester dating and redating thresholds.</li>
+      <li>AIUM Practice Parameter for the Performance of Standard Diagnostic Obstetric Ultrasound Examinations. Standardized obstetric acquisition and documentation.</li>
+      <li>ISUOG Practice Guidelines: ultrasound assessment of fetal biometry and growth. Standardized measurement, growth surveillance and reference selection.</li>
+      <li>ISUOG Practice Guidelines: use of Doppler velocimetry in obstetrics. Technique and clinical interpretation of UA, MCA and other Doppler parameters.</li>
+      <li>SMFM Consult Series #52: Diagnosis and management of fetal growth restriction. UA Doppler and longitudinal FGR management principles.</li>
+      <li>SMFM Consult Series #45: Mild fetal ventriculomegaly: diagnosis, evaluation, and management.</li>
+      <li>ACOG Practice Bulletin No. 216. Macrosomia. Prenatal EFW uncertainty and macrosomia categories.</li>
+      <li>Hadlock FP et al. Fetal biparietal diameter, head circumference, abdominal circumference and femur length dating equations. Radiology, 1984.</li>
+      <li>Hadlock FP et al. Estimation of fetal weight with ultrasound. Radiology, 1985.</li>
+      <li>Hadlock FP et al. Fetal head shape / cephalic index reference work. AJR, 1981.</li>
+      <li>Robinson HP, Fleming JEE. A critical evaluation of sonar “crown-rump length” measurements. British Journal of Obstetrics and Gynaecology, 1975; corrected CRL dating formulation.</li>
+      <li>Mari G et al. Noninvasive diagnosis by Doppler ultrasonography of fetal anemia due to maternal red-cell alloimmunization. NEJM, 2000; MCA-PSV MoM framework.</li>
+    </ol>
+    <div class="notice warn">Folliculometry is intentionally pattern-based. Follicle size, growth rate, endometrial appearance, corpus luteum morphology, free fluid, biochemical markers and trigger protocols vary across natural and assisted cycles. A single scan should not be used to overcall ovulation.</div>
+  </div>
+</section>
+</main>
+<footer><div class="ref"><b>Babsinogen v2.4 clinical suite · reference revision September 2026</b><br>For trained healthcare professionals. Validate locally before clinical deployment; institutional governance, credentialing and quality assurance remain necessary.</div></footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const APP_VERSION="2.4", STORAGE_KEY="babsinogen_v24";
+let tempFol={R:[],L:[]};
+const state={patient:{id:"",initials:"",indication:"",operator:"",date:"",notes:""},dating:{},biometry:{},doppler:{},anomaly:{},growth:[],folliculometry:[],organ:{},report:{},placenta:{},pregnancyTimeline:{},multiples:[],psaLab:{},quiz:{},specialty:{}};
+const navItems=[["dashboard","Dashboard"],["patient","Patient / Episode"],["dating","Dating & EDD"],["pregnancyTimeline","Pregnancy Timeline"],["biometry","Biometry"],["growth","Growth"],["doppler","Doppler"],["anomaly","Anomaly"],["placenta","Placenta & Presentation"],["multiples","Twins / Multiples"],["organs","Organ Reference"],["prostateLab","PSA & Labs"],["folliculometry","Folliculometry"],["breast","Breast"],["thyroid","Thyroid"],["scrotum","Scrotal"],["specialtyGuides","US Classifications"],["timeline","Timeline"],["report","Report"],["quiz","Clinical Quiz"],["references","References"],["about","Contact / About"]];
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function num(id){const v=parseFloat($(id)?.value);return Number.isFinite(v)?v:null}
+function setVal(id,v){if($(id)&&v!=null)$(id).value=v}
+function todayLocal(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
+function dateOnly(){return new Date().toISOString().slice(0,10)}
+function daysBetween(a,b){return (new Date(b)-new Date(a))/86400000}
+function gaText(w){if(!Number.isFinite(w))return "—";const whole=Math.floor(w),d=Math.round((w-whole)*7);return `${whole}+${Math.max(0,Math.min(6,d))}`}
+function saveLocal(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){}try{updateDash()}catch(e){}try{renderSaved()}catch(e){}}
+function loadLocal(){try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY));if(x)Object.assign(state,x)}catch(e){}}
+function updateDash(){$("dashPatient").textContent=state.patient.id||"Unassigned";$("dashGA").textContent=state.dating?.gaText||state.biometry?.gaText||"—";$("dashFol").textContent=state.folliculometry.length;let s=0;try{s=localStorage.getItem(STORAGE_KEY)?1:0}catch(e){}$("dashSaved").textContent=s}
+function collectPatient(){state.patient={id:$("patientId").value.trim(),initials:$("initials").value.trim(),indication:$("indication").value.trim(),operator:$("operator").value.trim(),date:$("episodeDate").value,notes:$("episodeNotes").value}}
+function populatePatient(){setVal("patientId",state.patient.id);setVal("initials",state.patient.initials);setVal("indication",state.patient.indication);setVal("operator",state.patient.operator);setVal("episodeDate",state.patient.date);setVal("episodeNotes",state.patient.notes)}
+function renderSaved(){let x=null;try{x=localStorage.getItem(STORAGE_KEY)}catch(e){}$("savedList").innerHTML=x?`<div class="result"><b>Current local episode</b><br>${esc(state.patient.id||"Unassigned")} · ${esc(state.patient.indication||"No indication")} · ${esc(state.patient.date||"No date")}<br><span class="muted small">Stored locally in this browser. Saved patient records are not transmitted to a server by this application.</span></div>`:`<p class="muted">No saved episode.</p>`}
+function show(id){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="report")renderReport();if(id==="timeline")renderMasterTimeline();if(id==="folliculometry"){renderFolTimeline();finalFollicleSummary()}if(id==="growth"){renderGrowth();renderGrowthChart()}if(id==="specialtyGuides"){renderSpecialty()}}
+function go(e){const b=e.target.closest("[data-go]");if(b)show(b.dataset.go)}
+function initNav(){navItems.forEach(([id,label])=>{const b=document.createElement("button");b.textContent=label;b.dataset.go=id;b.onclick=()=>show(id);$("nav").appendChild(b)});$("nav").addEventListener("click",go);document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)))}
+function calcCRL(crl){return 8.052*Math.sqrt(crl*1.037)+23.73}
+function dateAdd(date,days){const d=new Date(date+"T12:00:00");d.setDate(d.getDate()+days);return d.toISOString().slice(0,10)}
+function lmpGA(lmp,scan){return daysBetween(lmp,scan)/7}
+function calcDating(){const l=$("lmp").value,s=$("datingScanDate").value,c=num("crl"),f=num("fhr"),msd=num("msd"),ew=num("estW"),ed=num("estD")||0;let html="",ga=null,source="";if(c!=null&&c>=5){ga=calcCRL(c)/7;source="CRL"}else if(ew!=null){ga=ew+ed/7;source="entered established GA"}else if(l&&s){ga=lmpGA(l,s);source="LMP"}if(ga!=null){const edd=s?dateAdd(s,280-ga*7):null;state.dating={ga,gaText:gaText(ga),source,edd};html+=`<div class="result"><b>GA:</b> ${gaText(ga)} · <b>Dating basis:</b> ${esc(source)} · <b>EDD:</b> ${edd||"—"}</div>`}if(msd!=null)html+=`<div class="notice">MSD ${msd} mm recorded as a developmental measurement. It is not used here to assign an EDD.</div>`;if(f!=null){const flag=f<=110?"Persistent bradycardia (≤110 bpm) warrants evaluation if confirmed and persistent.":f>=180?"Persistent tachycardia (≥180 bpm) warrants evaluation if confirmed and persistent.":"Rate is not by itself diagnostic; correlate with gestational age, persistence and clinical context.";html+=`<div class="result"><b>FHR ${f} bpm:</b> ${flag}</div>`}$("datingResult").innerHTML=html;saveLocal()}
+function hadlockEFW(hc,ac,fl,bpd){const HC=hc/10,AC=ac/10,FL=fl/10,BPD=bpd/10;return Math.pow(10,1.3596+.0064*HC+.0424*AC+.174*FL+.00061*BPD*AC-.00386*AC*FL)}
+function calcBio(){const b=num("bpd"),o=num("ofd"),hc0=num("hc"),ac=num("ac"),fl=num("fl"),ga=num("bioGA");if([b,o,ac,fl,ga].some(x=>x==null||x<=0)){$("bioResult").innerHTML='<div class="notice warn">Enter BPD, OFD, AC, FL and established GA.</div>';return}const hc=hc0??1.62*(b+o),ci=b/o*100,cb=Math.sqrt((b*o)/1.265),efw=hadlockEFW(hc,ac,fl,b);const B=b/10,HC=hc/10,AC=ac/10,FL=fl/10;const bga=9.54+1.482*B+.1676*B*B,hga=8.96+.540*HC+.0003*HC*HC*HC,aga=8.14+.753*AC+.0036*AC*AC,fga=10.35+2.46*FL+.17*FL*FL;const cga=(bga+hga+aga+fga)/4;state.biometry={b,o,hc,ac,fl,ci,correctedBPD:cb,efw,ga,biometricGA:cga,reference:$("growthRef")?.value||"intergrowth"};let html=`<div class="result"><b>HC:</b> ${hc.toFixed(1)} mm · <b>CI:</b> ${ci.toFixed(1)}% · <b>Corrected BPD:</b> ${cb.toFixed(1)} mm<br><b>Hadlock EFW:</b> ${Math.round(efw)} g <span class="muted">(Hadlock parameters converted from mm to cm)</span></div>`;if(Math.abs(cga-ga)>2)html+=`<div class="notice warn">Biometric GA estimate differs from established GA by about ${Math.abs(cga-ga).toFixed(1)} weeks. Review measurement quality and dating basis rather than redating automatically.</div>`;const shape=ci<74?"Dolichocephalic range":ci>83?"Brachycephalic range":"CI within broad reference range";html+=`<div class="result"><b>Head shape:</b> ${shape}. <span class="muted">Shape indices should be interpreted with the clinical and gestational-age context.</span></div>`;$("bioResult").innerHTML=html;saveLocal()}
+const IG_EFW={"22":[463,481,525,578,607],"23":[516,538,592,658,694],"24":[575,602,668,751,796],"25":[642,675,756,857,913],"26":[716,757,856,980,1048],"27":[800,848,969,1119,1202],"28":[892,951,1097,1277,1376],"29":[994,1064,1239,1453,1570],"30":[1105,1189,1396,1648,1784],"31":[1226,1325,1568,1861,2017],"32":[1356,1472,1755,2090,2267],"33":[1495,1630,1954,2332,2529],"34":[1641,1796,2162,2582,2798],"35":[1794,1969,2378,2836,3069],"36":[1951,2146,2594,3086,3331],"37":[2109,2323,2806,3324,3578],"38":[2266,2496,3006,3540,3798],"39":[2416,2658,3186,3726,3982],"40":[2554,2805,3338,3871,4121]};
+const IG_PCTS=[3,10,50,90,97];
+function interp(a,b,t){return a+(b-a)*t}
+function igCentileBounds(ga){if(!Number.isFinite(ga)||ga<22||ga>40)return null;const lo=Math.floor(ga),hi=Math.ceil(ga),t=ga-lo;if(lo===hi)return IG_EFW[lo];return IG_PCTS.map((_,i)=>interp(IG_EFW[lo][i],IG_EFW[hi][i],t))}
+function centileFromBounds(efw,b){if(!Number.isFinite(efw)||!b)return null;if(efw<=b[0])return Math.max(0,3*efw/b[0]);if(efw<=b[1])return interp(3,10,(efw-b[0])/(b[1]-b[0]));if(efw<=b[2])return interp(10,50,(efw-b[1])/(b[2]-b[1]));if(efw<=b[3])return interp(50,90,(efw-b[2])/(b[3]-b[2]));if(efw<=b[4])return interp(90,97,(efw-b[3])/(b[4]-b[3]));return Math.min(100,97+3*(efw-b[4])/Math.max(1,b[4]-b[3]))}
+function growthCentile(x){if(x.reference==="manual"&&Number.isFinite(x.cent))return {cent:x.cent,source:"Manual centile supplied"};const b=igCentileBounds(x.ga);if(!b)return {cent:Number.isFinite(x.cent)?x.cent:null,source:Number.isFinite(x.cent)?"Manual / local value":"Reference unavailable at this GA"};return {cent:centileFromBounds(x.efw,b),source:"INTERGROWTH-21st EFW"}}
+function addGrowth(){const x={date:$("growthDate").value||dateOnly(),ga:num("growthGA"),efw:num("growthEFW"),ac:num("growthAC"),cent:num("growthCent"),reference:$("growthRef").value,comment:$("growthComment").value,context:$("growthContext").value,refNote:$("growthRefNote").value};if(!x.ga||!x.efw){$("growthTable").innerHTML='<div class="notice warn">Gestational age and EFW are required.</div>';return}const g=growthCentile(x);x.calculatedCent=g.cent;x.centileSource=g.source;state.growth.push(x);state.growth.sort((a,b)=>a.date.localeCompare(b.date));renderGrowth();renderGrowthChart();saveLocal()}
+function classifyGrowth(c){if(!Number.isFinite(c))return "Not classified";if(c<3)return "Below 3rd centile";if(c<10)return "3rd–<10th centile";if(c<=90)return "10th–90th centile";if(c<=97)return ">90th–97th centile";return ">97th centile"}
+function serialGrowthAnalysis(){const rows=[...state.growth].sort((a,b)=>new Date(a.date)-new Date(b.date));return rows.map((x,i)=>{const c=Number.isFinite(x.calculatedCent)?x.calculatedCent:null;let crossing="";if(i>0&&c!=null&&rows[i-1].calculatedCent!=null){const p=rows[i-1].calculatedCent;if((p>=10&&c<10)||(p<10&&c>=10))crossing="Crossed 10th centile";if((p>=3&&c<3)||(p<3&&c>=3))crossing+=(crossing?" · ":"")+"Crossed 3rd centile";if(Math.abs(c-p)>50)crossing+=(crossing?" · ":"")+"Centile change >50 points"}const interval=i>0?daysBetween(rows[i-1].date,x.date):null,delta=i>0?x.efw-rows[i-1].efw:null,vel=interval&&interval>0?delta/interval:null;return {...x,cent:c,class:classifyGrowth(c),crossing,interval,delta,velocity:vel}})}
+function renderGrowth(){const rows=serialGrowthAnalysis();if(!rows.length){$("growthTable").innerHTML='<p class="muted">No growth scans recorded.</p>';return}let h='<div class="scroll"><table><tr><th>Date</th><th>GA</th><th>EFW</th><th>Centile</th><th>Reference</th><th>Interval growth</th><th>Flag</th><th></th></tr>';rows.forEach((x,i)=>{h+=`<tr><td>${esc(x.date)}</td><td>${gaText(x.ga)}</td><td>${Math.round(x.efw)} g</td><td>${x.cent!=null?x.cent.toFixed(1)+"%":"—"}<br><span class="muted small">${esc(x.class)}</span></td><td>${esc(x.centileSource||x.reference||"—")}</td><td>${x.velocity!=null?x.velocity.toFixed(1)+" g/day":"—"}</td><td>${x.crossing?`<span class="badge warn">${esc(x.crossing)}</span>`:""}</td><td><button class="btn" onclick="removeGrowth(${i})">Remove</button></td></tr>`});h+='</table></div>';const last=rows.at(-1),risk=last?.cent!=null&&last.cent<10;h+=`<div class="notice ${risk?"warn":"info"}"><b>Longitudinal summary:</b> Latest EFW is ${last.cent!=null?last.cent.toFixed(1)+"th centile":"not available"} using ${esc(last.centileSource||"the selected reference")}. ${last.crossing?esc(last.crossing)+". ":""}A centile descriptor does not by itself establish FGR.</div>`;$("growthTable").innerHTML=h}
+function removeGrowth(i){const rows=[...state.growth].sort((a,b)=>a.date.localeCompare(b.date));const target=rows[i];state.growth=state.growth.filter(x=>x!==target);renderGrowth();renderGrowthChart();saveLocal()}
+function renderGrowthChart(){const el=$("growthChart");if(!el)return;const rows=serialGrowthAnalysis().filter(x=>Number.isFinite(x.cent));if(!rows.length){el.innerHTML='<span class="muted">Add a scan with a calculable centile to display the longitudinal centile plot.</span>';return}const W=760,H=260,L=48,R=18,T=18,B=38,pw=W-L-R,ph=H-T-B,px=i=>rows.length===1?L+pw/2:L+i/(rows.length-1)*pw,py=c=>T+ph-(Math.max(0,Math.min(100,c))/100)*ph;let svg=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="260" role="img" aria-label="Longitudinal fetal EFW centile plot"><line x1="${L}" y1="${T}" x2="${L}" y2="${T+ph}" stroke="currentColor" opacity=".25"/><line x1="${L}" y1="${T+ph}" x2="${L+pw}" y2="${T+ph}" stroke="currentColor" opacity=".25"/>`;[3,10,50,90,97].forEach(c=>{const y=py(c);svg+=`<line x1="${L}" y1="${y}" x2="${L+pw}" y2="${y}" stroke="currentColor" opacity="${c===50?.18:.10}"/><text x="6" y="${y+4}" font-size="11">${c}th</text>`});svg+=`<polyline points="${rows.map((x,i)=>`${px(i).toFixed(1)},${py(x.cent).toFixed(1)}`).join(" ")}" fill="none" stroke="currentColor" stroke-width="2"/>`;rows.forEach((x,i)=>{svg+=`<circle cx="${px(i)}" cy="${py(x.cent)}" r="4" fill="currentColor"/><text x="${px(i)}" y="${H-14}" text-anchor="middle" font-size="10">${esc(x.date.slice(5))}</text>`});el.innerHTML=svg+`</svg><div class="small muted">Centile trajectory is descriptive. A downward trajectory should prompt review of dating, measurement quality, interval, Doppler and clinical context.</div>`}
+function calcDoppler(){const flow=$("uaFlow").value,ua=num("uaPI"),mca=num("mcaPI"),mo=num("mcaMoM"),cpr=num("cpr"),ut=num("utPI"),dv=num("dvPI"),wave=$("dvWave").value;state.doppler={ga:num("dopGA"),uaPI:ua,uaFlow:flow,mcaPI:mca,mcaPSV:num("mcaPSV"),mcaMoM:mo,cpr,utPI:ut,utNotch:$("utNotch").value,dvPI:dv,dvWave:wave,reference:$("dopRef")?.value||"local"};const items=[];if(flow==="Absent (AEDF)")items.push(["warn","Absent UA end-diastolic flow is recorded. In suspected FGR this is a significant finding requiring management according to the applicable specialist protocol."]);if(flow==="Reversed (REDF)")items.push(["bad","Reversed UA end-diastolic flow is recorded. This is a significant abnormal Doppler finding requiring prompt specialist assessment."]);if(mo!=null)items.push([mo>=1.5?"warn":"info",`MCA-PSV MoM: ${mo.toFixed(2)}. Use an appropriate validated reference and clinical context; do not substitute a universal raw PSV threshold.`]);if(cpr!=null)items.push(["info",`CPR recorded: ${cpr.toFixed(2)}. CPR interpretation should use an appropriate gestational-age reference; a single universal cutoff is not applied here.`]);if(ua!=null)items.push(["info",`UA PI recorded: ${ua.toFixed(2)}. Centile/percentile interpretation requires a validated GA-specific reference.`]);if(ut!=null)items.push(["info",`Mean uterine-artery PI recorded: ${ut.toFixed(2)}. Interpret with the selected validated reference and clinical indication.`]);if(wave==="Absent"||wave==="Reversed")items.push(["warn",`DV a-wave is ${wave.toLowerCase()}. Confirm waveform quality and obtain specialist assessment when clinically indicated.`]);$("dopResult").innerHTML=items.map(x=>`<div class="notice ${x[0]}">${x[1]}</div>`).join("")||'<div class="result">No Doppler values entered.</div>';saveLocal()}
+function calcAnomaly(){const v=num("vent"),nt=num("nt"),sdp=num("sdp"),afi=num("afi"),rf=num("renalPelvis"),nf=num("nuchalFold"),ga=num("anomGA"),items=[];if(v!=null)items.push(v<10?"Ventricular atrial width is below the usual ventriculomegaly threshold.":v<=12?"Mild ventriculomegaly range (10–12 mm).":v<=15?"Moderate ventriculomegaly range (13–15 mm).":"Severe ventriculomegaly range (>15 mm). Full CNS evaluation and appropriate specialist pathway are required.");if(nt!=null)items.push(`NT ${nt} mm recorded. Increased NT is nonspecific and should not be mapped directly to a particular chromosomal diagnosis; interpret by gestational-age-specific reference and the full first-trimester assessment.`);if(sdp!=null&&afi!=null)items.push(`Fluid: SDP ${sdp} cm and AFI ${afi} cm recorded. These are separate methods; do not combine them into a single classification.`);if(rf!=null)items.push(`Renal pelvis AP diameter ${rf} mm recorded. Interpret using gestational-age-appropriate UTD/renal-pelvis reference and complete urinary-tract assessment.`);if(nf!=null)items.push(`Nuchal fold ${nf} mm recorded. Interpret using the appropriate gestational-age reference and the complete anatomy/aneuploidy context.`);$("anomResult").innerHTML=items.map(t=>`<div class="notice">${esc(t)}</div>`).join("")||'<div class="result">No measurements entered.</div>';state.anomaly={vent:v,nt,sdp,afi,renalPelvis:rf,nuchalFold:nf,ga,placentaNote:$("placentaNote").value,cardiacCnsNote:$("cardiacCnsNote").value,otherAnom:$("otherAnom").value};saveLocal()}
+function buildImpression(){const arr=[];if(state.biometry.efw)arr.push(`Fetal biometry recorded with Hadlock estimated fetal weight approximately ${Math.round(state.biometry.efw)} g.`);if(state.growth.length){const r=serialGrowthAnalysis().at(-1);if(r?.cent!=null)arr.push(`Latest recorded EFW is approximately ${r.cent.toFixed(1)}th centile using ${r.centileSource||"the selected reference"}.`);if(r?.crossing)arr.push(r.crossing+".")}if(state.doppler.uaFlow==="Absent (AEDF)")arr.push("Absent umbilical artery end-diastolic flow is recorded.");if(state.doppler.uaFlow==="Reversed (REDF)")arr.push("Reversed umbilical artery end-diastolic flow is recorded.");if(state.anomaly.vent!=null&&state.anomaly.vent>=10)arr.push(`Ventricular atrial width ${state.anomaly.vent} mm is recorded; grade by the appropriate ventriculomegaly classification.`);if(state.folliculometry.length){const z=follicleStatusForIndex(state.folliculometry.length-1);arr.push(`Folliculometry: ${z.label.toLowerCase()}.`)}return arr.join(" ")||"No automated impression generated from incomplete data; review the recorded findings."}
+function buildNextStep(){if(state.doppler.uaFlow==="Reversed (REDF)")return"Prompt specialist assessment and management according to the applicable fetal-growth-restriction/fetal-medicine protocol.";if(state.doppler.uaFlow==="Absent (AEDF)")return"Specialist assessment and management according to the applicable fetal-growth-restriction protocol.";if(state.growth.length){const r=serialGrowthAnalysis().at(-1);if(r?.cent!=null&&r.cent<10)return"Review EFW/AC centile, interval growth, Doppler, fluid and the clinical picture; use local/specialist FGR criteria rather than the centile alone."}if(state.folliculometry.length){const z=follicleStatusForIndex(state.folliculometry.length-1);if(z.label==="Indeterminate")return"Repeat serial follicular assessment when clinically indicated; correlate with biochemical/procedure timing."}return"Correlate with clinical findings, complete examination, validated reference standards and local protocol."}
+function renderMasterTimeline(){let h=`<div class="kpi-row"><div class="stat"><div class="v">${state.growth.length}</div><div class="k">Growth scans</div></div><div class="stat"><div class="v">${state.folliculometry.length}</div><div class="k">Folliculometry scans</div></div><div class="stat"><div class="v">${state.doppler.uaFlow||"—"}</div><div class="k">Latest UA flow</div></div><div class="stat"><div class="v">${state.biometry.efw?Math.round(state.biometry.efw)+" g":"—"}</div><div class="k">Latest EFW</div></div><div class="stat"><div class="v">${state.dating.gaText||"—"}</div><div class="k">Dating basis</div></div></div><hr>`;if(state.growth.length)h+=`<h3>Growth</h3><div class="scroll"><table><tr><th>Date</th><th>GA</th><th>EFW</th><th>Centile</th><th>Trend</th></tr>${serialGrowthAnalysis().map(x=>`<tr><td>${esc(x.date)}</td><td>${gaText(x.ga)}</td><td>${Math.round(x.efw)} g</td><td>${x.cent!=null?x.cent.toFixed(1)+"%":"—"}</td><td>${esc(x.crossing||"—")}</td></tr>`).join("")}</table></div>`;if(state.folliculometry.length)h+=`<h3 style="margin-top:18px">Folliculometry</h3><div class="scroll"><table><tr><th>Date</th><th>CD</th><th>Lead follicle</th><th>Endometrium</th><th>Interpretation</th></tr>${state.folliculometry.map((x,i)=>{const a=[...x.right,...x.left].filter(f=>Number.isFinite(f.mean)).sort((a,b)=>b.mean-a.mean)[0],z=follicleStatusForIndex(i);return`<tr><td>${x.date}</td><td>${x.cycleDay??"—"}</td><td>${a?`${a.id} ${a.mean.toFixed(1)} mm`:"—"}</td><td>${x.endo??"—"} mm · ${esc(x.pattern)}</td><td><span class="badge ${z.level}">${esc(z.label)}</span></td></tr>`}).join("")}</table></div>`;$("masterTimeline").innerHTML=h}
+function renderReport(){collectPatient();const p=state.patient,b=state.biometry,d=state.dating,doP=state.doppler,a=state.anomaly;let h=`<div class="grid g3"><div><b>Patient / study ID</b><br>${esc(p.id||"—")}</div><div><b>Indication</b><br>${esc(p.indication||"—")}</div><div><b>Study date</b><br>${esc(p.date||dateOnly())}</div></div><hr>`;h+=`<h3>Dating</h3><p>${d.gaText?`GA: <b>${esc(d.gaText)}</b> · basis: ${esc(d.source||"—")} · EDD: ${esc(d.edd||"—")}`:"No dating result recorded."}</p>`;if(b.efw)h+=`<h3>Biometry</h3><div class="scroll"><table><tr><th>Parameter</th><th>Value</th></tr><tr><td>HC</td><td>${b.hc.toFixed(1)} mm</td></tr><tr><td>AC</td><td>${b.ac} mm</td></tr><tr><td>FL</td><td>${b.fl} mm</td></tr><tr><td>EFW</td><td>${Math.round(b.efw)} g</td></tr><tr><td>CI</td><td>${b.ci.toFixed(1)}%</td></tr></table></div>`;if(state.growth.length){const r=serialGrowthAnalysis().at(-1);h+=`<h3>Growth</h3><p>Latest EFW: ${Math.round(r.efw)} g · centile: ${r.cent!=null?r.cent.toFixed(1)+"%":"not available"} · reference: ${esc(r.centileSource||"—")}. ${r.crossing?esc(r.crossing):"No centile-crossing flag recorded."}</p>`}if(doP.uaPI||doP.uaFlow)h+=`<h3>Doppler</h3><p>UA PI: ${doP.uaPI??"—"} · end-diastolic flow: ${esc(doP.uaFlow||"—")} · MCA-PSV MoM: ${doP.mcaMoM??"—"} · CPR: ${doP.cpr??"—"} · DV a-wave: ${esc(doP.dvWave||"—")}</p>`;if(a.vent!=null||a.nt!=null||a.sdp!=null||a.afi!=null)h+=`<h3>Targeted findings</h3><p>${a.vent!=null?`Ventricular atrial width ${a.vent} mm. `:""}${a.nt!=null?`NT ${a.nt} mm. `:""}${a.sdp!=null?`SDP ${a.sdp} cm. `:""}${a.afi!=null?`AFI ${a.afi} cm.`:""}</p>`;if(state.folliculometry.length){const s=state.folliculometry.at(-1),z=follicleStatusForIndex(state.folliculometry.length-1),lead=[...s.right,...s.left].filter(f=>Number.isFinite(f.mean)).sort((x,y)=>y.mean-x.mean)[0];h+=`<h3>Folliculometry</h3><p>Latest scan: ${esc(s.date)} · cycle day ${s.cycleDay??"—"}. ${lead?`Lead follicle ${esc(lead.id)} ${lead.mean.toFixed(1)} mm. `:""}Endometrium ${s.endo??"—"} mm, ${esc(s.pattern)}. Impression: <b>${esc(z.label)}</b>.</p>`}h+=`<h3>Impression</h3><p>${esc(buildImpression())}</p><h3>Recommendations / next step</h3><p>${esc(buildNextStep())}</p><h3>Clinical notes</h3><p>${esc(p.notes||"—")}</p><div class="small muted">Babsinogen v${APP_VERSION} · reference set reviewed September 2026. Automated output is a documentation aid and requires clinician review.</div>`;$("reportContent").innerHTML=h}
+function exportData(){collectPatient();const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`babsinogen-${state.patient.id||"episode"}-v${APP_VERSION}.json`;a.click();URL.revokeObjectURL(a.href)}
+function importData(file){const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);Object.assign(state,x);populatePatient();renderGrowth();renderGrowthChart();renderFolInputs();renderFolTimeline();saveLocal();alert("Data imported.")}catch(e){alert("Invalid Babsinogen JSON file.")}};r.readAsText(file)}
+function follicleCard(side,obj={},idx){const id=`${side}-${idx}`;return `<div class="fol-card" data-fol="${id}">
+ <div class="fol-head"><b>${side==="R"?"Right":"Left"} follicle ${idx+1}</b><button class="remove" type="button" onclick="removeFol('${side}',${idx})">Remove</button></div>
+ <div class="grid g4" style="margin-top:8px">
+  <div class="field"><label>Tracking ID</label><input class="input fol-id" value="${esc(obj.id||side+String(idx+1))}" placeholder="R1"></div>
+  <div class="field"><label>D1 (mm)</label><input class="input fol-d1" type="number" min="1" max="50" step=".1" value="${obj.d1??""}"></div>
+  <div class="field"><label>D2 (mm)</label><input class="input fol-d2" type="number" min="1" max="50" step=".1" value="${obj.d2??""}"></div>
+  <div class="field"><label>D3 (mm), optional</label><input class="input fol-d3" type="number" min="1" max="50" step=".1" value="${obj.d3??""}"></div>
+ </div>
+ <div class="grid g3"><div><span class="mean">Mean diameter: <span class="mean-v">—</span> mm</span></div><label class="check"><input class="fol-dom" type="checkbox" ${obj.dominant?"checked":""}>Operator-designated dominant/lead</label><div class="field"><label>Morphology / note</label><input class="input fol-note" value="${esc(obj.note||"")}"></div></div>
+ </div>`}
+function attachFolListeners(){document.querySelectorAll(".fol-card").forEach(c=>{const calc=()=>{const a=parseFloat(c.querySelector(".fol-d1").value),b=parseFloat(c.querySelector(".fol-d2").value),d=parseFloat(c.querySelector(".fol-d3").value);const vals=[a,b,Number.isFinite(d)?d:null].filter(Number.isFinite);c.querySelector(".mean-v").textContent=vals.length? (vals.reduce((x,y)=>x+y,0)/vals.length).toFixed(1):"—"};c.querySelectorAll("input").forEach(i=>i.addEventListener("input",calc));calc()})}
+function addFol(side){tempFol[side].push({});renderFolInputs()}
+function removeFol(side,i){tempFol[side].splice(i,1);renderFolInputs()}
+function renderFolInputs(){$("rightFol").innerHTML=tempFol.R.map((o,i)=>follicleCard("R",o,i)).join("");$("leftFol").innerHTML=tempFol.L.map((o,i)=>follicleCard("L",o,i)).join("");attachFolListeners()}
+function readFol(side){return [...document.querySelectorAll(`#${side==="R"?"rightFol":"leftFol"} .fol-card`)].map(c=>{const vals=[numEl(c,".fol-d1"),numEl(c,".fol-d2"),numEl(c,".fol-d3")].filter(Number.isFinite);return{id:c.querySelector(".fol-id").value.trim(),d1:vals[0]??null,d2:vals[1]??null,d3:vals[2]??null,mean:vals.length?vals.reduce((a,b)=>a+b,0)/vals.length: null,dominant:c.querySelector(".fol-dom").checked,note:c.querySelector(".fol-note").value}})}
+function numEl(c,s){const x=parseFloat(c.querySelector(s).value);return Number.isFinite(x)?x:null}
+function follicleStatusForIndex(i){const s=state.folliculometry[i], all=[...s.right,...s.left].filter(f=>Number.isFinite(f.mean)).sort((a,b)=>b.mean-a.mean),lead=all[0];let prev=state.folliculometry[i-1],prior=lead&&prev?[...prev.right,...prev.left].find(f=>f.id===lead.id):null;const post=[s.freeFluid&&s.freeFluid!=="None seen",s.cl.present==="Present",lead&&prior&&lead.mean<prior.mean-2,lead&&/collapse|collapsed|regression|crenat/i.test(lead.note||"")].filter(Boolean).length;if(prior&&post>=3)return{label:"Confirmed by serial sonographic criteria",level:"good",rationale:"Serial pre-ovulatory-to-post-ovulatory change with multiple compatible findings."};if(prior&&post>=2)return{label:"Probable recent ovulation",level:"good",rationale:"Serial regression with supportive post-ovulatory findings."};if(s.cycleType==="IVF / ART"&&s.trigger!=="None"&&s.procedure==="Oocyte retrieval planned")return{label:"Ovulation not expected before planned retrieval",level:"info",rationale:"Interpret against ART protocol."};if(lead&&lead.mean>=18&&(s.pattern==="Trilaminar / triple-line"||s.lhSurge==="Yes"||s.trigger!=="None"))return{label:"Likely imminent",level:"info",rationale:"Mature-size lead follicle with supportive context."};if(s.cl.present==="Present"||post>=1)return{label:"Likely occurred / luteal features",level:"good",rationale:"Post-ovulatory features documented; certainty depends on serial evidence."};if(lead)return{label:"Developing follicle",level:"neutral",rationale:"Follicle remains intact without convincing post-ovulatory change."};return{label:"Indeterminate",level:"warn",rationale:"Insufficient measurable follicular data."}}
+function clearFolForm(){tempFol={R:[],L:[]};renderFolInputs();["fDate","fDay","fScanNo","fScanNote","fEndo","fFluidLoc","fCLSize","fLH","fE2","fP4","fHCG","fTriggerDT","fProcedureDT"].forEach(id=>{if($(id))$(id).value=""});$("fPattern").selectedIndex=0;$("fFluid").selectedIndex=0;$("fCL").selectedIndex=0}
+function renderFolTimeline(){
+ if(!state.folliculometry.length){$("folTimeline").innerHTML='<p class="muted">No scans recorded.</p>';return}
+ let html='<div class="timeline">';
+ state.folliculometry.forEach((s,i)=>{const inter=follicleStatusForIndex(i),all=[...s.right,...s.left].filter(f=>Number.isFinite(f.mean)).sort((a,b)=>b.mean-a.mean),lead=all[0];html+=`<div class="timeline-item"><div class="row"><b>Scan ${s.scanNo}</b><span class="muted">${esc(s.date)}</span><span class="badge ${inter.level}">${inter.label}</span></div><div class="small">${s.cycleDay?`CD ${s.cycleDay} · `:""}${lead?`Lead ${esc(lead.id)} ${lead.mean.toFixed(1)} mm · `:""}Endometrium ${s.endo??"—"} mm · ${esc(s.pattern)}</div><div class="small muted">${esc(inter.rationale)}</div></div>`});html+='</div><div class="notice" style="margin-top:12px"><b>Trend principle:</b> observed follicle growth, subsequent regression/collapse, endometrial change, corpus luteum and fluid are interpreted together. A calendar day alone does not define ovulation.</div>';$("folTimeline").innerHTML=html}
+function saveFolScan(){
+ const date=$("fDate").value||todayLocal(),scanNo=num("fScanNo")||state.folliculometry.length+1;
+ const scan={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),date,cycleDay:num("fDay"),cycleType:$("fType").value,cycleLength:num("fCycleLength"),lmp:$("fLmp").value,scanNo,note:$("fScanNote").value,
+ right:readFol("R"),left:readFol("L"),rightVol:num("rVol"),leftVol:num("lVol"),rightCyst:$("rCyst").value,leftCyst:$("lCyst").value,rightNote:$("rNote").value,leftNote:$("lNote").value,
+ endo:num("fEndo"),pattern:$("fPattern").value,freeFluid:$("fFluid").value,fluidLoc:$("fFluidLoc").value,cl:{present:$("fCL").value,side:$("fCLSide").value,size:num("fCLSize"),vascularity:$("fCLVasc").value},
+ lh:num("fLH"),lhUnit:$("fLHUnit").value,lhSurge:$("fLHS").value,e2:num("fE2"),e2Unit:$("fE2Unit").value,p4:num("fP4"),p4Unit:$("fP4Unit").value,hcg:num("fHCG"),hcgUnit:$("fHCGUnit").value,trigger:$("fTrigger").value,triggerDT:$("fTriggerDT").value,procedure:$("fProcedure").value,procedureDT:$("fProcedureDT").value,protocol:$("fProtocol").value,symptoms:$("fSymptoms").value};
+ const inter=follicleStatus(scan);state.folliculometry.push(scan);state.folliculometry.sort((a,b)=>a.date.localeCompare(b.date));
+ $("folScanInterpretation").innerHTML=`<span class="badge ${inter.level}">${inter.label}</span><p>${esc(inter.rationale)}</p>${inter.lead?`<p><b>Lead follicle:</b> ${esc(inter.lead.id)} · ${inter.lead.mean.toFixed(1)} mm · ${inter.growth!=null?`observed growth ${inter.growth.toFixed(1)} mm/day`: "growth rate not calculable from available serial data"}</p>`:""}<p><b>Endometrium:</b> ${scan.endo??"not measured"} mm · ${esc(scan.pattern)}. ${scan.freeFluid!=="None seen"?`Free fluid: ${esc(scan.freeFluid)} ${esc(scan.fluidLoc)}`:"No free fluid reported."}</p>`;
+ renderFolTimeline();finalFollicleSummary();saveLocal()
+}
+function finalFollicleSummary(){
+ const el=$("folFinalSummary");if(!el)return;
+ if(!state.folliculometry.length){el.innerHTML='<span class="badge neutral">No cycle data</span><p>Enter serial scans to generate a final interpretation.</p>';return}
+ const i=state.folliculometry.length-1,z=follicleStatusForIndex(i),s=state.folliculometry[i];
+ let next="Continue serial assessment according to the fertility protocol and correlate with laboratory/procedure timing.";
+ if(z.label==="Likely imminent")next="If clinically indicated, coordinate timing with the treating fertility protocol, LH/trigger status and planned intercourse or IUI.";
+ if(z.label==="Probable recent ovulation"||z.label==="Confirmed by serial sonographic criteria")next="Document the likely ovulatory event and correlate with procedure timing or biochemical confirmation when required.";
+ if(s.cycleType==="IVF / ART"&&s.trigger!=="None"&&s.procedure==="Oocyte retrieval planned")next="Interpret follicular persistence against the ART retrieval protocol; ovulation before retrieval may be unintended.";
+ el.innerHTML='<span class="badge '+z.level+'">'+esc(z.label)+'</span><p><b>Cycle type:</b> '+esc(s.cycleType)+' · <b>Scans:</b> '+state.folliculometry.length+'</p><p><b>Impression:</b> '+esc(z.rationale)+'</p><p><b>Next action:</b> '+esc(next)+'</p>';
+}
+function calcOrgan(){
+ const raw=num("organMeasure");if(raw==null){$("organResult").innerHTML='<div class="notice warn">Enter a measurement first.</div>';return}
+ const t=$("organType").value,u=$("organUnit").value,c=$("organContext").value;
+ const notes={kidney:"Interpret renal length with age, sex, body size, side and morphology.",bladder:"Wall thickness depends strongly on bladder distension and technique.",prostate:"Use three orthogonal dimensions for volume when prostate size is the clinical question.",aorta:"Interpret diameter using a standardized vascular segment/plane and the relevant guideline.",portal:"Portal-vein caliber varies with respiration and technique; correlate with Doppler and liver findings.",spleen:"Interpret splenic size with age, body habitus and clinical context.",uterus:"Uterine dimensions vary with age, parity, hormonal state and menstrual phase."};
+ $("organResult").innerHTML='<div class="result"><span class="badge info">REFERENCE REVIEW</span><p><b>'+esc(t)+'</b>: '+esc(raw)+' '+esc(u)+'</p><p>'+esc(notes[t])+'</p><p class="small muted">Technique/context: '+esc(c||"not specified")+'. No universal diagnostic cutoff has been applied.</p></div>';
+}
+
+function v24DateOnly(d=new Date()){const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`}
+function v24Days(a,b){return Math.round((new Date(b)-new Date(a))/86400000)}
+function v24Add(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return v24DateOnly(x)}
+function v24Ga(days){return `${Math.floor(days/7)}+${days%7}`}
+function calcPregnancyTimeline(){
+  const lmp=$("ptLMP").value,gaw=num("ptGAW"),gad=num("ptGAD")||0,cycle=num("ptCycle")||28,type=$("ptCycleType").value;
+  let base=lmp,gaDays;
+  if(base)gaDays=Math.max(0,v24Days(base,v24DateOnly()));
+  else if(gaw!=null){gaDays=gaw*7+gad;base=v24Add(v24DateOnly(),-gaDays)}
+  else{$("timelineResult").innerHTML='<div class="notice warn">Enter LMP or established gestational age.</div>';return}
+  const ov=dateAdd(base,cycle-14), fertileStart=v24Add(ov,-5), fertileEnd=v24Add(ov,1), edd=dateAdd(base,280), t2=dateAdd(base,91), t3=dateAdd(base,196);
+  state.pregnancyTimeline={lmp:base,cycle,cycleType:type,ovulation:ov,fertileStart,fertileEnd,edd,secondTrimester:t2,thirdTrimester:t3};
+  const safeNote=type==="Irregular"?"Irregular cycles make calendar-based ovulation and 'safe period' estimates substantially less reliable. Do not use this calendar as dependable contraception.":"Calendar-based low-probability days are estimates, not guaranteed contraception.";
+  $("timelineResult").innerHTML=`<div class="scroll"><table><tr><th>Milestone</th><th>Estimated date</th></tr><tr><td>Estimated conception / ovulation</td><td>${esc(ov)}</td></tr><tr><td>Estimated fertile window</td><td>${esc(fertileStart)} → ${esc(fertileEnd)}</td></tr><tr><td>Estimated lower-probability interval</td><td>Cycle-dependent; <b>not guaranteed safe</b></td></tr><tr><td>Second trimester begins</td><td>${esc(t2)} (14+0)</td></tr><tr><td>Third trimester begins</td><td>${esc(t3)} (28+0)</td></tr><tr><td>Estimated due date</td><td>${esc(edd)} (40+0)</td></tr></table></div><div class="notice warn">${esc(safeNote)}</div>`;
+  $("embryoFetusResult").innerHTML=`<b>Developmental terminology:</b> ${gaDays<77?"Embryo (≤10+6 gestational weeks)":"Fetus (≥11+0 gestational weeks)"} · current estimated GA ${v24Ga(gaDays)}.`;
+  const body=gaDays<77?"Early pregnancy commonly includes fatigue, nausea, breast tenderness and urinary frequency while embryonic development progresses.":gaDays<98?"Late first trimester commonly includes continuing hormonal symptoms and uterine growth; nausea may start improving for some people.":gaDays<196?"Second trimester commonly includes progressive abdominal growth and increasing awareness of fetal movement for many people.":"Third trimester commonly includes increasing abdominal pressure, reflux/urinary frequency and stronger fetal movement; significant change in movement warrants assessment.";
+  $("bodyPhaseResult").innerHTML=`<b>Common physiological experience:</b> ${body}`;
+}
+function calcPlacenta(){
+  const loc=$("plLocation").value,type=$("plType").value,edge=num("plEdge"),cord=$("plCord").value,pres=$("plPresentation").value,ga=num("plGA"),vasa=$("plVasa").value,acc=$("plAccreta").value;
+  const n=[];
+  const locMap={Anterior:"Usually a normal site. An anterior placenta may cushion movement against the abdominal wall so some patients perceive kicks less readily; changed/reduced movement still requires assessment.",Posterior:"Usually a normal placental site by itself.",Fundal:"Upper-uterine location; usually not a delivery contraindication by itself.","Right lateral":"Lateral location; document relationship to lower uterine segment when relevant.","Left lateral":"Lateral location; document relationship to lower uterine segment when relevant.",Anterofundal:"Upper anterior location; generally not a delivery contraindication by itself.",Posterofundal:"Upper posterior location; generally not a delivery contraindication by itself.","Low-lying":"Low placental location requires exact relationship to the internal os and appropriate follow-up when indicated.","Placenta previa (covering/overlying internal os)":"Persistent placenta previa can obstruct vaginal delivery and generally changes delivery planning."};
+  if(locMap[loc])n.push(locMap[loc]);
+  if(type==="Succenturiate lobe"||type==="Bilobed placenta")n.push("Accessory placental lobes warrant careful assessment of bridging fetal vessels because vasa previa may occur.");
+  if(cord==="Velamentous")n.push("Velamentous insertion leaves fetal vessels less protected; assess vessel course and vasa previa when indicated.");
+  if(cord==="Marginal")n.push("Marginal cord insertion should be documented and interpreted with fetal growth and local surveillance protocol.");
+  if(edge!=null&&edge<20)n.push(`Entered placental edge-to-os distance: ${edge.toFixed(1)} mm. Interpret using the local/gestational-age-specific low-lying placenta pathway.`);
+  if(ga!=null&&ga>=36&&(pres.includes("breech")||pres==="Transverse lie"||pres==="Oblique lie"))n.push("Persistent non-cephalic presentation late in the third trimester may increase caesarean likelihood or require individualized delivery planning; transverse lie also raises cord-prolapse concern.");
+  if(vasa==="Suspected"||vasa==="Confirmed")n.push("Vasa previa is a specialist obstetric finding because exposed fetal vessels may rupture with membrane rupture or labor.");
+  if(acc!=="Not suspected")n.push("Placenta accreta spectrum concern requires correlation with uterine-scar history, placental location and dedicated expert assessment.");
+  state.placenta={location:loc,type,edge,cord,presentation:pres,ga,vasa,accreta:acc,note:$("plNote").value};
+  $("placentaResult").innerHTML=n.map(x=>`<div class="notice">${esc(x)}</div>`).join("")||'<div class="notice">No additional warning/context was generated from the selected fields.</div>';
+  saveLocal();
+}
+function calcMultiples(){
+  const type=$("mgType").value,A=num("tAefw"),B=num("tBefw"),C=num("tCefw"),vals=[A,B].filter(x=>x!=null);if(C!=null)vals.push(C);
+  const out=[];if(vals.length>=2){const hi=Math.max(...vals),lo=Math.min(...vals),disc=(hi-lo)/hi*100;out.push(`<b>EFW discordance:</b> ${disc.toFixed(1)}%`);if(disc>=20)out.push("Discordance ≥20% is an important surveillance flag, but is not synonymous with TTTS.");}
+  if(type==="Monochorionic diamniotic"){const aS=num("tAsdp"),bS=num("tBsdp");if(aS!=null&&bS!=null&&((aS<2&&bS>8)||(bS<2&&aS>8)))out.push("Fluid discordance pattern is compatible with a strong TTTS screening concern; evaluate bladder status and full specialist criteria.");const aM=num("tAmca"),bM=num("tBmca");if(aM!=null&&bM!=null&&((aM>1.5&&bM<1)||(bM>1.5&&aM<1)))out.push("MCA-PSV MoM pattern raises TAPS concern; confirm measurements and apply the specialist diagnostic framework.");}
+  const ua=$("mgUa").value;if(ua.includes("Absent")||ua.includes("Reversed"))out.push(`Umbilical artery: ${ua}. Prompt clinical review is required under the applicable protocol.`);
+  $("multiplesResult").innerHTML=(out.length?out:["No high-priority pattern was generated from the entered values. Continue serial assessment according to chorionicity and protocol."]).map(x=>`<div class="notice">${x}</div>`).join("");
+  state.multiples.push({date:$("mgDate").value||v24DateOnly(),ga:num("mgGA"),type,efw:vals,discordance:vals.length>=2?((Math.max(...vals)-Math.min(...vals))/Math.max(...vals)*100):null});saveLocal();
+}
+function calcPSAD(){const l=num("psaL"),ap=num("psaAP"),tr=num("psaTR"),psa=num("psaVal");if([l,ap,tr,psa].some(x=>x==null||x<=0)){$("psaResult").innerHTML='<div class="notice warn">Enter all prostate dimensions and PSA.</div>';return}const vol=l*ap*tr*.52/1000,psad=psa/vol;let band=psad<.10?"<0.10 (low)":psad<=.15?"0.10–0.15 (intermediate-low)":psad<=.20?"0.15–0.20 (intermediate-high)":">0.20 (high)";state.psaLab={volume:vol,psa,psad};$("psaResult").innerHTML=`<b>Prostate volume:</b> ${vol.toFixed(1)} mL<br><b>PSA density:</b> ${psad.toFixed(3)} ng/mL/cc<br><b>EAU risk band:</b> ${band}<div class="notice warn">PSA density is a risk-stratification variable, not a cancer diagnosis. Integrate PSA, MRI/PI-RADS and clinical factors.</div>`;saveLocal()}
+const LABS=[
+["Hemoglobin, adult female","g/dL","12.0–15.5","Use laboratory-specific and pregnancy-specific intervals."],["Hemoglobin, adult male","g/dL","13.5–17.5","Use laboratory-specific interval."],["WBC","×10^9/L","4.0–11.0","Pregnancy can cause physiologic leukocytosis."],["Platelets","×10^9/L","150–400","Interpret with pregnancy and clinical context."],["MCV","fL","80–100","Interpret with hemoglobin and iron studies."],["Fasting plasma glucose","mg/dL","70–99","Pregnancy diagnostic thresholds differ from general-adult intervals."],["Creatinine","mg/dL","~0.6–1.1","Pregnancy usually lowers serum creatinine; use pregnancy-specific interpretation."],["TSH","mIU/L","~0.4–4.0","Pregnancy requires trimester/assay-specific interpretation."],["Free T4","ng/dL","Assay-specific","Use the laboratory's pregnancy-specific range."],["β-hCG","IU/L","Gestation-specific","Trend and imaging context matter."],["PSA total","ng/mL","Age/lab-specific","No single universal cutoff."],["LH","mIU/mL","Cycle-phase specific","Interpret by cycle day and assay."],["FSH","mIU/mL","Cycle/menopause specific","Age and cycle phase matter."],["Estradiol","pg/mL","Cycle-phase specific","Assay and treatment dependent."],["Progesterone","ng/mL","Cycle-phase specific","Timing is essential."],["Prolactin","ng/mL","Lab-specific","Pregnancy, stress and medication affect levels."],["CA-125","U/mL","Typically <35","Not a stand-alone ovarian cancer test."],["Urine dipstick","qualitative","Negative","Interpret leukocyte esterase, nitrite, blood, protein and glucose in context."],["Urine MCS","culture","No significant growth","Interpret organism/count, specimen quality and symptoms."],["HVS MCS","microscopy/culture","No clinically significant pathogen","Interpret flora and culture clinically."],["HbA1c","%","~4.0–5.6 non-diabetes","Pregnancy pathways differ from general screening."],["AST","U/L","~10–40","Assay-specific."],["ALT","U/L","~7–56","Assay-specific."],["ALP","U/L","~44–147","Pregnancy can physiologically increase ALP."],["Total bilirubin","mg/dL","~0.1–1.2","Assay-specific."] ];
+function renderLabs(){const q=($("labSearch").value||"").toLowerCase();const r=LABS.filter(x=>!q||x.join(" ").toLowerCase().includes(q));$("labResults").innerHTML='<div class="scroll"><table><tr><th>Parameter</th><th>Unit</th><th>Example interval</th><th>Context</th></tr>'+r.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td><td>${esc(x[2])}</td><td>${esc(x[3])}</td></tr>`).join("")+'</table></div>'}
+function renderSpecialty(){
+const b=$("birads").value;const bt={"0 - Incomplete":"Incomplete assessment; additional imaging/work-up is needed.","1 - Negative":"Negative.","2 - Benign":"Benign finding.","3 - Probably benign":"Probably benign; short-interval follow-up is generally considered.","4 - Suspicious":"Suspicious abnormality; tissue diagnosis should be considered.","5 - Highly suggestive of malignancy":"Highly suggestive of malignancy; prompt diagnostic action is indicated.","6 - Known biopsy-proven malignancy":"Known biopsy-proven malignancy."};$("biradsOut").innerHTML=`<b>${esc(b)}</b><br>${esc(bt[b])}`;
+const o=$("orads").value;$("oradsOut").innerHTML=`<b>${esc(o)}</b><br>Use the current O-RADS US lexicon and management table, incorporating menopausal status, lesion morphology and size.`;
+const bo=$("bosniak").value;const bm={I:"Benign simple cystic mass.",II:"Reliably benign cystic mass.",IIF:"Probably benign; follow-up is warranted.",III:"Indeterminate cystic mass; dedicated CT/MRI characterization and specialist decision-making are appropriate.",IV:"High concern for malignancy because of enhancing nodular/solid components.","Not classifiable on current ultrasound":"Do not force a Bosniak class from incomplete ultrasound assessment."};$("bosniakOut").innerHTML=`<b>Bosniak ${esc(bo)}</b><br>${esc(bm[bo])}`;
+}
+function calcTIRADS(){
+let p=0,c=$("trComp").value,e=$("trEcho").value,s=$("trShape").value,m=$("trMargin").value,f=$("trFoci").value,z=num("trSize");
+if(c==="Mixed cystic and solid")p+=1;else if(c==="Solid/almost completely solid")p+=2;
+if(e==="Isoechoic/hyperechoic")p+=1;else if(e==="Mildly hypoechoic")p+=2;else if(e==="Very hypoechoic")p+=3;
+if(s==="Taller-than-wide")p+=3;if(m==="Lobulated/irregular")p+=2;else if(m==="Extrathyroidal extension")p+=3;
+if(f==="Macrocalcification")p+=1;else if(f==="Rim calcification")p+=2;else if(f==="Punctate echogenic foci")p+=3;
+const cat=p===0?"TR1":p<=2?"TR2":p===3?"TR3":p<=6?"TR4":"TR5";let rec="";
+if(cat==="TR5")rec=z!=null?(z>=10?"FNA-size threshold met (verify current ACR chart).":z>=5?"Follow-up-size threshold met.":"Below stated size thresholds."):"";
+if(cat==="TR4")rec=z!=null?(z>=15?"FNA-size threshold met.":z>=10?"Follow-up-size threshold met.":"Below stated size thresholds."):"";
+if(cat==="TR3")rec=z!=null?(z>=25?"FNA-size threshold met.":z>=15?"Follow-up-size threshold met.":"Below stated size thresholds."):"";
+if(cat==="TR1"||cat==="TR2")rec="No FNA or follow-up is generally recommended by ACR TI-RADS.";
+$("tiradsOut").innerHTML=`<b>${cat}</b> · ${p} points<br>${esc(rec)}`;state.specialty.tirads={category:cat,points:p,size:z};saveLocal()}
+function calcBreastGuide(){const f=[];if($("brShape").value==="Irregular")f.push("irregular shape");if($("brOrient").value==="Not parallel")f.push("nonparallel orientation");if($("brMargin").value!=="Circumscribed")f.push("non-circumscribed margin");$("breastGuideOut").innerHTML=f.length?`<b>Potentially suspicious descriptors:</b> ${f.join(", ")}. Complete BI-RADS assessment is required.`:"No suspicious descriptor was selected in this limited guide."}
+function calcThyroidGuide(){const a=[];if($("thTexture").value!=="Homogeneous")a.push("Diffuse parenchymal abnormality selected; correlate clinically/laboratorily.");if($("thVasc").value!=="Not remarkable")a.push(`Vascularity: ${$("thVasc").value}.`);if($("thNodes").value!=="No suspicious nodes")a.push("Abnormal/indeterminate cervical nodes need separate characterization.");$("thyroidGuideOut").innerHTML=a.map(x=>`<div class="notice">${esc(x)}</div>`).join("")||'<div class="notice">No additional warning feature selected. Apply ACR TI-RADS to discrete nodules.</div>'}
+function calcScrotumGuide(){const a=[];if($("scVasc").value==="Reduced/absent")a.push("Reduced/absent flow in acute pain is a high-priority torsion concern and requires urgent clinical correlation.");if($("scEpi").value==="Enlarged/hyperemic")a.push("Hyperemic enlarged epididymis can support epididymal inflammation in the appropriate clinical setting.");if($("scMass").value==="Intra-testicular")a.push("Intra-testicular mass requires specialist/urologic assessment.");$("scrotumGuideOut").innerHTML=a.map(x=>`<div class="notice">${esc(x)}</div>`).join("")||'<div class="notice">Complete both testes, epididymides and Doppler assessment.</div>'}
+function showIOTA(){$("iotaOut").innerHTML='<div class="scroll"><table><tr><th>B-features</th><th>M-features</th></tr><tr><td>Unilocular cyst</td><td>Irregular solid tumor</td></tr><tr><td>Solid component &lt;7 mm</td><td>Ascites</td></tr><tr><td>Acoustic shadows</td><td>≥4 papillary structures</td></tr><tr><td>Smooth multilocular tumor &lt;100 mm</td><td>Irregular multilocular-solid tumor ≥100 mm</td></tr><tr><td>No blood flow</td><td>Very strong blood flow</td></tr></table></div><p class="small muted">Both B and M features, or neither, make Simple Rules inconclusive.</p>'}
+function quizData(){
+  const T={};
+  const add=(name,items)=>{T[name]=items.map((x,i)=>({...x,diff:i<7?"Foundation":i<15?"Intermediate":"Advanced"}));};
+  const q=(stem,correct,why,d1="Use the selected value without context",d2="Apply a universal cutoff",d3="Ignore technical limitations")=>{
+    const opts=[correct,d1,d2,d3], k=Math.floor((T._n||0)%4); T._n=(T._n||0)+1;
+    const rotated=opts.slice(k).concat(opts.slice(0,k)); return {stem,opts:rotated,ans:(4-k)%4,why};
+  };
+
+  add("Placenta, presentation & cord",[
+    q("At 38 weeks, a singleton fetus remains frank breech. What is the most appropriate interpretation?","Persistent non-cephalic presentation should be incorporated into delivery planning.","Breech near term can affect the mode and planning of delivery; the exact plan is obstetric and individualized."),
+    q("At 39 weeks, the fetus is transverse. What is the key implication?","Persistent transverse lie usually precludes routine vaginal delivery and requires obstetric planning.","Persistent transverse lie near term has major delivery implications and may increase cord-prolapse concern."),
+    q("An anterior placenta is otherwise normal. What movement-related counseling is appropriate?","An anterior placenta can make kicks harder for some patients to perceive, but a reduction/change in movement still warrants assessment.","Placental position can alter perception, but it should never be used to dismiss a clinically important change in fetal movement."),
+    q("A posterior fundal placenta is seen at 22 weeks. What is the best report wording?","Posterior-fundal placenta with no delivery implication from location alone.","An upper-uterine posterior location is commonly normal by itself."),
+    q("Placenta is 8 mm from the internal os at 24 weeks. What should be documented?","The measured edge-to-os relationship and the planned gestational-age-appropriate follow-up pathway.","Low placental location is interpreted using the precise relationship to the internal os and gestational age."),
+    q("The placenta is covering the internal os at term. Which statement is best?","Persistent placenta previa can obstruct vaginal delivery and changes delivery planning.","Placenta previa at term is clinically significant because the placenta overlies the cervical opening."),
+    q("A succenturiate lobe is identified. What additional feature deserves attention?","Bridging fetal vessels and possible vasa previa.","Succenturiate lobes can have vessels running between placental portions, creating vasa previa risk."),
+    q("A bilobed placenta is seen. What should be assessed?","The vascular connection between lobes and its relationship to the cervix.","Bridging vessels between lobes may be exposed in the membranes and can be close to the cervix."),
+    q("A velamentous cord insertion is documented. What is the main additional concern?","Unprotected fetal vessels and possible vasa previa.","Velamentous insertion places vessels in the membranes rather than protected placental tissue."),
+    q("A marginal cord insertion is present. What is the best action?","Document it and interpret it together with fetal growth and the local protocol.","Marginal insertion can be associated with growth concerns in some pregnancies and should be documented."),
+    q("At 26 weeks, fetus is breech. What is the safest interpretation?","Presentation can still change substantially before term.","Early/mid-pregnancy breech is common and is not equivalent to persistent term breech."),
+    q("A low-lying placenta at 20 weeks later appears clear of the cervix. What does this illustrate?","Placental edge location can change relative to the internal os as the uterus develops.","Many low-lying placentas diagnosed earlier in pregnancy are no longer low later."),
+    q("Vasa previa is suspected on color Doppler. What is the appropriate response?","Recommend specialist confirmation and management planning.","Exposed fetal vessels near/crossing the cervix can rupture with membrane rupture or labor."),
+    q("Placenta accreta spectrum is suspected in a placenta previa patient with prior caesarean scar. Why is this combination important?","Placenta previa plus prior uterine surgery increases PAS risk and warrants expert evaluation.","The risk context justifies dedicated placental imaging and specialist planning."),
+    q("A report only says 'anterior placenta.' What is missing in a clinically useful report?","Relevant edge-to-os relationship, morphology and cord insertion when indicated.","Location alone may not capture previa, accessory-lobe or cord-vessel risk."),
+    q("A footling breech persists at term. What should the report emphasize?","The presentation is non-cephalic and requires individualized obstetric delivery planning.","Persistent non-cephalic presentation near term affects delivery strategy."),
+    q("A patient with anterior placenta reports markedly reduced movements. Which response is safest?","Assess fetal movement urgently rather than attributing it to the anterior placenta.","Anterior placentation may alter perception but does not exclude fetal compromise."),
+    q("Color Doppler shows vessels between two placental lobes near the cervix. What is the concern?","Possible vasa previa.","Fetal vessels traversing membranes near the cervix are the defining concern in vasa previa."),
+    q("At 37 weeks a fetus is oblique. What is the report implication?","Document the lie and recommend obstetric delivery planning if persistent.","Persistent abnormal lie late in pregnancy can affect delivery mode."),
+    q("Why should placental type and cord insertion be separate fields?","Accessory placental morphology and cord insertion create different risks and cannot be inferred from location alone.","Separating fields reduces missed findings and supports targeted assessment.")
+  ]);
+  add("Dating, embryo/fetus & cycle physiology",[
+    q("A pregnancy is 10+6 weeks by gestational age. Which developmental term is used in this application?","Embryo.","Because gestational age is about two weeks ahead of post-fertilization age, 10+6 weeks corresponds to the end of the embryonic period in this convention."),
+    q("A pregnancy is exactly 11+0 weeks by established gestational age. Which term is used?","Fetus.","At 11+0 gestational weeks, the app uses fetus, corresponding to 9 completed weeks post-fertilization."),
+    q("A patient has a reliable LMP and a first-trimester CRL. Which is preferred for ultrasound dating?","CRL-based first-trimester dating when appropriate.","CRL is the preferred first-trimester ultrasound measurement for dating when available."),
+    q("Mean sac diameter is measured at an early scan. Should it assign an EDD?","No. MSD should not be used to assign an EDD.","ACOG specifically advises against assigning an estimated due date from mean sac diameter."),
+    q("A patient has an ART-derived gestational age. Which dating basis should normally be preserved?","ART-derived dating.","ART timing provides a known chronological basis and should not be casually replaced by later ultrasound."),
+    q("A patient asks for a guaranteed 'safe period.' What should the app say?","Calendar-based low-probability days are estimates and are not guaranteed contraception.","Ovulation timing varies, especially when cycle length is irregular."),
+    q("With a regular 28-day cycle, what is the common calendar ovulation estimate?","Around cycle day 14.","The calendar method commonly estimates ovulation about 14 days before the next period, not necessarily on a fixed day for every woman."),
+    q("Why is a fertile-window estimate broader than one ovulation day?","Sperm can survive for several days and the ovum remains viable briefly after ovulation.","Pregnancy is possible from intercourse in the days preceding ovulation as well as around ovulation."),
+    q("An irregular-cycle patient asks for a precise ovulation date from LMP alone. What is safest?","Explain that calendar prediction is less reliable and use serial ovulation assessment when clinically indicated.","Cycle variability increases uncertainty in calendar-based predictions."),
+    q("At 14+0 weeks, which trimester begins?","Second trimester.","ACOG defines the second trimester as 14+0 through 27+6."),
+    q("At 28+0 weeks, which trimester begins?","Third trimester.","ACOG defines the third trimester as 28+0 onward in the pregnancy timeline."),
+    q("At 13+6 weeks, which trimester is the pregnancy in?","First trimester.","ACOG places the first trimester through 13+6."),
+    q("A patient has uncertain LMP but a reliable early CRL. What should be documented?","The CRL-based dating method and the resulting EDD.","Dating should be transparent so later growth interpretation uses a documented gestational-age basis."),
+    q("A patient wants the exact conception date from an LMP. What is the correct response?","Provide an estimated ovulation/conception window rather than claiming an exact fertilization date.","Actual ovulation and fertilization vary even when LMP is known."),
+    q("A patient with a regular cycle has intercourse five days before estimated ovulation. Is pregnancy possible?","Yes; this falls within the biologically plausible fertile window.","Sperm can remain viable for several days in the female reproductive tract."),
+    q("At 20 weeks, which body change is commonly expected?","Progressive abdominal enlargement and increasing fetal movement awareness.","Second-trimester changes commonly include uterine growth and increasing perception of fetal movement."),
+    q("At 31 weeks, which symptom cluster can occur normally in pregnancy?","Increased urinary frequency, abdominal pressure and reflux/breathlessness.","Third-trimester uterine size and physiology can produce these common symptoms."),
+    q("A patient with reduced fetal movement says an anterior placenta explains it. What should the clinician do?","Assess the reduced movement rather than dismissing it because of placental position.","Change in movement remains clinically important regardless of placental location."),
+    q("Why does the app distinguish gestational age from time since fertilization?","Gestational age is conventionally counted from the first day of the LMP and is about two weeks ahead of fertilization age.","Keeping the two time scales distinct prevents apparently conflicting embryo/fetus terminology.")
+  ]);
+  add("Fetal growth & Doppler",[
+    q("An EFW is at the 8th centile on one scan. What does that finding establish?","The fetus is small relative to the selected reference; it does not alone establish FGR.","FGR integrates size with growth trajectory and other evidence such as Doppler and clinical context."),
+    q("Why are serial growth scans useful?","They allow assessment of interval growth and trajectory.","Growth is dynamic; a single scan cannot establish growth velocity."),
+    q("A fetus crosses from the 40th to the 12th centile. What is appropriate?","Verify technical quality and interval, then interpret the trajectory with AC, Doppler and clinical context.","Centile crossing can be clinically informative but is not synonymous with disease."),
+    q("Which Doppler is central to FGR surveillance?","Umbilical artery Doppler.","UA Doppler provides information about placental resistance and is central to FGR surveillance."),
+    q("Absent end-diastolic flow is seen in the umbilical artery. What should happen?","Prompt specialist clinical review according to the applicable FGR protocol.","AEDF is a clinically significant abnormal Doppler finding."),
+    q("MCA-PSV should normally be reported in which form for fetal anemia assessment?","MoM using an appropriate gestational-age reference.","Raw velocity is less interpretable across gestations than a validated MoM framework."),
+    q("A CPR is low. What is the safest software behavior?","Compare it with an appropriate gestational-age/reference framework rather than a universal cutoff.","CPR interpretation depends on reference standard, gestational age and clinical context."),
+    q("Why should the reference chart be named in a growth report?","Different fetal growth standards can produce different centile classifications.","Explicit references make interpretation auditable."),
+    q("A calculated EFW lies outside the embedded reference range. What should the software do?","State that a validated centile is unavailable rather than extrapolating without validation.","Unvalidated extrapolation can create false precision."),
+    q("A fetus has AC below the 10th centile but EFW above the 10th. Which statement is best?","The low AC remains clinically relevant and should be integrated into FGR assessment.","Some FGR frameworks incorporate AC as well as EFW."),
+    q("Why is EFW reported as an estimate rather than an exact fetal weight?","Ultrasound measurement and model error can be clinically meaningful.","EFW is calculated from measurements and is inherently uncertain."),
+    q("A report says 'macrosomia confirmed' from an ultrasound EFW. What is the problem?","Prenatal EFW is an estimate and should be described as above/below a reference or macrosomia-associated range.","The ultrasound cannot guarantee the actual birth weight."),
+    q("Why can two valid growth references give different centiles for the same EFW?","They use different populations, modeling and statistical standards.","Percentiles are reference-dependent."),
+    q("Which finding is particularly concerning when UA Doppler is abnormal in suspected FGR?","Absent or reversed end-diastolic flow.","These indicate increased placental resistance and greater clinical concern."),
+    q("A Doppler tracing is technically poor. What should happen?","Repeat or qualify the measurement before making a strong interpretation.","Technical adequacy is necessary for reliable Doppler results."),
+    q("Why is gestational age critical when calculating growth centiles?","A fetus of the same weight can be normal at one gestation and small at another.","Growth standards are gestational-age dependent."),
+    q("The EFW rises by 200 g in 14 days. What should the app calculate?","Observed interval growth velocity in g/day, while noting measurement uncertainty.","Serial EFW can be used to calculate observed velocity, but the result inherits measurement error."),
+    q("A fetus has normal EFW but abnormal UA Doppler. What should be reported?","The Doppler abnormality should still be reported and interpreted independently of size.","Fetal growth and placental Doppler are related but not interchangeable."),
+    q("Why should the app avoid diagnosing FGR from EFW centile alone?","Some fetuses are constitutionally small while others with FGR may not have a very low single EFW.","FGR is a clinical syndrome rather than a single-number diagnosis."),
+    q("What is the main benefit of a longitudinal centile chart?","It makes trajectory and possible centile crossing visually apparent.","Trend information can reveal changes that a single percentile obscures.")
+  ]);
+  add("Folliculometry & ovulation",[
+    q("A dominant follicle is 21 mm on one scan with no later scan. Can ovulation be confirmed?","No; a single intact follicle does not confirm ovulation.","Serial collapse/regression and compatible post-ovulatory findings strengthen the inference."),
+    q("A lead follicle grows from 16 to 18 mm over two days. What should be documented?","The observed serial growth rate rather than a rigid predicted ovulation date.","Individual follicular growth varies and observed dynamics are more informative."),
+    q("A previously dominant follicle collapses and a corpus luteum is then seen. What does this support?","Recent ovulation by serial sonographic criteria.","Preovulatory follicle followed by collapse and luteal change is strong sonographic evidence."),
+    q("Does a corpus luteum alone prove ovulation?","No; it is supportive and should be interpreted with the cycle history and serial findings.","A corpus luteum is a post-ovulatory structure but morphology is not infallible in isolation."),
+    q("A trilaminar endometrium is seen. What does it mainly indicate?","A pattern compatible with periovulatory estrogen effect.","It supports a periovulatory state but does not prove that ovulation has occurred."),
+    q("A small amount of free pelvic fluid is seen after follicular change. How should it be interpreted?","As supportive but nonspecific evidence of recent ovulation.","Free fluid can accompany ovulation but has other possible causes."),
+    q("A stimulated IVF cycle has several large intact follicles before retrieval. Should this be called spontaneous ovulation?","No; interpret it against the stimulation, trigger and retrieval protocol.","In ART, follicles may intentionally remain intact until retrieval."),
+    q("Why should the app record hours since an hCG trigger when available?","Trigger timing provides protocol context for expected follicular events.","The interval adds context but does not independently prove ovulation."),
+    q("A positive LH surge occurs with an intact dominant follicle. What is best?","Likely periovulatory/imminent ovulation; serial imaging may confirm the event.","An LH surge can precede ovulation."),
+    q("A patient has irregular cycles. What should the software avoid?","Assuming ovulation occurs on day 14.","Calendar assumptions are less reliable when cycle length varies."),
+    q("Why should follicle IDs such as R1 and L1 persist across scans?","To track the same follicle over time.","Stable identifiers support accurate longitudinal growth/collapse assessment."),
+    q("A known endometrioma is measured on the right ovary. Should it be counted as a follicle?","No; it is an ovarian lesion rather than a tracked developing follicle.","Follicles and pre-existing ovarian lesions must be distinguished."),
+    q("A previously growing follicle becomes smaller with crenated margins. What does this suggest?","Follicular collapse/regression compatible with recent ovulation.","Morphologic collapse is a core serial sonographic sign."),
+    q("The endometrium thickens but the lead follicle is unchanged. What should be concluded?","Periovulatory preparation may be occurring, but ovulation is not established.","Endometrial response does not prove follicular rupture."),
+    q("A luteal-phase scan shows a corpus luteum and more homogeneous echogenic endometrium. What is the best phase label?","Likely luteal/post-ovulatory phase.","The combined morphology supports a post-ovulatory state."),
+    q("A follicle is 14 mm and there is no surge or trigger. What is safest?","Developing follicle; continue serial assessment as clinically indicated.","Size alone does not justify calling a follicle preovulatory."),
+    q("A scan has conflicting findings and no prior study. What should the app say?","Indeterminate ovulatory status.","The app should not force a binary answer when evidence is incomplete."),
+    q("Why calculate mean follicle diameter from two or three axes?","It provides a more reproducible size measure than a single axis.","Orthogonal measurements reduce dependence on one potentially distorted dimension."),
+    q("Why should LH, estradiol and progesterone values include collection date/time and units?","Interpretation depends on cycle phase, timing and assay.","A numeric value without timing or units can be misleading."),
+    q("A serial scan shows preovulatory follicle, then collapse plus corpus luteum. Which wording is strongest?","Confirmed by serial sonographic criteria.","The sequence demonstrates the expected transition more convincingly than a single post-ovulatory sign.")
+  ]);
+  add("Twin/multiple gestation & TTTS/TAPS",[
+    q("Why is chorionicity determined early in twin pregnancy?","Monochorionic twins share a placenta and have unique complications such as TTTS.","Shared placental circulation changes surveillance and risk."),
+    q("SMFM recommends TTTS surveillance in MCDA twins beginning at what gestation?","16 weeks.","SMFM Consult Series #72 recommends surveillance beginning at 16 weeks at least every 2 weeks."),
+    q("What should routine TTTS surveillance minimally include?","Amniotic fluid assessment on both sides and presence/absence of fetal bladders, ideally with UA Doppler.","These are core surveillance features in SMFM guidance."),
+    q("One MCDA twin has oligohydramnios and the other marked polyhydramnios with a nonvisualized donor bladder. What is the concern?","TTTS-pattern findings requiring specialist fetal-medicine assessment.","Fluid discordance plus bladder findings are central to TTTS assessment."),
+    q("How is inter-fetal EFW discordance calculated?","(Larger EFW − smaller EFW) / larger EFW ×100.","This standardized percentage facilitates comparison across twin pregnancies."),
+    q("Why does 22% EFW discordance not by itself diagnose TTTS?","TTTS is defined by the shared-circulation syndrome with fluid/bladder features rather than weight difference alone.","Growth discordance has multiple causes and requires integrated assessment."),
+    q("MCA-PSV is >1.5 MoM in one MC twin and <1.0 MoM in the co-twin. What does this raise?","A TAPS diagnostic concern.","SMFM identifies this donor/recipient MCA-PSV MoM pattern as a diagnostic element of TAPS."),
+    q("Why are individual fetal growth trajectories needed in twins?","One fetus can diverge from the other even when the pregnancy is otherwise progressing.","Twin growth must be assessed fetus by fetus."),
+    q("An MCDA pair has 27% discordance but normal fluid and bladders. What is best?","Significant discordance requiring integrated surveillance, not automatic TTTS diagnosis.","High discordance can represent sFGR or other placental issues without TTTS."),
+    q("Why should the ultrasound report name chorionicity and amnionicity?","They determine which complication surveillance framework applies.","MCDA and dichorionic pregnancies have materially different risks."),
+    q("A twin's bladder is not seen on one scan but fluid is normal. What is safest?","Repeat/serial assessment and interpret in the full clinical context.","Bladder visibility varies and one absent observation does not by itself establish TTTS."),
+    q("A monochorionic twin pregnancy has abnormal UA Doppler in one fetus. What is appropriate?","Assess each fetus individually and continue the monochorionic surveillance pathway.","One fetus can have selective growth restriction or placental insufficiency."),
+    q("Why is MCA-PSV useful in TAPS?","It can detect differing anemia/polycythemia physiology between monochorionic twins.","MCA peak systolic velocity changes with fetal anemia and is used in TAPS assessment."),
+    q("After laser therapy for TTTS, why does surveillance continue?","Post-laser TTTS recurrence, TAPS and FGR remain possible.","SMFM recommends structured post-treatment surveillance."),
+    q("A multiple gestation's chorionicity cannot be determined confidently. What should be recorded?","Chorionicity indeterminate, with appropriate expert review when needed.","Guessing chorionicity can lead to the wrong surveillance pathway."),
+    q("Why should a triplet pregnancy not simply use a twin discordance calculation?","Each fetus may need individual pairwise/overall assessment and a protocol appropriate to the number and chorionicity.","Higher-order multiples require individualized surveillance."),
+    q("A report diagnoses TTTS solely because one twin is 20% smaller. What is the error?","TTTS cannot be diagnosed from growth discordance alone.","TTTS requires the characteristic shared-circulation fluid/bladder findings."),
+    q("Why can one monochorionic fetus be growth restricted without TTTS?","Unequal placental sharing can produce selective fetal growth restriction.","sFGR is a distinct monochorionic complication."),
+    q("Which twin-pregnancy variable should never be averaged between twins?","Individual fetal EFW and Doppler measurements.","Averaging can hide clinically important inter-fetal differences."),
+    q("What is the principal clinical value of the multiple-gestation comparison tool?","It highlights growth discordance, fluid/bladder differences and Doppler patterns for specialist review.","It is a surveillance aid, not an autonomous diagnosis.")
+  ]);
+  add("Breast ultrasound & BI-RADS",[
+    q("A breast lesion is oval, circumscribed and parallel. What is the correct next step?","Use these descriptors within the complete BI-RADS assessment.","Individual descriptors do not determine the final category alone."),
+    q("A lesion is irregular and spiculated. What does this imply?","Suspicious morphology requiring complete diagnostic assessment.","Irregular/spiculated features increase suspicion."),
+    q("BI-RADS 0 means what?","Incomplete assessment requiring additional evaluation.","Category 0 means the diagnostic work-up is incomplete."),
+    q("BI-RADS 1 represents what?","Negative.","No imaging abnormality requiring additional breast-imaging action is identified."),
+    q("BI-RADS 2 represents what?","Benign finding.","Category 2 indicates a benign finding."),
+    q("BI-RADS 3 represents what?","Probably benign, generally with short-interval follow-up.","Category 3 is used for probably benign findings."),
+    q("BI-RADS 4 represents what?","Suspicious abnormality for which tissue diagnosis should be considered.","Category 4 spans suspicious findings that generally require biopsy consideration."),
+    q("BI-RADS 5 represents what?","Highly suggestive of malignancy.","Category 5 indicates a high probability of malignancy."),
+    q("BI-RADS 6 represents what?","Known biopsy-proven malignancy.","Category 6 is reserved for known biopsy-proven malignancy."),
+    q("A palpable mass is incompletely characterized because visualization is poor. What is safest?","Do not force a final BI-RADS category; complete the diagnostic evaluation.","Incomplete assessment should remain incomplete rather than falsely reassuring."),
+    q("A lesion is taller-than-wide. Why is this descriptor important?","Nonparallel orientation can increase suspicion and should be incorporated into BI-RADS characterization.","Orientation is one of the standardized breast-ultrasound descriptors."),
+    q("Why should breast lesions be documented with clock-face/quadrant and distance from nipple?","For reproducible localization and follow-up.","Standardized localization supports comparison across examinations."),
+    q("Internal vascularity in a mass proves malignancy. True or false?","False; vascularity is one descriptor and is not diagnostic by itself.","Many benign and malignant lesions can be vascular."),
+    q("Posterior enhancement behind an anechoic lesion supports what broad characterization?","A fluid-rich/cystic lesion in the appropriate morphology.","Posterior enhancement is commonly associated with fluid transmission."),
+    q("A complicated cyst contains internal echoes. What must be clarified?","Whether echoes represent debris or a true solid component.","That distinction can change the appropriate assessment."),
+    q("Why should mammography/clinical history be correlated when available?","Ultrasound findings are interpreted in a multimodality and clinical context.","No single modality captures every breast abnormality."),
+    q("A suspicious breast mass is found, but the sonographer has not assigned a BI-RADS category. What is missing?","A final standardized assessment and appropriate recommendation.","BI-RADS exists to standardize the assessment and management communication."),
+    q("Why should incomplete images not be called 'normal'?","An unvisualized structure cannot be confidently declared normal.","This prevents false reassurance."),
+    q("A high-risk patient has a benign-appearing lesion. What is safest?","Integrate clinical risk with imaging and complete BI-RADS assessment rather than ignoring either.","Risk context matters to management."),
+    q("What is the principal role of BI-RADS?","Standardize breast-imaging terminology, assessment and recommendations.","RADS systems improve reproducibility and communication.")
+  ]);
+  add("Thyroid ultrasound & ACR TI-RADS",[
+    q("Which thyroid composition gets 0 ACR TI-RADS composition points?","Cystic/almost completely cystic.","Purely cystic lesions receive no composition points."),
+    q("What does a taller-than-wide nodule add?","3 points for shape.","Nonparallel/taller-than-wide shape is weighted as a suspicious feature."),
+    q("Very hypoechoic echogenicity contributes how many TI-RADS points?","3 points.","Echogenicity is weighted from 0 to 3 points."),
+    q("Extrathyroidal extension contributes how many margin points?","3 points.","Extrathyroidal extension is the highest-scoring margin feature."),
+    q("Punctate echogenic foci contribute how many points?","3 points.","Punctate echogenic foci are heavily weighted in ACR TI-RADS."),
+    q("A TR5 nodule is 12 mm. What should be checked?","It reaches the ACR TI-RADS FNA size threshold, subject to current guideline verification.","TR5 uses a 10-mm FNA threshold in ACR TI-RADS."),
+    q("A TR4 nodule is 16 mm. What is the standard ACR size consideration?","FNA threshold is reached.","TR4 uses a 15-mm FNA threshold."),
+    q("A TR3 nodule is 18 mm. What is the standard consideration?","Follow-up threshold is reached, while FNA is reserved for the larger threshold.","TR3 follow-up begins at 15 mm and FNA at 25 mm."),
+    q("A TR2 nodule is 8 mm. What is generally recommended by ACR TI-RADS?","No FNA or follow-up.","TR1 and TR2 generally do not receive FNA/follow-up under ACR TI-RADS."),
+    q("Why must all five TI-RADS domains be scored?","The final category is determined by the weighted total of composition, echogenicity, shape, margin and echogenic foci.","Partial scoring can misclassify the nodule."),
+    q("Why should suspicious cervical lymph nodes be described separately?","They can materially alter the clinical assessment and require their own morphology description.","Lymph-node abnormalities should not be hidden inside the thyroid nodule score."),
+    q("A nodule has internal debris in a cystic component. Why is real-time assessment important?","Debris and true solid tissue have different implications for scoring.","Correctly identifying solid tissue is essential to TI-RADS."),
+    q("A report gives 'TR5' but no feature score. What improvement is needed?","List the feature categories and total score for auditability.","Traceable scoring makes the assessment reproducible."),
+    q("A diffuse heterogeneous thyroid is present without a discrete nodule. What should be done?","Describe the diffuse parenchymal pattern separately from TI-RADS nodule scoring.","TI-RADS is designed for nodules rather than diffuse gland disease."),
+    q("Why should thyroid nodule measurements be in three dimensions?","For reproducible documentation and follow-up.","Three-dimensional measurements support longitudinal assessment."),
+    q("A patient has a high TSH and a thyroid nodule. Does TSH assign TI-RADS?","No; TSH provides clinical context but TI-RADS is sonographic.","Laboratory data complement but do not replace the ultrasound feature score."),
+    q("A TR4 nodule is 8 mm. What is the safest statement?","It is below the stated ACR FNA/follow-up size thresholds; verify the current chart and clinical context.","Category and size jointly determine ACR management."),
+    q("Why should the ACR release/version be documented?","Standardized classification systems can be revised.","Versioning reduces the risk of applying outdated thresholds."),
+    q("What is the primary purpose of ACR TI-RADS?","Standardize thyroid-nodule description and risk stratification while reducing unnecessary biopsy.","The system is a structured risk-management framework."),
+    q("A nodule is suspicious and the patient also has abnormal nodes. What should the report avoid?","Treating the nodule score as the entire diagnosis.","The nodule, nodes and clinical context need integrated assessment.")
+  ]);
+  add("Ovarian masses, O-RADS & IOTA",[
+    q("O-RADS 0 represents what?","Incomplete evaluation.","Category 0 means the assessment is incomplete."),
+    q("O-RADS 1 represents what?","Normal ovary.","Category 1 is used for a normal ovary."),
+    q("O-RADS 2 broadly represents what?","Almost certainly benign.","Category 2 is the very-low-risk group for appropriately characterized lesions."),
+    q("Why is menopausal status important in O-RADS management?","Management pathways and risk interpretation can vary by menopausal status.","O-RADS incorporates clinical context in its management algorithms."),
+    q("How many IOTA Simple Rules features are there in total?","10: five benign and five malignant.","The model contains five B-features and five M-features."),
+    q("Only IOTA B-features are present. What is the Simple Rules result?","Benign.","Only benign features classify as benign under the Simple Rules."),
+    q("Only IOTA M-features are present. What is the result?","Malignant.","Only malignant features classify as malignant under the Simple Rules."),
+    q("Both B- and M-features are present. What is the result?","Inconclusive.","Presence of both feature groups makes Simple Rules inconclusive."),
+    q("Neither B nor M features apply. What is the result?","Inconclusive.","When neither group applies, Simple Rules is inconclusive."),
+    q("Which is an IOTA benign feature?","Unilocular cyst.","Unilocular cyst is one of the benign B-features."),
+    q("Which is an IOTA malignant feature?","Ascites.","Ascites is an IOTA M-feature."),
+    q("What does the ADNEX model estimate?","The probability of benign, borderline and malignant ovarian tumor subtypes.","ADNEX is a multiclass risk model for adnexal tumors."),
+    q("Why should papillary projections be counted accurately?","They are an important standardized adnexal descriptor.","Papillary structures affect risk classification in validated systems."),
+    q("A mass is poorly visualized and cannot be fully characterized. What is safest?","State that the assessment is incomplete rather than inventing a risk category.","Incomplete characterization undermines risk classification."),
+    q("A solid irregular ovarian mass has ascites. What pathway is appropriate?","High-risk assessment with O-RADS/IOTA or expert evaluation and appropriate specialist referral.","The combination contains high-risk descriptors."),
+    q("Why should CA-125 not be used as a stand-alone ovarian cancer diagnosis?","It is nonspecific and is best interpreted with imaging and clinical findings.","Tumor markers are complementary rather than definitive."),
+    q("A classic benign lesion is recognized. Why can O-RADS still be useful?","It standardizes terminology and management communication.","Standardized descriptors improve consistency."),
+    q("Why is subjective expert assessment still valuable?","Experienced examiners can integrate patterns beyond isolated checklist variables.","Validation studies support expert assessment where available."),
+    q("What is the safest action when Simple Rules is inconclusive?","Use an appropriate secondary model such as ADNEX or expert assessment.","Inconclusive classification should not be forced into benign/malignant."),
+    q("What is the central purpose of O-RADS and IOTA systems?","Structured risk stratification and standardized communication for adnexal lesions.","They support but do not replace clinical judgment or pathology.")
+  ]);
+  add("Renal cysts, Bosniak & PSA",[
+    q("A simple renal cyst is anechoic, thin-walled and posteriorly enhancing. What broad description fits?","Simple cyst morphology compatible with a Bosniak I-type lesion.","These are classic simple cyst features, although formal Bosniak classification is CT/MRI-centered."),
+    q("Why should Bosniak classification not be forced from incomplete ultrasound?","Bosniak v2019 relies heavily on enhancement characterization, particularly CT/MRI.","Ultrasound can be insufficient for definitive class assignment."),
+    q("What is Bosniak IIF broadly intended to convey?","Probably benign but requiring follow-up.","IIF is the follow-up category."),
+    q("What is a major concern for Bosniak IV lesions?","Enhancing nodular/solid components with high suspicion for malignancy.","Enhancing nodules are major high-risk features."),
+    q("A complex renal lesion is seen only on ultrasound. What should the report avoid?","Assigning a definitive Bosniak class when required characterization is unavailable.","The appropriate next study may be contrast CT/MRI depending on clinical context."),
+    q("Prostate dimensions are 50×40×45 mm. What is the approximate ellipsoid volume?","46.8 mL.","Volume ≈ length × AP × transverse × 0.52 / 1000."),
+    q("PSA is 7 ng/mL and prostate volume is 50 mL. What is PSA density?","0.14 ng/mL/cc.","PSA density = serum PSA divided by prostate volume in cubic centimeters."),
+    q("PSA density is 0.08 ng/mL/cc. Which EAU band applies?","<0.10, low.","The EAU risk-adapted matrix uses <0.10 as the low PSA-density group."),
+    q("PSA density is 0.13 ng/mL/cc. Which band applies?","0.10–0.15, intermediate-low.","This is the intermediate-low group in the EAU matrix."),
+    q("PSA density is 0.17 ng/mL/cc. Which band applies?","0.15–0.20, intermediate-high.","This is the intermediate-high group in the EAU matrix."),
+    q("PSA density is 0.24 ng/mL/cc. Which band applies?",">0.20, high.","This is the high PSA-density group in the EAU matrix."),
+    q("Why does prostate volume matter in PSA density?","It contextualizes the PSA concentration relative to the size of the gland.","PSA density adjusts PSA for prostate volume."),
+    q("Can PSA density alone diagnose prostate cancer?","No; it is a risk-stratification variable that must be integrated with MRI/PI-RADS and clinical factors.","No single PSA-derived number establishes histology."),
+    q("Why should prostate volume be measured reproducibly?","PSA density changes directly with the estimated prostate volume.","Volume-estimation error propagates into PSA density."),
+    q("A renal cyst contains enhancing nodules on CT. What is the concern?","A high Bosniak class and possible cystic renal malignancy.","Enhancing nodules materially raise malignant potential."),
+    q("Why does Bosniak v2019 distinguish cystic masses from predominantly solid masses with necrosis?","The classification is designed for cystic renal masses rather than solid tumors with necrosis.","This reduces inappropriate use of the cystic-mass framework."),
+    q("A PSA density is low and MRI is negative. Does that prove no cancer exists?","No; it lowers risk but does not eliminate it.","Risk stratification is probabilistic."),
+    q("Why should MRI PI-RADS be retained in prostate risk assessment?","PI-RADS and PSA density are complementary predictors of clinically significant prostate cancer.","EAU guidance supports combined risk-adapted decision-making."),
+    q("A prostate volume is measured by DRE only. What limitation exists?","Clinical/DRE volume estimation is less precise than standardized imaging methods.","Volume estimation technique affects PSA density."),
+    q("What is the best report style when a renal cyst cannot be classified?","Describe the observed morphology and state that Bosniak classification is indeterminate on the current examination.","Transparent uncertainty is safer than an unsupported class.")
+  ]);
+  add("Anomaly, reporting & clinical safety",[
+    q("A lateral ventricular width is 11 mm. Which category applies?","Mild ventriculomegaly.","SMFM defines 10–12 mm as mild ventriculomegaly."),
+    q("A lateral ventricular width is 14 mm. Which category applies?","Moderate ventriculomegaly.","SMFM defines 13–15 mm as moderate."),
+    q("A lateral ventricular width is 17 mm. Which category applies?","Severe ventriculomegaly.","More than 15 mm is severe."),
+    q("An NT measurement is increased. What should not be done?","Assign a specific chromosomal diagnosis from NT alone.","Increased NT is nonspecific and needs validated reference and broader evaluation."),
+    q("Why should AFI and SDP be stored as separate measurements?","They are different amniotic-fluid assessment methods.","They should not be averaged or treated as the same metric."),
+    q("A renal pelvis is enlarged on a mid-trimester scan. What is safest?","Use a gestational-age-appropriate urinary tract reference/classification.","Renal pelvis thresholds vary with gestational age and context."),
+    q("A technically incomplete anomaly survey is reported as normal. What is the problem?","An unvisualized structure cannot be confidently declared normal.","Incomplete visualization should be explicitly documented."),
+    q("A persistent FHR is 105 bpm. What is the appropriate flag?","Persistent bradycardia requiring clinical evaluation if confirmed.","Persistent FHR at or below 110 bpm warrants evaluation."),
+    q("A persistent FHR is 185 bpm. What is the appropriate flag?","Persistent tachycardia requiring clinical evaluation.","Persistent FHR at or above 180 bpm warrants evaluation."),
+    q("A uterine artery notch is present alone. Does it diagnose pre-eclampsia?","No; interpret it with validated reference, gestational age and clinical context.","A notch alone is not a diagnosis."),
+    q("Why should placental thickness not use an arbitrary universal diagnostic cutoff?","Normal thickness varies with gestational age and technique, and morphology/context matter.","Single cutoffs can overcall disease."),
+    q("What belongs in a structured ultrasound impression?","The clinically meaningful synthesis of findings, not a raw list of measurements.","The impression translates documented findings into a concise clinical summary."),
+    q("Why should the report include the dating basis?","Growth and anomaly measurements depend on the correct gestational-age framework.","Transparent dating improves downstream interpretation."),
+    q("A low centile is identified without abnormal Doppler. What should the impression say?","Small-for-reference measurement requiring context/serial assessment, unless full diagnostic criteria are met.","Low size alone is not synonymous with FGR."),
+    q("Why should an automated urgent flag not be written as a definitive diagnosis?","Decision-support software should prompt clinical review rather than replace professional judgment.","Flags are safety prompts, not autonomous diagnoses."),
+    q("A patient record is stored locally in the browser. What is the safest privacy claim?","The app stores records locally and does not transmit saved records to a server, but local data can still be lost if browser data are cleared.","Local storage is not an immutable archive."),
+    q("Why should laboratory ranges be labeled as examples rather than universal truths?","Reference intervals vary by laboratory, assay, population, age, sex and pregnancy status.","The performing laboratory's validated range should control interpretation."),
+    q("A Doppler value lacks gestational age and reference framework. What is missing?","The context needed to interpret the result reliably.","Doppler indices are reference- and gestational-age-dependent."),
+    q("Why should recommendations include a reason for specialist review when appropriate?","A clear next step improves communication and avoids vague reporting.","Recommendations should be understandable and actionable."),
+    q("What final check should precede signing a report?","Verify measurements, dating, reference standards, impression and recommendations against the complete examination.","The clinician remains responsible for final verification.")
+  ]);
+  delete T._n;
+  return T;
+}
+const QUIZ_BANK=quizData();
+function quizInit(){const s=$("quizTopic");s.innerHTML=Object.keys(QUIZ_BANK).map(x=>`<option>${esc(x)}</option>`).join("");$("quizDiff").onchange=renderQuizQuestions;s.onchange=renderQuizQuestions;renderQuizQuestions()}
+function renderQuizQuestions(){const topic=$("quizTopic").value,diff=$("quizDiff").value;let q=QUIZ_BANK[topic]||[];if(diff!=="All")q=q.filter(x=>x.diff===diff);$("quizMeta").innerHTML=`<b>${esc(topic)}</b> · ${q.length} questions shown · 20 questions are in the topic bank.`;$("quizQuestions").innerHTML=q.map((x,i)=>`<div class="quizCard"><b>${i+1}. ${esc(x.stem)}</b> <span class="pill">${esc(x.diff)}</span>${x.opts.map((o,j)=>`<label class="quizOpt"><input type="radio" name="q${i}" value="${j}"> ${esc(o)}</label>`).join("")}<div id="qe${i}" style="display:none"></div></div>`).join("");$("quizResults").innerHTML=""}
+function submitQuiz(){const topic=$("quizTopic").value,diff=$("quizDiff").value;let q=QUIZ_BANK[topic];if(diff!=="All")q=q.filter(x=>x.diff===diff);let score=0,ans=0;q.forEach((x,i)=>{const p=document.querySelector(`input[name="q${i}"]:checked`);if(p){ans++;if(Number(p.value)===x.ans)score++}const e=$("qe"+i);e.style.display="block";e.innerHTML=`<div class="notice ${p&&Number(p.value)===x.ans?"good":"warn"}"><b>Correct answer:</b> ${esc(x.opts[x.ans])}<br><b>Explanation:</b> ${esc(x.why)}</div>`});const pct=Math.round(score/q.length*100),grade=pct>=90?"Excellent":pct>=80?"Strong":pct>=70?"Good":pct>=60?"Developing":"Needs further review";$("quizResults").innerHTML=`<b>Score:</b> ${score}/${q.length} (${pct}%) · <b>${grade}</b> · answered ${ans}/${q.length}.`;state.quiz={topic,diff,score,pct};saveLocal()}
+function downloadReport(){collectPatient();const p=state.patient,d=state.dating,b=state.biometry;const imp=buildImpression();const h=`<!doctype html><html><head><meta charset="utf-8"><title>Babsinogen Report</title><style>body{font:13px Arial;margin:32px;color:#172033}h1,h2{color:#0b4775}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd5df;padding:7px;text-align:left}th{background:#f0f5f9}.box{border:1px solid #ccd5df;padding:12px;margin:10px 0}</style></head><body><h1>Babsinogen Clinical Ultrasound Report</h1><div class="box"><b>Patient/study ID:</b> ${esc(p.id||"—")}<br><b>Indication:</b> ${esc(p.indication||"—")}<br><b>Operator:</b> ${esc(p.operator||"—")}<br><b>Date:</b> ${esc(p.date||v24DateOnly())}</div><h2>Dating</h2><p>${esc(d.gaText||"Not recorded")} · EDD ${esc(d.edd||"—")} · basis ${esc(d.source||"—")}</p>${b.efw?`<h2>Biometry</h2><table><tr><th>HC</th><td>${b.hc.toFixed(1)} mm</td></tr><tr><th>AC</th><td>${b.ac} mm</td></tr><tr><th>FL</th><td>${b.fl} mm</td></tr><tr><th>EFW</th><td>${Math.round(b.efw)} g</td></tr></table>`:""}<h2>Impression</h2><p>${esc(imp)}</p><h2>Recommendations</h2><p>${esc(buildNextStep())}</p><h2>Additional findings</h2>
+${state.placenta?.location?`<p><b>Placenta/presentation:</b> ${esc(state.placenta.location)} · ${esc(state.placenta.type)} · cord ${esc(state.placenta.cord)} · ${esc(state.placenta.presentation)}. ${state.placenta.edge!=null?`Edge–internal os distance ${state.placenta.edge} mm.`:""}</p>`:""}
+${state.multiples?.length?`<p><b>Multiple gestation:</b> ${esc(state.multiples.at(-1).type)} · latest EFW discordance ${state.multiples.at(-1).discordance!=null?state.multiples.at(-1).discordance.toFixed(1)+"%":"not calculated"}.</p>`:""}
+${state.psaLab?.psad!=null?`<p><b>Prostate:</b> volume ${state.psaLab.volume.toFixed(1)} mL · PSA ${state.psaLab.psa} ng/mL · PSA density ${state.psaLab.psad.toFixed(3)} ng/mL/cc.</p>`:""}
+<h3>Clinical impression</h3><p>${esc(buildImpression())}</p>
+<h3>Recommendations</h3><p>${esc(buildNextStep())}</p>
+<div class="sign"><b>Clinician verification/signature:</b> ______________________________ &nbsp; <b>Date:</b> __________</div><p>Generated by Babsinogen v${APP_VERSION}. Verify all findings and references before signing.</p></body></html>`;const blob=new Blob([h],{type:"text/html"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`babsinogen-report-${p.id||"episode"}-v${APP_VERSION}.html`;a.click();URL.revokeObjectURL(a.href)}
+
+function wire(){$("episodeDate").value=dateOnly();$("mgDate").value=dateOnly();$("ptLMP").value=$("lmp").value||"";$("growthDate").value=dateOnly();$("fDate").value=todayLocal();$("newCaseBtn").onclick=()=>{if(confirm("Start a new case? Unsaved current data will be replaced.")){try{localStorage.removeItem(STORAGE_KEY)}catch(e){}location.reload()}};$("printBtn").onclick=()=>{show("report");setTimeout(()=>window.print(),150)};$("saveEpisode").onclick=()=>{collectPatient();saveLocal();alert("Episode saved locally in this browser.")};$("exportData").onclick=exportData;$("importData").onchange=e=>e.target.files[0]&&importData(e.target.files[0]);$("clearData").onclick=()=>{if(confirm("Delete all locally stored Babsinogen data?")){try{localStorage.removeItem(STORAGE_KEY)}catch(e){}location.reload()}};$("calcDating").onclick=calcDating;$("calcBio").onclick=calcBio;$("calcDoppler").onclick=calcDoppler;$("calcAnomaly").onclick=calcAnomaly;$("addGrowth").onclick=addGrowth;$("addR").onclick=()=>addFol("R");$("addL").onclick=()=>addFol("L");$("saveFolScan").onclick=saveFolScan;$("clearFolForm").onclick=clearFolForm;$("calcOrgan").onclick=calcOrgan;$("calcTimeline").onclick=calcPregnancyTimeline;$("calcPlacenta").onclick=calcPlacenta;$("calcMultiples").onclick=calcMultiples;$("calcPSAD").onclick=calcPSAD;$("labSearch").oninput=renderLabs;$("calcTIRADS").onclick=calcTIRADS;$("calcBreastGuide").onclick=calcBreastGuide;$("calcThyroidGuide").onclick=calcThyroidGuide;$("calcScrotumGuide").onclick=calcScrotumGuide;$("showIOTA").onclick=showIOTA;["birads","orads","bosniak"].forEach(id=>$(id).onchange=renderSpecialty);$("startQuiz").onclick=renderQuizQuestions;$("submitQuiz").onclick=submitQuiz;$("printBtn").onclick=()=>{show("report");setTimeout(()=>window.print(),150)};quizInit();renderLabs();renderSpecialty();$("downloadReportBtn").onclick=downloadReport;["patientId","initials","indication","operator","episodeDate","episodeNotes"].forEach(id=>$(id).addEventListener("input",()=>{collectPatient();updateDash()}))}
+initNav();loadLocal();populatePatient();renderSaved();renderGrowth();renderFolInputs();wire();updateDash();
+
+/* ===== Babsinogen v2.3 clinical calculation layer ===== */
+(function(){
+  const V23_IG = {
+    lambda: function(ga){ return -4.257629 - 2162.234*Math.pow(ga,-2) + 0.0002301829*Math.pow(ga,3); },
+    mu: function(ga){ return 4.956737 + 0.0005019687*Math.pow(ga,3) - 0.0001227065*Math.pow(ga,3)*Math.log(ga); },
+    sigma: function(ga){ return 1e-4*(-6.997171 + 0.057559*Math.pow(ga,3) - 0.01493946*Math.pow(ga,3)*Math.log(ga)); },
+    efw: function(acCm,hcCm){
+      const ac=Number(acCm), hc=Number(hcCm);
+      if(!(ac>0 && hc>0)) return NaN;
+      return Math.exp(5.084820 -54.06633*Math.pow(ac/100,3) -95.80076*Math.pow(ac/100,3)*Math.log(ac/100) +3.136370*(hc/100));
+    },
+    zFromEfw: function(efw,ga){
+      const x=Number(efw), g=Number(ga);
+      if(!(x>0 && g>=22 && g<=40)) return NaN;
+      const L=this.lambda(g), M=this.mu(g), S=this.sigma(g), y=Math.log(x);
+      if(!(S>0)) return NaN;
+      return Math.abs(L)<1e-8 ? (y-M)/S : (Math.pow(y,L)-1)/(L*S);
+    }
+  };
+  window.BabsinogenV23 = V23_IG;
+
+  window.biometryReferenceDescriptor = function(measure){
+    return {measure, reference:"Reference chart not hard-coded in v2.3 for this measurement", status:"raw measurement retained; use locally validated chart/nomogram", safe:true};
+  };
+
+  window.interpretFHRv23 = function(bpm){
+    const x=Number(bpm);
+    if(!Number.isFinite(x)) return {status:"not assessed",note:"FHR not entered"};
+    if(x<=110) return {status:"review",note:"Persistent bradycardia at or below 110 bpm warrants evaluation."};
+    if(x>=180) return {status:"review",note:"Persistent tachycardia at or above 180 bpm warrants evaluation."};
+    return {status:"within broad expected range",note:"Interpret with gestational age, rhythm, duration and clinical context."};
+  };
+
+  window.interpretVentriculomegalyV23 = function(mm){
+    const x=Number(mm);
+    if(!Number.isFinite(x)) return {status:"not assessed"};
+    if(x<10) return {status:"not enlarged"};
+    if(x<=12) return {status:"mild ventriculomegaly"};
+    if(x<=15) return {status:"moderate ventriculomegaly"};
+    return {status:"severe ventriculomegaly"};
+  };
+
+  window.interpretNTv23 = function(mm,gaWeeks){
+    const x=Number(mm), g=Number(gaWeeks);
+    if(!Number.isFinite(x)) return {status:"not assessed"};
+    return {status:"reference-dependent finding",note:"NT should be interpreted against a validated gestational-age/CRL reference and does not by itself diagnose a specific chromosomal condition.",gaWeeks:Number.isFinite(g)?g:null};
+  };
+
+  window.gradeFolliculometryV23 = function(scan){
+    scan=scan||{};
+    const lead=Number(scan.leadMm), endo=Number(scan.endometriumMm);
+    const collapsed=!!scan.collapse, fluid=!!scan.freeFluid, cl=!!scan.corpusLuteum;
+    const surge=!!scan.lhSurge, trigger=!!scan.trigger;
+    if(scan.priorPreovulatory && collapsed && cl) return "confirmed by serial sonographic criteria";
+    if(collapsed && (cl || fluid || scan.postOvulatoryMorphology)) return "probable recent ovulation";
+    if(surge || trigger || (lead>=16 && lead<=26 && endo>=6)) return "likely imminent";
+    if(lead>0) return "developing / not yet ovulated";
+    return "indeterminate";
+  };
+})();
+
+</script>
+
+<section id="v23ReferencePanel" class="card" style="margin-top:18px">
+  <div class="section-title">Reference &amp; Clinical-use framework <span class="badge">v2.3</span></div>
+  <div class="muted" style="line-height:1.6"><strong>Dating:</strong> First-trimester CRL dating is preferred when appropriate. Mean sac diameter is <strong>not used to assign an EDD</strong>. When an ART-derived gestational age is available, use the ART-derived dating basis.</div>
+  <div class="muted" style="line-height:1.6;margin-top:8px"><strong>Growth:</strong> EFW is an estimate with inherent measurement/model error. v2.3 uses the Hadlock four-parameter EFW equation and an INTERGROWTH-21st EFW reference framework within its supported gestational-age range. Percentiles describe size relative to the selected reference; they do not by themselves establish fetal growth restriction.</div>
+  <div class="muted" style="line-height:1.6;margin-top:8px"><strong>Doppler:</strong> UA, MCA, CPR, uterine-artery and ductus-venosus measurements are recorded with reference/context rather than a universal raw-value normal cutoff. Absent/reversed end-diastolic flow is explicitly highlighted for clinical review.</div>
+  <div class="muted" style="line-height:1.6;margin-top:8px"><strong>Privacy:</strong> Patient records are stored locally in this browser. This application does not transmit saved patient records to a server. Export a backup before clearing browser/site data.</div>
+</section>
+
+</body>
+</html>
