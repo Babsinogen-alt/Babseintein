@@ -13,9 +13,9 @@
 button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}
 header{background:linear-gradient(135deg,#0b1220,#123e63 62%,#1264a3);color:white;padding:22px clamp(16px,4vw,42px);position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}
 .head{max-width:1400px;margin:auto;display:flex;gap:18px;align-items:center;justify-content:space-between}.brand h1{margin:0;font-size:22px;letter-spacing:.2px}.brand p{margin:3px 0 0;color:#cfe4f6}.head-actions{display:flex;gap:8px;flex-wrap:wrap}
-.nav{max-width:1400px;margin:0 auto;padding:12px clamp(12px,3vw,32px);display:flex;gap:7px;overflow:auto;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:91px;z-index:15}
-.nav button{border:1px solid transparent;background:transparent;color:#44546a;padding:9px 13px;border-radius:10px;white-space:nowrap}.nav button.active{background:var(--soft);color:var(--brand2);border-color:#cfe1f1;font-weight:700}
-main{max-width:1400px;margin:auto;padding:24px clamp(14px,3vw,32px) 60px}.section{display:none}.section.active{display:block}
+.nav{position:fixed;left:0;top:82px;bottom:0;width:250px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding:14px 10px;background:var(--panel);border-right:1px solid var(--line);z-index:20}
+.nav button{width:100%;border:1px solid transparent;background:transparent;color:#44546a;padding:10px 12px;border-radius:10px;white-space:normal;text-align:left;font-weight:650;cursor:pointer}.nav button.active{background:var(--soft);color:var(--brand2);border-color:#cfe1f1;font-weight:800}
+main{max-width:1400px;margin:auto;margin-left:250px;padding:24px clamp(14px,3vw,32px) 60px}.section{display:none}.section.active{display:block}
 .grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}.card h2,.card h3{margin:0 0 10px}.card h2{font-size:18px}.card h3{font-size:15px}.muted{color:var(--muted)}.small{font-size:12px}.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:11px;color:var(--brand)}
 label{display:block;font-weight:650;color:#334155;margin-bottom:5px}.field{margin-bottom:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}.inline{display:flex;gap:8px}.input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:9px 10px;background:#fff;color:var(--ink);outline:none}.input:focus,select:focus,textarea:focus{border-color:#4c94c9;box-shadow:0 0 0 3px #1264a31a}textarea{min-height:74px;resize:vertical}
@@ -31,7 +31,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 8px;b
 .timeline{position:relative;margin-top:8px}.timeline-item{border-left:3px solid #bcd7ea;padding:0 0 16px 15px;margin-left:5px}.timeline-item:last-child{border-left-color:transparent}.timeline-item:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand);position:absolute;margin-left:-21px;margin-top:4px}
 .kpi-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.sticky-actions{position:sticky;bottom:10px;z-index:8;background:#ffffffee;backdrop-filter:blur(8px);border:1px solid var(--line);padding:10px;border-radius:12px;margin-top:16px}
 footer{max-width:1400px;margin:auto;padding:0 24px 40px;color:#64748b;font-size:12px}.ref{border-top:1px solid var(--line);padding-top:18px}
-@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.head{align-items:flex-start;flex-direction:column}.nav{top:122px}}
+@media(max-width:900px){.nav{position:sticky;top:0;left:auto;bottom:auto;width:auto;flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav button{white-space:nowrap;width:auto;text-align:center}.section-jump{display:block}main{margin-left:0}.g2,.g3,.g4{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.head{align-items:flex-start;flex-direction:column}.nav{top:122px}}
 @media print{header,.nav,.no-print,.sticky-actions{display:none!important}.section{display:none!important}.section.printable{display:block!important}body{background:white}.card{box-shadow:none}.print-only{display:block!important}}
 .print-only{display:none}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
@@ -39,7 +39,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 .quizCard{border:1px solid var(--line,#d8dee8);border-radius:12px;padding:14px;margin-top:12px;background:#fff}
 .quizOpt{display:block;padding:7px 8px}.pill{display:inline-block;padding:3px 7px;border-radius:999px;font-size:11px;background:#eef3f7}.clinical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media(max-width:900px){.clinical-grid{grid-template-columns:1fr}}
 .report-actions{display:flex;gap:8px;flex-wrap:wrap}
-</style>
+.section-jump{display:none;padding:9px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:19}.section-jump select{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:9px;background:#fff}.section-jump label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 </head>
 <body>
 <div class="app">
@@ -53,7 +53,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
   </div>
 </header>
 <nav class="nav" id="nav"></nav>
-<main>
+<div class="section-jump"><label for="sectionJump">Go to section</label><select id="sectionJump"></select></div><main>
 <section id="dashboard" class="section active">
   <div class="hero">
     <div class="eyebrow">Clinical workspace</div><h2>Start with the clinical question, then measure.</h2>
@@ -132,7 +132,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
       <div class="field"><label>FL (mm)</label><input class="input" id="fl" type="number" min="5" max="90" step=".1"></div>
       <div class="field"><label>Established GA (weeks)</label><input class="input" id="bioGA" type="number" min="10" max="45" step=".1"></div>
       <div class="field"><label>Maternal / clinical context</label><input class="input" id="bioContext" placeholder="e.g. diabetes, suspected FGR"></div>
-      <div class="field"><label>Reference set</label><select id="growthRef"><option>Hadlock-style fetal growth reference</option><option>Departmental / local reference</option></select></div>
+      <div class="field"><label>Reference set</label><select id="bioRef"><option>Hadlock-style fetal growth reference</option><option>Departmental / local reference</option></select></div>
     </div>
     <details><summary><b>Measurement quality checklist</b></summary>
       <label class="check"><input type="checkbox" id="qBPD">BPD: correct axial plane with thalami/cavum septi pellucidi; symmetric skull; standardized caliper method.</label>
@@ -494,7 +494,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 
 <section id="quiz" class="section"><div class="hero"><div class="eyebrow">Case-based learning</div><h2>Clinical quiz</h2><p>Every topic contains 20 scenario-based questions. Explanations and grading appear only after submission.</p></div><div class="card"><div class="clinical-grid"><div class="field"><label>Topic</label><select id="quizTopic"></select></div><div class="field"><label>Difficulty</label><select id="quizDiff"><option>All</option><option>Foundation</option><option>Intermediate</option><option>Advanced</option></select></div></div><div id="quizMeta" class="notice"></div><div id="quizQuestions"></div><div class="report-actions"><button class="btn primary" id="startQuiz">Load / reset</button><button class="btn" id="submitQuiz">Submit</button></div><div id="quizResults" class="result"></div></div></section>
 
-<section id="about" class="section"><div class="hero"><div class="eyebrow">Developer</div><h2>About Babsinogen</h2><p>Clinical calculation, documentation and learning aid. Verify all findings against current local protocols and appropriate specialty guidance before clinical use.</p></div><div class="clinical-grid"><div class="card"><h3>Contact</h3><p><b>Email:</b> <a href="mailto:babarindekunle7@gmail.com">babarindekunle7@gmail.com</a></p><p><b>WhatsApp:</b> <a href="https://wa.me/2348137320263" target="_blank" rel="noopener">08137320263</a></p><p class="small muted">Do not send identifiable patient information through these channels.</p></div><div class="card"><h3>Release</h3><p>Babsinogen v2.5 · reference review September 2026.</p><p class="small muted">Patient records are stored locally in this browser. The app does not transmit saved patient records to a server.</p></div></div></section>
+<section id="about" class="section"><div class="hero"><div class="eyebrow">Developer</div><h2>About Babsinogen</h2><p>Clinical calculation, documentation and learning aid. Verify all findings against current local protocols and appropriate specialty guidance before clinical use.</p></div><div class="clinical-grid"><div class="card"><h3>Contact</h3><p><b>Email:</b> <a href="mailto:babarindekunle7@gmail.com">babarindekunle7@gmail.com</a></p><p><b>WhatsApp:</b> <a href="https://wa.me/2348137320263" target="_blank" rel="noopener">08137320263</a></p><p class="small muted">Do not send identifiable patient information through these channels.</p></div><div class="card"><h3>Release</h3><p>Babsinogen v2.5.3 · reference review September 2026.</p><p class="small muted">Patient records are stored locally in this browser. The app does not transmit saved patient records to a server.</p></div></div></section>
 
 <section id="references" class="section">
 <div class="card" style="margin-top:12px"><h3>Reference use policy</h3>
@@ -545,12 +545,12 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
   </div>
 </section>
 </main>
-<footer><div class="ref"><b>Babsinogen v2.5 clinical suite · reference revision September 2026</b><br>For trained healthcare professionals. Validate locally before clinical deployment; institutional governance, credentialing and quality assurance remain necessary.</div></footer>
+<footer><div class="ref"><b>Babsinogen v2.5.3 clinical suite · reference revision September 2026</b><br>For trained healthcare professionals. Validate locally before clinical deployment; institutional governance, credentialing and quality assurance remain necessary.</div></footer>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-const APP_VERSION="2.5", STORAGE_KEY="babsinogen_v25";
+const APP_VERSION="2.5.3", STORAGE_KEY="babsinogen_v25";
 let tempFol={R:[],L:[]};
 const state={patient:{id:"",initials:"",indication:"",operator:"",date:"",notes:""},dating:{},biometry:{},doppler:{},anomaly:{},growth:[],folliculometry:[],organ:{},report:{},placenta:{},pregnancyTimeline:{},multiples:[],psaLab:{},quiz:{},specialty:{}};
 const navItems=[["dashboard","Dashboard"],["patient","Patient / Episode"],["dating","Dating & EDD"],["pregnancyTimeline","Pregnancy Timeline"],["biometry","Biometry"],["growth","Growth"],["doppler","Doppler"],["anomaly","Anomaly"],["placenta","Placenta & Presentation"],["multiples","Twins / Multiples"],["organs","Organ Reference"],["prostateLab","PSA & Labs"],["folliculometry","Folliculometry"],["breast","Breast"],["thyroid","Thyroid"],["scrotum","Scrotal"],["specialtyGuides","US Classifications"],["timeline","Timeline"],["report","Report"],["quiz","Clinical Quiz"],["references","References"],["about","Contact / About"]];
@@ -567,10 +567,18 @@ function updateDash(){$("dashPatient").textContent=state.patient.id||"Unassigned
 function collectPatient(){state.patient={id:$("patientId").value.trim(),initials:$("initials").value.trim(),indication:$("indication").value.trim(),operator:$("operator").value.trim(),date:$("episodeDate").value,notes:$("episodeNotes").value}}
 function populatePatient(){setVal("patientId",state.patient.id);setVal("initials",state.patient.initials);setVal("indication",state.patient.indication);setVal("operator",state.patient.operator);setVal("episodeDate",state.patient.date);setVal("episodeNotes",state.patient.notes)}
 function renderSaved(){let x=null;try{x=localStorage.getItem(STORAGE_KEY)}catch(e){}$("savedList").innerHTML=x?`<div class="result"><b>Current local episode</b><br>${esc(state.patient.id||"Unassigned")} · ${esc(state.patient.indication||"No indication")} · ${esc(state.patient.date||"No date")}<br><span class="muted small">Stored locally in this browser. Saved patient records are not transmitted to a server by this application.</span></div>`:`<p class="muted">No saved episode.</p>`}
-function show(id){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="report")renderReport();if(id==="timeline")renderMasterTimeline();if(id==="folliculometry"){renderFolTimeline();finalFollicleSummary()}if(id==="growth"){renderGrowth();renderGrowthChart()}if(id==="specialtyGuides"){renderSpecialty()}}
+function show(id){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if($("sectionJump"))$("sectionJump").value=id;if(id==="report")renderReport();if(id==="timeline")renderMasterTimeline();if(id==="folliculometry"){renderFolTimeline();finalFollicleSummary()}if(id==="growth"){renderGrowth();renderGrowthChart()}if(id==="specialtyGuides"){renderSpecialty()}}
 function go(e){const b=e.target.closest("[data-go]");if(b)show(b.dataset.go)}
-function initNav(){navItems.forEach(([id,label])=>{const b=document.createElement("button");b.textContent=label;b.dataset.go=id;b.onclick=()=>show(id);$("nav").appendChild(b)});$("nav").addEventListener("click",go);document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)))}
-function calcCRL(crl){return 8.052*Math.sqrt(crl*1.037)+23.73}
+function initNav(){
+  navItems.forEach(([id,label])=>{
+    const b=document.createElement("button"); b.type="button"; b.textContent=label; b.dataset.go=id; b.onclick=()=>show(id); $("nav").appendChild(b);
+    const s=$("sectionJump"); if(s){const o=document.createElement("option");o.value=id;o.textContent=label;s.appendChild(o)}
+  });
+  const s=$("sectionJump"); if(s)s.onchange=()=>show(s.value);
+}
+
+function calcCRLDays(crl){return 8.052*Math.sqrt(Number(crl)*1.037)+23.73}
+function calcCRL(crl){return calcCRLDays(crl)/7}
 function dateAdd(date,days){const d=new Date(date+"T12:00:00");d.setDate(d.getDate()+days);return d.toISOString().slice(0,10)}
 function lmpGA(lmp,scan){return daysBetween(lmp,scan)/7}
 function interpretFHRv25(bpm,ga){
@@ -586,36 +594,44 @@ function interpretFHRv25(bpm,ga){
   return {label:"Within broad expected range",level:"good",why:physiologic,recommend:"No FHR-specific action from rate alone; interpret rhythm, persistence, gestational age and the complete examination."};
 }
 function calcDating(){
-  const l=$("lmp").value,s=$("datingScanDate").value||dateOnly(),c=num("crl"),f=num("fhr"),msd=num("msd"),ew=num("estW"),ed=num("estD")||0;
-  let html="",ga=null,source="";
-  if(c!=null&&c>=5){ga=calcCRL(c);source="CRL"}
-  else if(ew!=null){ga=ew+ed/7;source="entered established GA"}
-  else if(l){ga=lmpGA(l,s);source="LMP"}
-  if(ga!=null){
-    const edd=dateAdd(s,Math.round(280-ga*7));
-    state.dating={ga,gaText:gaText(ga),source,edd};
-    html+=`<div class="result"><b>GA:</b> ${gaText(ga)} · <b>Dating basis:</b> ${esc(source)} · <b>EDD:</b> ${edd}</div>`;
+  const lmp=$("lmp").value, scan=$("datingScanDate").value||dateOnly();
+  const crl=num("crl"), fhr=num("fhr"), msd=num("msd"), ew=num("estW"), ed=num("estD")||0;
+  let gaWeeks=null,gaDays=null,source="",edd=null,out="";
+  if(crl!=null&&crl>0){
+    gaDays=calcCRLDays(crl);
+    gaWeeks=gaDays/7;
+    source="CRL";
+    edd=dateAdd(scan,Math.round(280-gaDays));
+  }else if(ew!=null&&ew>=0){
+    gaWeeks=ew+ed/7; gaDays=gaWeeks*7; source="Established GA";
+    edd=dateAdd(scan,Math.round(280-gaDays));
+  }else if(lmp){
+    gaDays=lmpGA(lmp,scan); gaWeeks=gaDays/7; source="LMP";
+    edd=dateAdd(scan,Math.round(280-gaDays));
   }
-  if(msd!=null)html+=`<div class="notice">MSD ${msd} mm recorded as a developmental measurement. It is not used here to assign an EDD.</div>`;
-  if(f!=null){
-    const r=interpretFHRv25(f,ga);
-    html+=`<div class="result"><b>FHR:</b> ${f} bpm · <b>${esc(r.label)}</b><br>${esc(r.why)}</div>`;
-    if(r.level==="warn")html+=`<div class="notice warn"><b>Recommendation:</b> ${esc(r.recommend)}</div>`;
-    else html+=`<div class="notice">${esc(r.recommend)}</div>`;
+  if(gaWeeks!=null){
+    state.dating={ga:gaWeeks,gaText:gaText(gaWeeks),source,edd,gaDays};
+    out+=`<div class="result"><b>Gestational age:</b> ${gaText(gaWeeks)} · <b>Dating basis:</b> ${esc(source)} · <b>EDD:</b> ${esc(edd)}</div>`;
   }
-  if(c!=null&&c>=5){
-    html+=`<div class="small muted">CRL dating uses the published first-trimester CRL equation. ACOG recommends CRL as the preferred first-trimester ultrasound dating parameter and advises against using MSD to assign EDD.</div>`;
+  if(msd!=null) out+=`<div class="notice">MSD ${msd} mm recorded for early-pregnancy assessment. <b>MSD is not used to assign the EDD.</b></div>`;
+  if(fhr!=null){
+    const r=interpretFHRv25(fhr,gaWeeks);
+    out+=`<div class="result"><b>FHR:</b> ${fhr} bpm · <b>${esc(r.label)}</b><br>${esc(r.why)}</div>`;
+    out+=r.level==="warn"?`<div class="notice warn"><b>Recommendation:</b> ${esc(r.recommend)}</div>`:`<div class="notice">${esc(r.recommend)}</div>`;
   }
-  $("datingResult").innerHTML=html||'<div class="notice warn">Enter CRL, LMP, or an established GA.</div>';saveLocal();
+  if(crl!=null&&crl>0) out+=`<div class="small muted">CRL ${crl.toFixed(1)} mm → approximately ${gaText(gaWeeks)}. The published Robinson/Fleming equation returns gestational age in <b>days</b>; Babsinogen converts that result to weeks before displaying GA or calculating EDD.</div>`;
+  $("datingResult").innerHTML=out||'<div class="notice warn">Enter CRL, LMP, or an established gestational age.</div>';
+  saveLocal();
 }
-function hadlockEFW(hc,ac,fl,bpd){const HC=hc/10,AC=ac/10,FL=fl/10,BPD=bpd/10;return Math.pow(10,1.3596+.0064*HC+.0424*AC+.174*FL+.00061*BPD*AC-.00386*AC*FL)}
+
+function hadlockEFW(hcMm,acMm,flMm,bpdMm){const HC=Number(hcMm)/10,AC=Number(acMm)/10,FL=Number(flMm)/10,BPD=Number(bpdMm||0)/10;return Math.pow(10,1.3596+.0064*HC+.0424*AC+.174*FL+.00061*BPD*AC-.00386*AC*FL)}
 function calcBio(){
   const b=num("bpd"), o=num("ofd"), hc0=num("hc"), ac=num("ac"), fl=num("fl");
   if([b,o,ac,fl].some(x=>x==null||x<=0)){
     $("bioResult").innerHTML='<div class="notice warn">Enter BPD, OFD, AC and FL. HC is optional because it can be derived from BPD + OFD.</div>';return;
   }
   const hc=hc0??1.62*(b+o), ci=b/o*100, cb=Math.sqrt((b*o)/1.265);
-  const efw=hadlockEFW(hc/10,ac/10,fl/10,b/10);
+  const efw=hadlockEFW(hc,ac,fl,b);
   const B=b/10,HC=hc/10,AC=ac/10,FL=fl/10;
   const bga=9.54+1.482*B+.1676*B*B;
   const hga=8.96+.540*HC+.0003*HC*HC*HC;
@@ -623,7 +639,7 @@ function calcBio(){
   const fga=10.35+2.46*FL+.17*FL*FL;
   const cga=(bga+hga+aga+fga)/4;
   const established=num("bioGA");
-  state.biometry={b,o,hc,ac,fl,ci,correctedBPD:cb,efw,ga:established,biometricGA:cga,reference:$("growthRef")?.value||"intergrowth"};
+  state.biometry={b,o,hc,ac,fl,ci,correctedBPD:cb,efw,ga:established,biometricGA:cga,reference:$("bioRef")?.value||"hadlock-style"};
   let out=`<div class="result">
     <b>HC:</b> ${hc.toFixed(1)} mm · <b>CI:</b> ${ci.toFixed(1)}% · <b>Corrected BPD:</b> ${cb.toFixed(1)} mm<br>
     <b>Biometric GA estimate:</b> ${gaText(cga)} · <b>Hadlock EFW:</b> ${Math.round(efw)} g
