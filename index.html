@@ -13,9 +13,9 @@
 button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}
 header{background:linear-gradient(135deg,#0b1220,#123e63 62%,#1264a3);color:white;padding:22px clamp(16px,4vw,42px);position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}
 .head{max-width:1400px;margin:auto;display:flex;gap:18px;align-items:center;justify-content:space-between}.brand h1{margin:0;font-size:22px;letter-spacing:.2px}.brand p{margin:3px 0 0;color:#cfe4f6}.head-actions{display:flex;gap:8px;flex-wrap:wrap}
-.nav{position:fixed;left:0;top:82px;bottom:0;width:250px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding:14px 10px;background:var(--panel);border-right:1px solid var(--line);z-index:20}
-.nav button{width:100%;border:1px solid transparent;background:transparent;color:#44546a;padding:10px 12px;border-radius:10px;white-space:normal;text-align:left;font-weight:650;cursor:pointer}.nav button.active{background:var(--soft);color:var(--brand2);border-color:#cfe1f1;font-weight:800}
-main{max-width:1400px;margin:auto;margin-left:250px;padding:24px clamp(14px,3vw,32px) 60px}.section{display:none}.section.active{display:block}
+.nav{display:flex;align-items:center;gap:6px;overflow-x:auto;overflow-y:hidden;padding:10px 20px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.nav button{flex:0 0 auto;border:1px solid transparent;background:transparent;color:#44546a;padding:10px 14px;border-radius:10px;white-space:nowrap;text-align:center;font-weight:650;cursor:pointer}.nav button.active{background:var(--soft);color:var(--brand2);border-color:#cfe1f1;font-weight:800}
+main{max-width:1400px;margin:auto;padding:24px clamp(14px,3vw,32px) 60px}.section{display:none}.section.active{display:block}
 .grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}.card h2,.card h3{margin:0 0 10px}.card h2{font-size:18px}.card h3{font-size:15px}.muted{color:var(--muted)}.small{font-size:12px}.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:11px;color:var(--brand)}
 label{display:block;font-weight:650;color:#334155;margin-bottom:5px}.field{margin-bottom:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}.inline{display:flex;gap:8px}.input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:9px 10px;background:#fff;color:var(--ink);outline:none}.input:focus,select:focus,textarea:focus{border-color:#4c94c9;box-shadow:0 0 0 3px #1264a31a}textarea{min-height:74px;resize:vertical}
@@ -31,7 +31,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 8px;b
 .timeline{position:relative;margin-top:8px}.timeline-item{border-left:3px solid #bcd7ea;padding:0 0 16px 15px;margin-left:5px}.timeline-item:last-child{border-left-color:transparent}.timeline-item:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand);position:absolute;margin-left:-21px;margin-top:4px}
 .kpi-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.sticky-actions{position:sticky;bottom:10px;z-index:8;background:#ffffffee;backdrop-filter:blur(8px);border:1px solid var(--line);padding:10px;border-radius:12px;margin-top:16px}
 footer{max-width:1400px;margin:auto;padding:0 24px 40px;color:#64748b;font-size:12px}.ref{border-top:1px solid var(--line);padding-top:18px}
-@media(max-width:900px){.nav{position:sticky;top:0;left:auto;bottom:auto;width:auto;flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav button{white-space:nowrap;width:auto;text-align:center}.section-jump{display:block}main{margin-left:0}.g2,.g3,.g4{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.head{align-items:flex-start;flex-direction:column}.nav{top:122px}}
+@media(max-width:900px){.nav{position:sticky;top:0;left:auto;bottom:auto;width:auto;flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav button{white-space:nowrap;width:auto;text-align:center}main{margin-left:0}.g2,.g3,.g4{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.head{align-items:flex-start;flex-direction:column}.nav{top:122px}}
 @media print{header,.nav,.no-print,.sticky-actions{display:none!important}.section{display:none!important}.section.printable{display:block!important}body{background:white}.card{box-shadow:none}.print-only{display:block!important}}
 .print-only{display:none}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
@@ -39,7 +39,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 .quizCard{border:1px solid var(--line,#d8dee8);border-radius:12px;padding:14px;margin-top:12px;background:#fff}
 .quizOpt{display:block;padding:7px 8px}.pill{display:inline-block;padding:3px 7px;border-radius:999px;font-size:11px;background:#eef3f7}.clinical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media(max-width:900px){.clinical-grid{grid-template-columns:1fr}}
 .report-actions{display:flex;gap:8px;flex-wrap:wrap}
-.section-jump{display:none;padding:9px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:19}.section-jump select{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:9px;background:#fff}.section-jump label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.section-jump select{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:9px;background:#fff}.section-jump label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 </head>
 <body>
 <div class="app">
@@ -53,7 +53,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
   </div>
 </header>
 <nav class="nav" id="nav"></nav>
-<div class="section-jump"><label for="sectionJump">Go to section</label><select id="sectionJump"></select></div><main>
+<main>
 <section id="dashboard" class="section active">
   <div class="hero">
     <div class="eyebrow">Clinical workspace</div><h2>Start with the clinical question, then measure.</h2>
@@ -494,7 +494,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 
 <section id="quiz" class="section"><div class="hero"><div class="eyebrow">Case-based learning</div><h2>Clinical quiz</h2><p>Every topic contains 20 scenario-based questions. Explanations and grading appear only after submission.</p></div><div class="card"><div class="clinical-grid"><div class="field"><label>Topic</label><select id="quizTopic"></select></div><div class="field"><label>Difficulty</label><select id="quizDiff"><option>All</option><option>Foundation</option><option>Intermediate</option><option>Advanced</option></select></div></div><div id="quizMeta" class="notice"></div><div id="quizQuestions"></div><div class="report-actions"><button class="btn primary" id="startQuiz">Load / reset</button><button class="btn" id="submitQuiz">Submit</button></div><div id="quizResults" class="result"></div></div></section>
 
-<section id="about" class="section"><div class="hero"><div class="eyebrow">Developer</div><h2>About Babsinogen</h2><p>Clinical calculation, documentation and learning aid. Verify all findings against current local protocols and appropriate specialty guidance before clinical use.</p></div><div class="clinical-grid"><div class="card"><h3>Contact</h3><p><b>Email:</b> <a href="mailto:babarindekunle7@gmail.com">babarindekunle7@gmail.com</a></p><p><b>WhatsApp:</b> <a href="https://wa.me/2348137320263" target="_blank" rel="noopener">08137320263</a></p><p class="small muted">Do not send identifiable patient information through these channels.</p></div><div class="card"><h3>Release</h3><p>Babsinogen v2.5.3 · reference review September 2026.</p><p class="small muted">Patient records are stored locally in this browser. The app does not transmit saved patient records to a server.</p></div></div></section>
+<section id="about" class="section"><div class="hero"><div class="eyebrow">Developer</div><h2>About Babsinogen</h2><p>Clinical calculation, documentation and learning aid. Verify all findings against current local protocols and appropriate specialty guidance before clinical use.</p></div><div class="clinical-grid"><div class="card"><h3>Contact</h3><p><b>Email:</b> <a href="mailto:babarindekunle7@gmail.com">babarindekunle7@gmail.com</a></p><p><b>WhatsApp:</b> <a href="https://wa.me/2348137320263" target="_blank" rel="noopener">08137320263</a></p><p class="small muted">Do not send identifiable patient information through these channels.</p></div><div class="card"><h3>Release</h3><p>Babsinogen v2.5.5 · reference review September 2026.</p><p class="small muted">Patient records are stored locally in this browser. The app does not transmit saved patient records to a server.</p></div></div></section>
 
 <section id="references" class="section">
 <div class="card" style="margin-top:12px"><h3>Reference use policy</h3>
@@ -545,15 +545,22 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
   </div>
 </section>
 </main>
-<footer><div class="ref"><b>Babsinogen v2.5.3 clinical suite · reference revision September 2026</b><br>For trained healthcare professionals. Validate locally before clinical deployment; institutional governance, credentialing and quality assurance remain necessary.</div></footer>
+<footer><div class="ref"><b>Babsinogen v2.5.5 clinical suite · reference revision September 2026</b><br>For trained healthcare professionals. Validate locally before clinical deployment; institutional governance, credentialing and quality assurance remain necessary.</div></footer>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-const APP_VERSION="2.5.3", STORAGE_KEY="babsinogen_v25";
+const APP_VERSION="2.5.5", STORAGE_KEY="babsinogen_v25";
 let tempFol={R:[],L:[]};
 const state={patient:{id:"",initials:"",indication:"",operator:"",date:"",notes:""},dating:{},biometry:{},doppler:{},anomaly:{},growth:[],folliculometry:[],organ:{},report:{},placenta:{},pregnancyTimeline:{},multiples:[],psaLab:{},quiz:{},specialty:{}};
-const navItems=[["dashboard","Dashboard"],["patient","Patient / Episode"],["dating","Dating & EDD"],["pregnancyTimeline","Pregnancy Timeline"],["biometry","Biometry"],["growth","Growth"],["doppler","Doppler"],["anomaly","Anomaly"],["placenta","Placenta & Presentation"],["multiples","Twins / Multiples"],["organs","Organ Reference"],["prostateLab","PSA & Labs"],["folliculometry","Folliculometry"],["breast","Breast"],["thyroid","Thyroid"],["scrotum","Scrotal"],["specialtyGuides","US Classifications"],["timeline","Timeline"],["report","Report"],["quiz","Clinical Quiz"],["references","References"],["about","Contact / About"]];
+const navItems=[
+["dashboard","Dashboard"],["patient","Patient / Episode"],["dating","Dating & EDD"],
+["pregnancyTimeline","Pregnancy Timeline"],["biometry","Biometry"],["growth","Growth"],
+["doppler","Doppler"],["anomaly","Anomaly"],["placenta","Placenta & Presentation"],
+["multiples","Twins / Multiples"],["folliculometry","Folliculometry"],["organs","Organ Reference"],
+["prostateLab","PSA & Labs"],["breast","Breast"],["thyroid","Thyroid"],["scrotum","Scrotal"],
+["specialtyGuides","US Classifications"],["timeline","Timeline"],["report","Report"],
+["quiz","Clinical Quiz"],["references","References"],["about","Contact / About"]];
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 function num(id){const v=parseFloat($(id)?.value);return Number.isFinite(v)?v:null}
 function setVal(id,v){if($(id)&&v!=null)$(id).value=v}
@@ -567,14 +574,15 @@ function updateDash(){$("dashPatient").textContent=state.patient.id||"Unassigned
 function collectPatient(){state.patient={id:$("patientId").value.trim(),initials:$("initials").value.trim(),indication:$("indication").value.trim(),operator:$("operator").value.trim(),date:$("episodeDate").value,notes:$("episodeNotes").value}}
 function populatePatient(){setVal("patientId",state.patient.id);setVal("initials",state.patient.initials);setVal("indication",state.patient.indication);setVal("operator",state.patient.operator);setVal("episodeDate",state.patient.date);setVal("episodeNotes",state.patient.notes)}
 function renderSaved(){let x=null;try{x=localStorage.getItem(STORAGE_KEY)}catch(e){}$("savedList").innerHTML=x?`<div class="result"><b>Current local episode</b><br>${esc(state.patient.id||"Unassigned")} · ${esc(state.patient.indication||"No indication")} · ${esc(state.patient.date||"No date")}<br><span class="muted small">Stored locally in this browser. Saved patient records are not transmitted to a server by this application.</span></div>`:`<p class="muted">No saved episode.</p>`}
-function show(id){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if($("sectionJump"))$("sectionJump").value=id;if(id==="report")renderReport();if(id==="timeline")renderMasterTimeline();if(id==="folliculometry"){renderFolTimeline();finalFollicleSummary()}if(id==="growth"){renderGrowth();renderGrowthChart()}if(id==="specialtyGuides"){renderSpecialty()}}
+function show(id){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="report")renderReport();if(id==="timeline")renderMasterTimeline();if(id==="folliculometry"){renderFolTimeline();finalFollicleSummary()}if(id==="growth"){renderGrowth();renderGrowthChart()}if(id==="specialtyGuides"){renderSpecialty()}}
 function go(e){const b=e.target.closest("[data-go]");if(b)show(b.dataset.go)}
 function initNav(){
   navItems.forEach(([id,label])=>{
-    const b=document.createElement("button"); b.type="button"; b.textContent=label; b.dataset.go=id; b.onclick=()=>show(id); $("nav").appendChild(b);
-    const s=$("sectionJump"); if(s){const o=document.createElement("option");o.value=id;o.textContent=label;s.appendChild(o)}
+    const b=document.createElement("button");
+    b.type="button";b.textContent=label;b.dataset.go=id;
+    b.onclick=()=>show(id);
+    $("nav").appendChild(b);
   });
-  const s=$("sectionJump"); if(s)s.onchange=()=>show(s.value);
 }
 
 function calcCRLDays(crl){return 8.052*Math.sqrt(Number(crl)*1.037)+23.73}
@@ -972,13 +980,146 @@ const QUIZ_BANK=quizData();
 function quizInit(){const s=$("quizTopic");s.innerHTML=Object.keys(QUIZ_BANK).map(x=>`<option>${esc(x)}</option>`).join("");$("quizDiff").onchange=renderQuizQuestions;s.onchange=renderQuizQuestions;renderQuizQuestions()}
 function renderQuizQuestions(){const topic=$("quizTopic").value,diff=$("quizDiff").value;let q=QUIZ_BANK[topic]||[];if(diff!=="All")q=q.filter(x=>x.diff===diff);$("quizMeta").innerHTML=`<b>${esc(topic)}</b> · ${q.length} questions shown · 20 questions are in the topic bank.`;$("quizQuestions").innerHTML=q.map((x,i)=>`<div class="quizCard"><b>${i+1}. ${esc(x.stem)}</b> <span class="pill">${esc(x.diff)}</span>${x.opts.map((o,j)=>`<label class="quizOpt"><input type="radio" name="q${i}" value="${j}"> ${esc(o)}</label>`).join("")}<div id="qe${i}" style="display:none"></div></div>`).join("");$("quizResults").innerHTML=""}
 function submitQuiz(){const topic=$("quizTopic").value,diff=$("quizDiff").value;let q=QUIZ_BANK[topic];if(diff!=="All")q=q.filter(x=>x.diff===diff);let score=0,ans=0;q.forEach((x,i)=>{const p=document.querySelector(`input[name="q${i}"]:checked`);if(p){ans++;if(Number(p.value)===x.ans)score++}const e=$("qe"+i);e.style.display="block";e.innerHTML=`<div class="notice ${p&&Number(p.value)===x.ans?"good":"warn"}"><b>Correct answer:</b> ${esc(x.opts[x.ans])}<br><b>Explanation:</b> ${esc(x.why)}</div>`});const pct=Math.round(score/q.length*100),grade=pct>=90?"Excellent":pct>=80?"Strong":pct>=70?"Good":pct>=60?"Developing":"Needs further review";$("quizResults").innerHTML=`<b>Score:</b> ${score}/${q.length} (${pct}%) · <b>${grade}</b> · answered ${ans}/${q.length}.`;state.quiz={topic,diff,score,pct};saveLocal()}
-function downloadReport(){collectPatient();const p=state.patient,d=state.dating,b=state.biometry;const imp=buildImpression();const h=`<!doctype html><html><head><meta charset="utf-8"><title>Babsinogen Report</title><style>body{font:13px Arial;margin:32px;color:#172033}h1,h2{color:#0b4775}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd5df;padding:7px;text-align:left}th{background:#f0f5f9}.box{border:1px solid #ccd5df;padding:12px;margin:10px 0}</style></head><body><h1>Babsinogen Clinical Ultrasound Report</h1><div class="box"><b>Patient/study ID:</b> ${esc(p.id||"—")}<br><b>Indication:</b> ${esc(p.indication||"—")}<br><b>Operator:</b> ${esc(p.operator||"—")}<br><b>Date:</b> ${esc(p.date||v24DateOnly())}</div><h2>Dating</h2><p>${esc(d.gaText||"Not recorded")} · EDD ${esc(d.edd||"—")} · basis ${esc(d.source||"—")}</p>${b.efw?`<h2>Biometry</h2><table><tr><th>HC</th><td>${b.hc.toFixed(1)} mm</td></tr><tr><th>AC</th><td>${b.ac} mm</td></tr><tr><th>FL</th><td>${b.fl} mm</td></tr><tr><th>EFW</th><td>${Math.round(b.efw)} g</td></tr></table>`:""}<h2>Impression</h2><p>${esc(imp)}</p><h2>Recommendations</h2><p>${esc(buildNextStep())}</p><h2>Additional findings</h2>
-${state.placenta?.location?`<p><b>Placenta/presentation:</b> ${esc(state.placenta.location)} · ${esc(state.placenta.type)} · cord ${esc(state.placenta.cord)} · ${esc(state.placenta.presentation)}. ${state.placenta.edge!=null?`Edge–internal os distance ${state.placenta.edge} mm.`:""}</p>`:""}
-${state.multiples?.length?`<p><b>Multiple gestation:</b> ${esc(state.multiples.at(-1).type)} · latest EFW discordance ${state.multiples.at(-1).discordance!=null?state.multiples.at(-1).discordance.toFixed(1)+"%":"not calculated"}.</p>`:""}
-${state.psaLab?.psad!=null?`<p><b>Prostate:</b> volume ${state.psaLab.volume.toFixed(1)} mL · PSA ${state.psaLab.psa} ng/mL · PSA density ${state.psaLab.psad.toFixed(3)} ng/mL/cc.</p>`:""}
-<h3>Clinical impression</h3><p>${esc(buildImpression())}</p>
-<h3>Recommendations</h3><p>${esc(buildNextStep())}</p>
-<div class="sign"><b>Clinician verification/signature:</b> ______________________________ &nbsp; <b>Date:</b> __________</div><p>Generated by Babsinogen v${APP_VERSION}. Verify all findings and references before signing.</p></body></html>`;const blob=new Blob([h],{type:"text/html"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`babsinogen-report-${p.id||"episode"}-v${APP_VERSION}.html`;a.click();URL.revokeObjectURL(a.href)}
+function downloadReport(){
+  collectPatient();
+  const p=state.patient||{}, d=state.dating||{}, b=state.biometry||{};
+  const safe=v=>esc(v==null||v===""?"—":String(v));
+  const now=dateOnly();
+  const title=`Babsinogen Clinical Ultrasound Report — ${p.id||"Episode"}`;
+  const parts=[];
+
+  parts.push(`<h1>Babsinogen Clinical Ultrasound Report</h1>`);
+  parts.push(`<div class="box"><b>Patient / Study ID:</b> ${safe(p.id)}<br>
+    <b>Initials:</b> ${safe(p.initials)}<br>
+    <b>Indication:</b> ${safe(p.indication)}<br>
+    <b>Operator:</b> ${safe(p.operator)}<br>
+    <b>Study date:</b> ${safe(p.date||now)}</div>`);
+
+  parts.push(`<h2>Dating</h2><div class="box">
+    <b>Gestational age:</b> ${safe(d.gaText)}<br>
+    <b>Dating basis:</b> ${safe(d.source)}<br>
+    <b>EDD:</b> ${safe(d.edd)}
+  </div>`);
+
+  if(b.efw!=null){
+    parts.push(`<h2>Biometry</h2><table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>BPD</td><td>${safe(Number(b.bpd||b.b)?.toFixed?.(1)||b.b)} mm</td></tr>
+      <tr><td>OFD</td><td>${safe(Number(b.ofd||b.o)?.toFixed?.(1)||b.o)} mm</td></tr>
+      <tr><td>HC</td><td>${safe(Number(b.hc)?.toFixed?.(1))} mm</td></tr>
+      <tr><td>AC</td><td>${safe(b.ac)} mm</td></tr>
+      <tr><td>FL</td><td>${safe(b.fl)} mm</td></tr>
+      <tr><td>Cephalic index</td><td>${safe(Number(b.ci)?.toFixed?.(1))} %</td></tr>
+      <tr><td>Corrected BPD</td><td>${safe(Number(b.correctedBPD)?.toFixed?.(1))} mm</td></tr>
+      <tr><td>EFW</td><td>${safe(Math.round(b.efw))} g</td></tr>
+    </table>`);
+  }
+
+  if(state.doppler && Object.keys(state.doppler).length){
+    const z=state.doppler;
+    parts.push(`<h2>Doppler</h2><table>
+      <tr><th>Measurement</th><th>Value</th></tr>
+      <tr><td>UA PI</td><td>${safe(z.uaPI)}</td></tr>
+      <tr><td>UA flow</td><td>${safe(z.uaFlow)}</td></tr>
+      <tr><td>MCA PI</td><td>${safe(z.mcaPI)}</td></tr>
+      <tr><td>MCA-PSV</td><td>${safe(z.mcaPSV)}</td></tr>
+      <tr><td>MCA-PSV MoM</td><td>${safe(z.mcaMoM)}</td></tr>
+      <tr><td>CPR</td><td>${safe(z.cpr)}</td></tr>
+      <tr><td>DV a-wave</td><td>${safe(z.dvWave)}</td></tr>
+    </table>`);
+  }
+
+  if(state.placenta && state.placenta.location){
+    const z=state.placenta;
+    parts.push(`<h2>Placenta, Cord & Presentation</h2><div class="box">
+      <b>Location:</b> ${safe(z.location)}<br>
+      <b>Type:</b> ${safe(z.type)}<br>
+      <b>Edge to internal os:</b> ${safe(z.edge)} mm<br>
+      <b>Cord insertion:</b> ${safe(z.cord)}<br>
+      <b>Presentation / lie:</b> ${safe(z.presentation)}<br>
+      <b>Vasa previa assessment:</b> ${safe(z.vasa)}<br>
+      <b>PAS concern:</b> ${safe(z.accreta)}<br>
+      <b>Notes:</b> ${safe(z.note)}
+    </div>`);
+  }
+
+  if(state.pregnancyTimeline && state.pregnancyTimeline.edd){
+    const z=state.pregnancyTimeline;
+    parts.push(`<h2>Pregnancy Timeline</h2><table>
+      <tr><th>Milestone</th><th>Estimated date</th></tr>
+      <tr><td>Estimated ovulation / conception</td><td>${safe(z.ovulation)}</td></tr>
+      <tr><td>Estimated fertile window</td><td>${safe(z.fertileStart)} → ${safe(z.fertileEnd)}</td></tr>
+      <tr><td>Second trimester begins</td><td>${safe(z.secondTrimester)}</td></tr>
+      <tr><td>Third trimester begins</td><td>${safe(z.thirdTrimester)}</td></tr>
+      <tr><td>Estimated due date</td><td>${safe(z.edd)}</td></tr>
+    </table>
+    <p class="warn"><b>Calendar fertility caution:</b> estimated fertile / lower-probability periods are not guaranteed contraception, especially with irregular cycles.</p>`);
+  }
+
+  if(state.multiples && state.multiples.length){
+    const z=state.multiples[state.multiples.length-1];
+    parts.push(`<h2>Multiple Gestation</h2><div class="box">
+      <b>Chorionicity / amnionicity:</b> ${safe(z.type)}<br>
+      <b>Shared pregnancy EDD:</b> ${safe(z.sharedEDD)}<br>
+      <b>Dating basis:</b> ${safe(z.datingBasis)}<br>
+      <b>Latest EFW discordance:</b> ${z.discordance!=null?safe(z.discordance.toFixed(1))+"%":"Not calculated"}<br>
+      <b>Clinical note:</b> one pregnancy-level EDD is used; individual fetuses are not assigned separate EDDs.
+    </div>`);
+  }
+
+  if(state.psaLab && state.psaLab.psad!=null){
+    const z=state.psaLab;
+    parts.push(`<h2>Prostate / PSA</h2><table>
+      <tr><td>Prostate volume</td><td>${safe(z.volume.toFixed(1))} mL</td></tr>
+      <tr><td>PSA</td><td>${safe(z.psa)} ng/mL</td></tr>
+      <tr><td>PSA density</td><td>${safe(z.psad.toFixed(3))} ng/mL/cc</td></tr>
+    </table>`);
+  }
+
+  let impression="";
+  try{ impression=buildImpression()||""; }catch(e){}
+  parts.push(`<h2>Clinical Impression</h2><div class="box">${safe(impression||"No automated impression generated from the entered data.")}</div>`);
+
+  let next="";
+  try{ next=buildNextStep()||""; }catch(e){}
+  parts.push(`<h2>Recommendations</h2><div class="box">${safe(next||"Correlate with the complete examination, current guidelines and clinical context.")}</div>`);
+
+  parts.push(`<h2>Clinical Verification</h2><div class="sign">
+    <b>Clinician verification / signature:</b> ______________________________________<br><br>
+    <b>Date:</b> __________________
+  </div>
+  <p class="muted">Generated by Babsinogen v${safe(APP_VERSION)} on ${safe(now)}. This is a clinical documentation aid and must be verified by an appropriately qualified clinician before clinical use.</p>`);
+
+  const doc=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${safe(title)}</title>
+  <style>
+  body{font-family:Arial,Helvetica,sans-serif;color:#172033;margin:36px;line-height:1.5;background:#fff}
+  h1{color:#0b4775;font-size:28px;margin-bottom:18px}h2{color:#0b4775;font-size:19px;border-bottom:1px solid #d9e3ec;padding-bottom:5px;margin-top:24px}
+  table{border-collapse:collapse;width:100%;margin:10px 0}th,td{border:1px solid #ccd5df;padding:8px;text-align:left;vertical-align:top}th{background:#f1f6fa}
+  .box{border:1px solid #cbd5df;border-radius:8px;padding:12px;margin:8px 0;background:#fbfdff}
+  .warn{border-left:4px solid #b7791f;background:#fff9ed;padding:10px}.muted{color:#667085;font-size:12px}
+  .sign{margin-top:8px;padding:14px 0;border-top:1px solid #aab6c2}
+  @media print{body{margin:18mm}.warn{print-color-adjust:exact}}
+  
+@media(max-width:900px){
+  .nav{padding:8px 12px;gap:4px}
+  .nav button{padding:9px 11px;font-size:14px}
+}
+@media(max-width:650px){
+  .nav{overflow-x:hidden;display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:184px}
+  .nav button{width:100%;white-space:normal;text-align:left}
+  main{padding:16px 12px 40px}
+}
+</style></head><body>${parts.join("")}</body></html>`;
+
+  const blob=new Blob([doc],{type:"text/html;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  const cleanId=String(p.id||"episode").replace(/[^a-z0-9_-]+/gi,"_");
+  a.href=url;a.download=`Babsinogen_Report_${cleanId}_v${APP_VERSION}.html`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 
 function wire(){$("episodeDate").value=dateOnly();$("mgDate").value=dateOnly();$("ptLMP").value=$("lmp").value||"";$("growthDate").value=dateOnly();$("fDate").value=todayLocal();$("newCaseBtn").onclick=()=>{if(confirm("Start a new case? Unsaved current data will be replaced.")){try{localStorage.removeItem(STORAGE_KEY)}catch(e){}location.reload()}};$("printBtn").onclick=()=>{show("report");setTimeout(()=>window.print(),150)};$("saveEpisode").onclick=()=>{collectPatient();saveLocal();alert("Episode saved locally in this browser.")};$("exportData").onclick=exportData;$("importData").onchange=e=>e.target.files[0]&&importData(e.target.files[0]);$("clearData").onclick=()=>{if(confirm("Delete all locally stored Babsinogen data?")){try{localStorage.removeItem(STORAGE_KEY)}catch(e){}location.reload()}};$("calcDating").onclick=calcDating;$("calcBio").onclick=calcBio;$("calcDoppler").onclick=calcDoppler;$("calcAnomaly").onclick=calcAnomaly;$("addGrowth").onclick=addGrowth;$("addR").onclick=()=>addFol("R");$("addL").onclick=()=>addFol("L");$("saveFolScan").onclick=saveFolScan;$("clearFolForm").onclick=clearFolForm;$("calcOrgan").onclick=calcOrgan;$("calcTimeline").onclick=calcPregnancyTimeline;$("calcPlacenta").onclick=calcPlacenta;$("calcMultiples").onclick=calcMultiples;$("calcPSAD").onclick=calcPSAD;$("labSearch").oninput=renderLabs;$("calcTIRADS").onclick=calcTIRADS;$("checkBreastMeasures").onclick=checkBreastMeasures;$("calcBreastGuide").onclick=calcBreastGuide;$("checkThyroidMeasures").onclick=checkThyroidMeasures;$("calcThyroidGuide").onclick=calcThyroidGuide;$("checkScrotalMeasures").onclick=checkScrotalMeasures;$("calcScrotumGuide").onclick=calcScrotumGuide;$("showIOTA").onclick=showIOTA;["birads","orads","bosniak"].forEach(id=>$(id).onchange=renderSpecialty);$("startQuiz").onclick=renderQuizQuestions;$("submitQuiz").onclick=submitQuiz;$("printBtn").onclick=()=>{show("report");setTimeout(()=>window.print(),150)};quizInit();renderLabs();renderSpecialty();$("downloadReportBtn").onclick=downloadReport;["patientId","initials","indication","operator","episodeDate","episodeNotes"].forEach(id=>$(id).addEventListener("input",()=>{collectPatient();updateDash()}))}
 initNav();loadLocal();populatePatient();renderSaved();renderGrowth();renderFolInputs();wire();updateDash();
