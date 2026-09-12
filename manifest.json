@@ -1,9 +1,9 @@
 {
-  "name": "Babsinogen \u00b7 Clinical Tools",
+  "name": "Babsinogen Clinical Ultrasound Suite",
   "short_name": "Babsinogen",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0b1730",
-  "background_color": "#f5f8fb",
-  "description": "Offline-first clinical ultrasound decision-support tools."
+  "background_color": "#f4f9fc",
+  "theme_color": "#062b4b",
+  "description": "Clinical ultrasound and sonography decision-support workspace"
 }
